@@ -18,7 +18,7 @@ const config: Config = {
       },
       fontFamily: {
         serif: ['Cormorant Garamond', 'serif'],
-        script: ['Great Vibes', 'cursive'],
+        script: ['Pinyon Script', 'cursive'],
         sans: ['Jost', 'sans-serif'],
       },
       animation: {

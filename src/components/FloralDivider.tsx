@@ -1,35 +1,72 @@
-export default function FloralDivider({ className = '' }: { className?: string }) {
+interface FloralDividerProps {
+  className?: string
+  color?: string
+  variant?: 'floral' | 'diamond' | 'simple'
+}
+
+export default function FloralDivider({
+  className = '',
+  color = '#BA908B',
+  variant = 'diamond',
+}: FloralDividerProps) {
+  if (variant === 'simple') {
+    return (
+      <div className={`flex items-center justify-center py-4 ${className}`} aria-hidden="true">
+        <div className="h-px w-16" style={{ backgroundColor: color }} />
+      </div>
+    )
+  }
+
+  if (variant === 'diamond') {
+    return (
+      <div className={`flex items-center justify-center gap-3 py-5 ${className}`} aria-hidden="true">
+        <div className="h-px flex-1 max-w-[80px]" style={{ backgroundColor: color, opacity: 0.5 }} />
+        <div
+          className="w-2 h-2 rotate-45"
+          style={{ backgroundColor: color, opacity: 0.7 }}
+        />
+        <div
+          className="w-1 h-1 rotate-45"
+          style={{ backgroundColor: color, opacity: 0.4 }}
+        />
+        <div
+          className="w-2.5 h-2.5 rotate-45 border"
+          style={{ borderColor: color, opacity: 0.8 }}
+        />
+        <div
+          className="w-1 h-1 rotate-45"
+          style={{ backgroundColor: color, opacity: 0.4 }}
+        />
+        <div
+          className="w-2 h-2 rotate-45"
+          style={{ backgroundColor: color, opacity: 0.7 }}
+        />
+        <div className="h-px flex-1 max-w-[80px]" style={{ backgroundColor: color, opacity: 0.5 }} />
+      </div>
+    )
+  }
+
+  // floral variant
   return (
     <div className={`flex items-center justify-center py-6 ${className}`} aria-hidden="true">
       <svg
-        width="400"
-        height="40"
-        viewBox="0 0 400 40"
+        width="360"
+        height="36"
+        viewBox="0 0 360 36"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-full max-w-sm opacity-60"
+        className="w-full max-w-xs opacity-70"
       >
-        {/* Left line */}
-        <line x1="0" y1="20" x2="140" y2="20" stroke="#D4CBC7" strokeWidth="0.8" />
-        {/* Left leaf */}
-        <path d="M140 20 C148 12, 156 12, 160 20 C156 28, 148 28, 140 20Z" stroke="#8E98A1" strokeWidth="0.8" fill="none" />
-        {/* Left small flower */}
-        <circle cx="125" cy="20" r="2" fill="none" stroke="#8E98A1" strokeWidth="0.8" />
-        <line x1="125" y1="14" x2="125" y2="18" stroke="#8E98A1" strokeWidth="0.6" />
-        <line x1="119" y1="17" x2="122" y2="19" stroke="#8E98A1" strokeWidth="0.6" />
-        <line x1="119" y1="23" x2="122" y2="21" stroke="#8E98A1" strokeWidth="0.6" />
-        {/* Center ornament */}
-        <path d="M175 20 C180 10, 190 8, 200 20 C210 8, 220 10, 225 20 C220 32, 210 30, 200 20 C190 30, 180 32, 175 20Z" stroke="#8E98A1" strokeWidth="0.8" fill="none" />
-        <circle cx="200" cy="20" r="2.5" fill="none" stroke="#BA908B" strokeWidth="0.8" />
-        {/* Right leaf */}
-        <path d="M260 20 C252 12, 244 12, 240 20 C244 28, 252 28, 260 20Z" stroke="#8E98A1" strokeWidth="0.8" fill="none" />
-        {/* Right small flower */}
-        <circle cx="275" cy="20" r="2" fill="none" stroke="#8E98A1" strokeWidth="0.8" />
-        <line x1="275" y1="14" x2="275" y2="18" stroke="#8E98A1" strokeWidth="0.6" />
-        <line x1="281" y1="17" x2="278" y2="19" stroke="#8E98A1" strokeWidth="0.6" />
-        <line x1="281" y1="23" x2="278" y2="21" stroke="#8E98A1" strokeWidth="0.6" />
-        {/* Right line */}
-        <line x1="260" y1="20" x2="400" y2="20" stroke="#D4CBC7" strokeWidth="0.8" />
+        <line x1="0" y1="18" x2="130" y2="18" stroke="#D4CBC7" strokeWidth="0.8" />
+        <path d="M130 18 C138 10, 146 10, 150 18 C146 26, 138 26, 130 18Z" stroke="#8E98A1" strokeWidth="0.8" fill="none"/>
+        <path d="M162 12 C166 6, 174 6, 178 12" stroke="#8E98A1" strokeWidth="0.7" fill="none"/>
+        <path d="M162 24 C166 30, 174 30, 178 24" stroke="#8E98A1" strokeWidth="0.7" fill="none"/>
+        <circle cx="180" cy="18" r="6" fill="none" stroke="#BA908B" strokeWidth="0.9"/>
+        <circle cx="180" cy="18" r="2.5" fill="none" stroke="#BA908B" strokeWidth="0.7"/>
+        <path d="M182 12 C186 6, 194 6, 198 12" stroke="#8E98A1" strokeWidth="0.7" fill="none"/>
+        <path d="M182 24 C186 30, 194 30, 198 24" stroke="#8E98A1" strokeWidth="0.7" fill="none"/>
+        <path d="M210 18 C214 10, 222 10, 230 18 C222 26, 214 26, 210 18Z" stroke="#8E98A1" strokeWidth="0.8" fill="none"/>
+        <line x1="230" y1="18" x2="360" y2="18" stroke="#D4CBC7" strokeWidth="0.8" />
       </svg>
     </div>
   )

@@ -47,8 +47,8 @@ export default function NossaHistoria() {
       <div className="pt-32 pb-12 px-6 text-center" style={{ backgroundColor: '#EFDCC3' }}>
         <AnimatedSection>
           <p
-            className="text-xs tracking-[0.4em] uppercase mb-4"
-            style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, color: '#8E98A1' }}
+            className="text-xs tracking-[0.4em] uppercase mb-3"
+            style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, color: '#BA908B' }}
           >
             Débora & Benjamin
           </p>
@@ -58,7 +58,7 @@ export default function NossaHistoria() {
           >
             Nossa História
           </h1>
-          <FloralDivider />
+          <FloralDivider variant="diamond" color="#BA908B" className="w-48 mx-auto" />
           <p
             className="max-w-lg mx-auto text-base leading-relaxed"
             style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, color: '#8E98A1' }}
