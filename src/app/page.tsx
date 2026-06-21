@@ -1,65 +1,156 @@
-import Image from "next/image";
+import Image from 'next/image'
+import Link from 'next/link'
+import FloralCorner from '@/components/FloralCorner'
+import FloralDivider from '@/components/FloralDivider'
+import AnimatedSection from '@/components/AnimatedSection'
+import Countdown from '@/components/Countdown'
+
+const previewCards = [
+  {
+    href: '/nossa-historia',
+    title: 'Nossa História',
+    description: 'De uma primeira conversa ao grande dia — conheça nossa jornada.',
+  },
+  {
+    href: '/cerimonia',
+    title: 'Cerimônia',
+    description: '27 de Março de 2027, às 16h · Sonho Dourado, Morro da Fumaça - SC.',
+  },
+  {
+    href: '/presentes',
+    title: 'Lista de Presentes',
+    description: 'Escolha um presente especial para celebrar conosco.',
+  },
+  {
+    href: '/confirmar',
+    title: 'Confirmar Presença',
+    description: 'Confirme sua presença e nos ajude a planejar este dia.',
+  },
+  {
+    href: '/galeria',
+    title: 'Galeria',
+    description: 'Em breve, fotos e memórias deste momento único.',
+  },
+  {
+    href: '/hospedagem',
+    title: 'Hospedagem',
+    description: 'Sugestões de hospedagem próximas ao local do evento.',
+  },
+]
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <>
+      {/* Hero */}
+      <section
+        className="relative min-h-screen flex flex-col items-center justify-center pt-24 pb-16 px-6"
+        style={{ backgroundColor: '#F5EBE3' }}
+      >
+        <FloralCorner position="top-left" className="top-6 left-6" size={140} />
+        <FloralCorner position="top-right" className="top-6 right-6" size={140} />
+        <FloralCorner position="bottom-left" className="bottom-6 left-6" size={100} />
+        <FloralCorner position="bottom-right" className="bottom-6 right-6" size={100} />
+
+        <div className="flex flex-col items-center gap-6 relative z-10 text-center">
+          <Image
+            src="/monograma-bela_benjamin-01.png"
+            alt="Monograma Bela & Benjamin"
+            width={160}
+            height={160}
+            className="object-contain"
+            priority
+          />
+
+          <FloralDivider className="w-full max-w-xs" />
+
+          <p
+            className="text-6xl sm:text-8xl"
+            style={{ fontFamily: 'Great Vibes, cursive', color: '#4a4540' }}
+          >
+            Débora & Benjamin
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+
+          <p
+            className="text-sm sm:text-base tracking-[0.4em] uppercase"
+            style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, color: '#8E98A1' }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            27 de Março de 2027
+          </p>
+
+          <p
+            className="text-xs tracking-[0.3em] uppercase"
+            style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, color: '#BA908B' }}
           >
-            Documentation
-          </a>
+            Sonho Dourado · Morro da Fumaça - SC
+          </p>
+
+          <FloralDivider className="w-full max-w-xs" />
         </div>
-      </main>
-    </div>
-  );
+      </section>
+
+      {/* Countdown */}
+      <section className="py-20 px-6" style={{ backgroundColor: '#EFDCC3' }}>
+        <AnimatedSection className="flex flex-col items-center gap-10">
+          <p
+            className="text-2xl italic tracking-wide text-center"
+            style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, color: '#8E98A1' }}
+          >
+            faltam apenas...
+          </p>
+          <Countdown />
+          <p
+            className="text-xs tracking-[0.3em] uppercase"
+            style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, color: '#8E98A1' }}
+          >
+            para o nosso grande dia
+          </p>
+        </AnimatedSection>
+      </section>
+
+      {/* Preview cards */}
+      <section className="py-20 px-6" style={{ backgroundColor: '#F5EBE3' }}>
+        <AnimatedSection className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <p
+              className="text-4xl italic mb-4"
+              style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, color: '#4a4540' }}
+            >
+              Explore o nosso site
+            </p>
+            <FloralDivider />
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px" style={{ backgroundColor: '#D4CBC7' }}>
+            {previewCards.map((card) => (
+              <Link href={card.href} key={card.href}>
+                <div
+                  className="home-card group p-10 flex flex-col items-center text-center gap-4 transition-colors duration-300 h-full"
+                  style={{ backgroundColor: '#F5EBE3' }}
+                >
+                  <div className="w-6 h-px" style={{ backgroundColor: '#BA908B' }} />
+                  <h3
+                    className="text-xl"
+                    style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 400, color: '#4a4540' }}
+                  >
+                    {card.title}
+                  </h3>
+                  <p
+                    className="text-sm leading-relaxed"
+                    style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, color: '#8E98A1' }}
+                  >
+                    {card.description}
+                  </p>
+                  <span
+                    className="text-xs tracking-widest mt-auto"
+                    style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, color: '#BA908B' }}
+                  >
+                    ver →
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </AnimatedSection>
+      </section>
+    </>
+  )
 }

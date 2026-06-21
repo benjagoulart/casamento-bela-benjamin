@@ -1,36 +1,110 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💍 Casamento Bela & Benjamin — Site Oficial
 
-## Getting Started
+Site de casamento de **Débora Meister Pereira** e **Benjamin Córdova Goulart**  
+27 de Março de 2027 · Sonho Dourado, Morro da Fumaça - SC
 
-First, run the development server:
+---
+
+## Como rodar localmente
 
 ```bash
+npm install
+cp .env.local.example .env.local
+# edite .env.local com suas credenciais Supabase
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse: [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Configurar o Supabase
 
-## Learn More
+### 1. Criar projeto em [supabase.com](https://supabase.com)
 
-To learn more about Next.js, take a look at the following resources:
+Vá em **Settings → API** e copie as chaves para `.env.local`:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 2. Criar as tabelas (SQL Editor)
 
-## Deploy on Vercel
+```sql
+CREATE TABLE rsvp (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  nome TEXT NOT NULL,
+  email TEXT,
+  telefone TEXT,
+  adultos INTEGER DEFAULT 1,
+  criancas INTEGER DEFAULT 0,
+  mensagem TEXT,
+  created_at TIMESTAMP DEFAULT now()
+);
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+CREATE TABLE presentes (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  nome TEXT NOT NULL,
+  descricao TEXT,
+  preco DECIMAL(10,2),
+  imagem_url TEXT,
+  link_externo TEXT,
+  reservado BOOLEAN DEFAULT false,
+  reservado_por TEXT,
+  created_at TIMESTAMP DEFAULT now()
+);
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 3. Políticas de acesso (RLS)
+
+Opção simples — desabilitar RLS para uso privado:
+
+```sql
+ALTER TABLE rsvp DISABLE ROW LEVEL SECURITY;
+ALTER TABLE presentes DISABLE ROW LEVEL SECURITY;
+```
+
+---
+
+## Adicionar presentes
+
+No painel do Supabase → **Table Editor → presentes**, insira cada item com:
+- `nome`, `descricao`, `preco` (ex: `350.00`), `imagem_url` (URL pública)
+
+---
+
+## Personalizar textos
+
+| O que editar | Arquivo |
+|---|---|
+| Marcos da linha do tempo | `src/app/nossa-historia/page.tsx` — array `MARCOS` |
+| Informações da cerimônia | `src/app/cerimonia/page.tsx` |
+| Sugestões de hospedagem | `src/app/hospedagem/page.tsx` — array `HOSPEDAGENS` |
+| Cards da home | `src/app/page.tsx` — array `previewCards` |
+
+---
+
+## Deploy na Vercel
+
+1. Faça push para `github.com/benjagoulart/casamento-bela-benjamin`
+2. Em [vercel.com](https://vercel.com) → **Add New Project** → importe o repo
+3. Adicione as variáveis de ambiente em **Settings → Environment Variables**
+4. Clique em **Deploy**
+
+---
+
+## Paleta de cores
+
+| Variável | Hex | Nome |
+|---|---|---|
+| `--color-background` | `#F5EBE3` | Glacial Fog |
+| `--color-cream` | `#EFDCC3` | Warm Clouds |
+| `--color-slate` | `#8E98A1` | Granite Ridge |
+| `--color-mist` | `#D4CBC7` | Lake Mist |
+| `--color-rose` | `#BA908B` | Twilight Lupine |
+| `--color-sage` | `#80864F` | Spring Meadows |
+
+---
+
+*Feito com ♥ para Bela & Benjamin · 27.03.2027*
