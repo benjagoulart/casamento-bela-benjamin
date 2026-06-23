@@ -16,7 +16,7 @@ const navLinks = [
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [scrolled, setScrolled]   = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
 
   useEffect(() => {
@@ -27,12 +27,12 @@ export default function Header() {
 
   useEffect(() => { setMenuOpen(false) }, [pathname])
 
-  const linkStyle = (href: string) => ({
+  const linkStyle = (href: string): React.CSSProperties => ({
     fontFamily: 'Jost, sans-serif',
     fontWeight: 300,
     fontSize: '0.6rem',
     letterSpacing: '0.25em',
-    textTransform: 'uppercase' as const,
+    textTransform: 'uppercase',
     color: pathname === href ? '#BA908B' : '#4a4540',
     transition: 'color 0.2s',
   })
@@ -52,18 +52,18 @@ export default function Header() {
         <nav className="hidden lg:flex items-center gap-8 mr-10">
           {navLinks.slice(0, 3).map((l) => (
             <Link key={l.href} href={l.href} style={linkStyle(l.href)}
-              className="hover:text-[#BA908B] transition-colors duration-200">
+              className="hover:!text-[#BA908B] transition-colors duration-200">
               {l.label}
             </Link>
           ))}
         </nav>
 
-        {/* Monograma central */}
+        {/* Monograma central — mix-blend-mode elimina fundo branco */}
         <Link href="/" className="flex-shrink-0" aria-label="Início">
           <div style={{ mixBlendMode: 'multiply' }}>
             <Image
-              src="/monograma-bela_benjamin-01.png"
-              alt="BD"
+              src="/images/monograma.png"
+              alt="Monograma B & D"
               width={40}
               height={48}
               className="object-contain"
@@ -76,7 +76,7 @@ export default function Header() {
         <nav className="hidden lg:flex items-center gap-8 ml-10">
           {navLinks.slice(3).map((l) => (
             <Link key={l.href} href={l.href} style={linkStyle(l.href)}
-              className="hover:text-[#BA908B] transition-colors duration-200">
+              className="hover:!text-[#BA908B] transition-colors duration-200">
               {l.label}
             </Link>
           ))}
@@ -104,7 +104,7 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Menu mobile */}
+      {/* Menu mobile — desliza */}
       <div
         className="lg:hidden overflow-hidden transition-all duration-300"
         style={{ maxHeight: menuOpen ? '400px' : '0' }}

@@ -13,11 +13,11 @@ export default function Footer() {
           <div className="h-px w-12" style={{ backgroundColor: '#D4CBC7' }} />
         </div>
 
-        {/* Monograma — mix-blend-mode elimina fundo branco */}
+        {/* Monograma — mix-blend-mode elimina o fundo branco sobre o creme */}
         <Link href="/" aria-label="Início">
           <div style={{ mixBlendMode: 'multiply' }}>
             <Image
-              src="/monograma-bela_benjamin-01.png"
+              src="/images/monograma.png"
               alt="Monograma B & D"
               width={64}
               height={78}
@@ -26,7 +26,7 @@ export default function Footer() {
           </div>
         </Link>
 
-        {/* Nomes em script */}
+        {/* Nomes em Pinyon Script */}
         <p style={{ fontFamily: 'Pinyon Script, cursive', fontSize: '2.2rem', color: '#8E98A1' }}>
           Débora & Benjamin
         </p>

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Débora & Benjamin — 27.03.2027',
     description: 'Venha celebrar conosco este momento tão especial.',
-    images: ['/monograma-bela_benjamin-01.png'],
+    images: ['/images/monograma.png'],
   },
 }
 
