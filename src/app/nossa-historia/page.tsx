@@ -1,5 +1,6 @@
 import FloralDivider from '@/components/FloralDivider'
 import AnimatedSection from '@/components/AnimatedSection'
+import TiltCard from '@/components/TiltCard'
 
 // ── Edite aqui os textos de cada marco ──
 const MARCOS = [
@@ -112,15 +113,26 @@ export default function NossaHistoria() {
                           {marco.texto}
                         </p>
                         {/* Placeholder foto */}
-                        <div className="mt-5 flex items-center justify-center"
-                          style={{ height: '140px', backgroundColor: '#EFDCC3', border: '1px dashed #D4CBC7' }}>
-                          <div className="flex flex-col items-center gap-2">
-                            <div className="w-8 h-px" style={{ backgroundColor: '#D4CBC7' }} />
-                            <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#D4CBC7' }}>
-                              foto em breve
-                            </span>
+                        <TiltCard
+                          className="mt-5"
+                          maxTilt={6}
+                          scale={1.02}
+                          glare
+                          data-photo
+                        >
+                          <div
+                            className="flex items-center justify-center"
+                            style={{ height: '140px', backgroundColor: '#EFDCC3', border: '1px dashed #D4CBC7' }}
+                            data-photo
+                          >
+                            <div className="flex flex-col items-center gap-2">
+                              <div className="w-8 h-px" style={{ backgroundColor: '#D4CBC7' }} />
+                              <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#D4CBC7' }}>
+                                foto em breve
+                              </span>
+                            </div>
                           </div>
-                        </div>
+                        </TiltCard>
                       </div>
                     </div>
 

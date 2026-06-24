@@ -1,6 +1,7 @@
 import FloralDivider from '@/components/FloralDivider'
 import AnimatedSection from '@/components/AnimatedSection'
 import FloralCorner from '@/components/FloralCorner'
+import TiltCard from '@/components/TiltCard'
 
 export default function Galeria() {
   return (
@@ -61,17 +62,27 @@ export default function Galeria() {
             style={{ columnGap: '12px' }}
           >
             {Array.from({ length: 9 }).map((_, i) => (
-              <div
+              <TiltCard
                 key={i}
-                className="break-inside-avoid mb-3 flex items-center justify-center"
-                style={{
-                  backgroundColor: '#EFDCC3',
-                  border: '1px dashed #D4CBC7',
-                  height: i % 3 === 0 ? '220px' : i % 3 === 1 ? '160px' : '190px',
-                }}
+                className="break-inside-avoid mb-3"
+                maxTilt={5}
+                scale={1.02}
+                glare
+                data-photo
+                style={{ borderRadius: '1px' }}
               >
-                <span style={{ color: '#D4CBC7', fontSize: '1.5rem' }}>✦</span>
-              </div>
+                <div
+                  className="flex items-center justify-center"
+                  data-photo
+                  style={{
+                    backgroundColor: '#EFDCC3',
+                    border: '1px dashed #D4CBC7',
+                    height: i % 3 === 0 ? '220px' : i % 3 === 1 ? '160px' : '190px',
+                  }}
+                >
+                  <span style={{ color: '#D4CBC7', fontSize: '1.5rem' }}>✦</span>
+                </div>
+              </TiltCard>
             ))}
           </div>
         </AnimatedSection>
