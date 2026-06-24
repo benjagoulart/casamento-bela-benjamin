@@ -2,78 +2,102 @@
 
 @import "tailwindcss";
 
+/* ── Variáveis da paleta ── */
 :root {
-  --color-background: #F5EBE3;
-  --color-cream: #EFDCC3;
-  --color-slate: #8E98A1;
-  --color-mist: #D4CBC7;
-  --color-rose: #BA908B;
-  --color-sage: #80864F;
+  --bg:      #F5EBE3;
+  --cream:   #EFDCC3;
+  --slate:   #8E98A1;
+  --mist:    #D4CBC7;
+  --rose:    #BA908B;
+  --sage:    #80864F;
+  --dark:    #4a4540;
 }
 
 body {
-  background-color: var(--color-background);
+  background-color: var(--bg);
   font-family: 'Jost', sans-serif;
-  color: #4a4540;
+  color: var(--dark);
 }
 
+/* ── Animações ── */
+@keyframes float3d {
+  0%, 100% { transform: translateY(0px) rotateY(0deg); }
+  25%       { transform: translateY(-6px) rotateY(3deg); }
+  75%       { transform: translateY(-3px) rotateY(-2deg); }
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+@keyframes flipIn {
+  0%   { transform: rotateX(90deg); opacity: 0; }
+  100% { transform: rotateX(0deg);  opacity: 1; }
+}
+
+/* ── Efeito scroll reveal ── */
 .animate-on-scroll {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  transform: translateY(28px);
+  transition: opacity 0.85s ease-out, transform 0.85s ease-out;
 }
-
 .animate-on-scroll.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
+/* ── Shimmer nos labels ── */
+.shimmer-text {
+  background: linear-gradient(90deg, var(--rose) 0%, #d4b4af 40%, var(--rose) 60%, #c4a09b 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+/* ── Hover card 3D (CSS fallback para touch) ── */
+.home-card:hover {
+  background-color: #EFDCC3 !important;
+}
+
+/* ── Inputs de formulário ── */
 .form-input {
   background: transparent;
-  border: 1px solid var(--color-mist);
+  border: 1px solid var(--mist);
   border-radius: 2px;
   padding: 12px 16px;
   font-family: 'Jost', sans-serif;
   font-weight: 300;
-  color: #4a4540;
+  color: var(--dark);
   width: 100%;
-  transition: border-color 0.2s;
+  transition: border-color 0.25s;
   outline: none;
 }
+.form-input:focus    { border-color: var(--rose); }
+.form-input::placeholder { color: var(--slate); opacity: 0.6; }
 
-.form-input:focus {
-  border-color: var(--color-rose);
-}
-
-.form-input::placeholder {
-  color: var(--color-slate);
-}
-
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-background);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-mist);
-  border-radius: 3px;
-}
-
+/* ── Links de hospedagem ── */
 .hospedagem-link:hover {
-  background-color: var(--color-rose) !important;
-  color: var(--color-background) !important;
-  border-color: var(--color-rose) !important;
+  background-color: var(--rose) !important;
+  color: var(--bg) !important;
+  border-color: var(--rose) !important;
 }
 
-.btn-outline:hover {
-  background-color: var(--color-rose) !important;
-  color: var(--color-background) !important;
-  border-color: var(--color-rose) !important;
-}
+/* ── Scrollbar elegante ── */
+::-webkit-scrollbar       { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--mist); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--rose); }
 
-.home-card:hover {
-  background-color: var(--color-cream) !important;
+/* ── Seleção de texto ── */
+::selection {
+  background: var(--rose);
+  color: var(--bg);
 }
