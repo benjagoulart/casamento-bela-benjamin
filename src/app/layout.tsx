@@ -2,8 +2,6 @@ import type { Metadata } from 'next'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import CustomCursor from '@/components/CustomCursor'
-import PetalParticles from '@/components/PetalParticles'
 
 export const metadata: Metadata = {
   title: 'Débora & Benjamin — 27.03.2027',
@@ -23,8 +21,6 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className="h-full antialiased">
       <body className="min-h-full flex flex-col" style={{ backgroundColor: '#F5EBE3' }}>
-        <CustomCursor />
-        <PetalParticles />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

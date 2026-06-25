@@ -1,8 +1,7 @@
+import Image from 'next/image'
 import FloralDivider from '@/components/FloralDivider'
 import AnimatedSection from '@/components/AnimatedSection'
-import TiltCard from '@/components/TiltCard'
 
-// ── Edite aqui os textos de cada marco ──
 const MARCOS = [
   {
     data: '28/09/2024',
@@ -46,49 +45,59 @@ export default function NossaHistoria() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#F5EBE3' }}>
 
-      {/* ── Header da página ── */}
-      <div className="pt-32 pb-16 px-6 text-center" style={{ backgroundColor: '#EFDCC3' }}>
-        <AnimatedSection className="flex flex-col items-center gap-4">
-          <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.45em', textTransform: 'uppercase', color: '#BA908B' }}>
+      {/* ── Heading com padding para o header fixo ── */}
+      <div className="pt-24 lg:pt-60 pb-10 px-6 text-center" style={{ backgroundColor: '#EFDCC3' }}>
+        <AnimatedSection>
+          <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.45em', textTransform: 'uppercase', color: '#BA908B', marginBottom: '10px' }}>
             Débora & Benjamin
           </p>
-          <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontStyle: 'italic', fontSize: 'clamp(2.5rem, 7vw, 4rem)', color: '#4a4540' }}>
+          <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontStyle: 'italic', fontSize: 'clamp(2.5rem, 7vw, 4.5rem)', color: '#4a4540', lineHeight: 1.1 }}>
             Nossa História
           </h1>
-          <div className="flex items-center gap-3">
-            <div className="h-px w-12" style={{ backgroundColor: '#D4CBC7' }} />
-            <div className="w-1.5 h-1.5 rotate-45" style={{ backgroundColor: '#BA908B', opacity: 0.7 }} />
-            <div className="h-px w-12" style={{ backgroundColor: '#D4CBC7' }} />
-          </div>
-          <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.8rem', color: '#8E98A1', maxWidth: '28rem', lineHeight: 1.8 }}>
-            Cada história de amor tem seus momentos únicos. Aqui estão os nossos.
-          </p>
+          <FloralDivider />
         </AnimatedSection>
       </div>
 
+      {/* ── Foto da seção ── */}
+      <div className="relative h-72 lg:h-[420px] overflow-hidden" style={{ backgroundColor: '#EFDCC3' }}>
+        <Image
+          src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=1920&q=85"
+          alt="Nossa História"
+          fill
+          className="object-cover object-center"
+          priority
+          sizes="100vw"
+        />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(239,220,195,0.15) 0%, rgba(239,220,195,0.5) 100%)' }} />
+      </div>
+
       {/* ── Timeline ── */}
-      <div className="max-w-4xl mx-auto px-6 py-24">
+      <div className="max-w-4xl mx-auto px-6 py-20">
         <div className="relative">
 
           {/* Linha central (desktop) */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 hidden sm:block"
-            style={{ background: 'linear-gradient(to bottom, #EFDCC3, #D4CBC7, #BA908B, #D4CBC7, #EFDCC3)' }} />
+          <div
+            className="absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 hidden sm:block"
+            style={{ background: 'linear-gradient(to bottom, transparent, #D4CBC7 10%, #BA908B 50%, #D4CBC7 90%, transparent)' }}
+          />
 
           {/* Linha lateral (mobile) */}
-          <div className="absolute left-5 top-0 bottom-0 w-px sm:hidden"
-            style={{ background: 'linear-gradient(to bottom, #D4CBC7, #BA908B, #D4CBC7)' }} />
+          <div
+            className="absolute left-5 top-0 bottom-0 w-px sm:hidden"
+            style={{ background: 'linear-gradient(to bottom, transparent, #D4CBC7, transparent)' }}
+          />
 
           <div className="flex flex-col gap-16">
             {MARCOS.map((marco, i) => {
               const isLeft = i % 2 === 0
               return (
-                <AnimatedSection key={marco.data} delay={i * 120}>
+                <AnimatedSection key={marco.data} delay={i * 100}>
                   <div className={`relative flex items-start ${isLeft ? 'sm:flex-row' : 'sm:flex-row-reverse'}`}>
 
                     {/* Conteúdo */}
                     <div className={`flex-1 pl-14 sm:pl-0 ${isLeft ? 'sm:pr-14 sm:text-right' : 'sm:pl-14'}`}>
                       <div
-                        className="inline-block p-7 sm:p-9 w-full sm:w-auto"
+                        className="p-7 sm:p-9"
                         style={{
                           border: `1px solid ${marco.destaque ? '#BA908B' : '#D4CBC7'}`,
                           backgroundColor: marco.destaque ? 'rgba(186,144,139,0.06)' : 'transparent',
@@ -97,52 +106,38 @@ export default function NossaHistoria() {
                         <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#BA908B', marginBottom: '6px' }}>
                           {marco.data}
                         </p>
-                        <h3 style={{
-                          fontFamily: 'Cormorant Garamond, serif',
-                          fontWeight: 400,
-                          fontStyle: 'italic',
-                          fontSize: 'clamp(1.4rem, 4vw, 2rem)',
-                          color: marco.destaque ? '#BA908B' : '#4a4540',
-                          marginBottom: '10px',
-                        }}>
+                        <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 400, fontStyle: 'italic', fontSize: 'clamp(1.4rem, 4vw, 2rem)', color: marco.destaque ? '#BA908B' : '#4a4540', marginBottom: '10px' }}>
                           {marco.titulo}
                         </h3>
-                        <div className={`w-8 h-px mb-4 ${!isLeft ? '' : 'sm:ml-auto'}`}
-                          style={{ backgroundColor: '#D4CBC7' }} />
+                        <div
+                          className={`w-8 h-px mb-4 ${!isLeft ? '' : 'sm:ml-auto'}`}
+                          style={{ backgroundColor: '#D4CBC7' }}
+                        />
                         <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.8rem', lineHeight: 1.8, color: '#8E98A1' }}>
                           {marco.texto}
                         </p>
+
                         {/* Placeholder foto */}
-                        <TiltCard
-                          className="mt-5"
-                          maxTilt={6}
-                          scale={1.02}
-                          glare
-                          data-photo
+                        <div
+                          className="mt-5 flex items-center justify-center"
+                          style={{ height: '140px', backgroundColor: '#EFDCC3', border: '1px dashed #D4CBC7' }}
                         >
-                          <div
-                            className="flex items-center justify-center"
-                            style={{ height: '140px', backgroundColor: '#EFDCC3', border: '1px dashed #D4CBC7' }}
-                            data-photo
-                          >
-                            <div className="flex flex-col items-center gap-2">
-                              <div className="w-8 h-px" style={{ backgroundColor: '#D4CBC7' }} />
-                              <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#D4CBC7' }}>
-                                foto em breve
-                              </span>
-                            </div>
-                          </div>
-                        </TiltCard>
+                          <span style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#D4CBC7' }}>
+                            foto em breve
+                          </span>
+                        </div>
                       </div>
                     </div>
 
                     {/* Marcador na linha */}
-                    <div className="absolute left-3 sm:left-1/2 sm:-translate-x-1/2 top-8 z-10 flex items-center justify-center"
+                    <div
+                      className="absolute left-3 sm:left-1/2 sm:-translate-x-1/2 top-8 z-10 flex items-center justify-center"
                       style={{
                         width: '18px', height: '18px', borderRadius: '50%',
                         border: `1.5px solid ${marco.destaque ? '#BA908B' : '#D4CBC7'}`,
                         backgroundColor: marco.destaque ? '#BA908B' : '#F5EBE3',
-                      }}>
+                      }}
+                    >
                       {marco.destaque && <span style={{ color: '#F5EBE3', fontSize: '8px' }}>♥</span>}
                     </div>
 

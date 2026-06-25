@@ -16,77 +16,63 @@ const navLinks = [
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 30)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
 
   useEffect(() => { setMenuOpen(false) }, [pathname])
 
-  const linkStyle = (href: string): React.CSSProperties => ({
-    fontFamily: 'Jost, sans-serif',
-    fontWeight: 300,
-    fontSize: '0.6rem',
-    letterSpacing: '0.25em',
-    textTransform: 'uppercase',
-    color: pathname === href ? '#BA908B' : '#4a4540',
-    transition: 'color 0.2s',
-  })
-
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+      className="fixed top-0 left-0 right-0 z-50"
       style={{
-        backgroundColor: scrolled ? 'rgba(245,235,227,0.96)' : 'rgba(245,235,227,0.75)',
-        backdropFilter: 'blur(10px)',
-        borderBottom: scrolled ? '1px solid #D4CBC7' : '1px solid transparent',
+        backgroundColor: '#F5EBE3',
+        borderBottom: '1px solid #D4CBC7',
       }}
     >
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between lg:justify-center relative">
-
-        {/* Nav esquerda (desktop) */}
-        <nav className="hidden lg:flex items-center gap-8 mr-10">
-          {navLinks.slice(0, 3).map((l) => (
-            <Link key={l.href} href={l.href} style={linkStyle(l.href)}
-              className="hover:!text-[#BA908B] transition-colors duration-200">
-              {l.label}
-            </Link>
-          ))}
-        </nav>
-
-        {/* Monograma central — mix-blend-mode elimina fundo branco */}
-        <Link href="/" className="flex-shrink-0" aria-label="Início">
+      {/* ── Desktop: monograma centralizado + nav abaixo ── */}
+      <div className="hidden lg:flex flex-col items-center py-8">
+        <Link href="/" aria-label="Início">
           <div style={{ mixBlendMode: 'multiply' }}>
             <Image
               src="/images/monograma.png"
               alt="Monograma B & D"
-              width={40}
-              height={48}
+              width={98}
+              height={120}
               className="object-contain"
               priority
             />
           </div>
         </Link>
-
-        {/* Nav direita (desktop) */}
-        <nav className="hidden lg:flex items-center gap-8 ml-10">
-          {navLinks.slice(3).map((l) => (
-            <Link key={l.href} href={l.href} style={linkStyle(l.href)}
-              className="hover:!text-[#BA908B] transition-colors duration-200">
+        <nav className="flex items-center gap-10 mt-5">
+          {navLinks.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className={`nav-link${pathname === l.href ? ' active' : ''}`}
+            >
               {l.label}
             </Link>
           ))}
         </nav>
+      </div>
 
-        {/* Hamburger (mobile) */}
+      {/* ── Mobile: monograma + hamburger ── */}
+      <div className="lg:hidden flex items-center justify-between px-6 py-4">
+        <Link href="/" aria-label="Início">
+          <div style={{ mixBlendMode: 'multiply' }}>
+            <Image
+              src="/images/monograma.png"
+              alt="Monograma B & D"
+              width={46}
+              height={56}
+              className="object-contain"
+              priority
+            />
+          </div>
+        </Link>
         <button
-          className="lg:hidden absolute right-6 flex flex-col gap-[5px] p-2"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
+          className="flex flex-col gap-[5px] p-2"
         >
           {[0, 1, 2].map((i) => (
             <span
@@ -104,17 +90,21 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Menu mobile — desliza */}
+      {/* ── Mobile menu ── */}
       <div
         className="lg:hidden overflow-hidden transition-all duration-300"
         style={{ maxHeight: menuOpen ? '400px' : '0' }}
       >
         <nav
-          className="flex flex-col items-center py-6 gap-5 border-t"
-          style={{ borderColor: '#D4CBC7', backgroundColor: 'rgba(245,235,227,0.98)' }}
+          className="flex flex-col items-center py-6 gap-5"
+          style={{ borderTop: '1px solid #D4CBC7', backgroundColor: '#F5EBE3' }}
         >
           {navLinks.map((l) => (
-            <Link key={l.href} href={l.href} style={linkStyle(l.href)}>
+            <Link
+              key={l.href}
+              href={l.href}
+              className={`nav-link${pathname === l.href ? ' active' : ''}`}
+            >
               {l.label}
             </Link>
           ))}

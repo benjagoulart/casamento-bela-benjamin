@@ -1,16 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Pinyon+Script&family=Jost:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap');
 
 @import "tailwindcss";
 
 /* ── Variáveis da paleta ── */
 :root {
-  --bg:      #F5EBE3;
-  --cream:   #EFDCC3;
-  --slate:   #8E98A1;
-  --mist:    #D4CBC7;
-  --rose:    #BA908B;
-  --sage:    #80864F;
-  --dark:    #4a4540;
+  --bg:    #F5EBE3;
+  --cream: #EFDCC3;
+  --slate: #8E98A1;
+  --mist:  #D4CBC7;
+  --rose:  #BA908B;
+  --sage:  #80864F;
+  --dark:  #4a4540;
 }
 
 body {
@@ -19,52 +19,86 @@ body {
   color: var(--dark);
 }
 
-/* ── Animações ── */
-@keyframes float3d {
-  0%, 100% { transform: translateY(0px) rotateY(0deg); }
-  25%       { transform: translateY(-6px) rotateY(3deg); }
-  75%       { transform: translateY(-3px) rotateY(-2deg); }
-}
-
-@keyframes fadeSlideUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes shimmer {
-  0%   { background-position: -200% center; }
-  100% { background-position:  200% center; }
-}
-
-@keyframes flipIn {
-  0%   { transform: rotateX(90deg); opacity: 0; }
-  100% { transform: rotateX(0deg);  opacity: 1; }
-}
-
-/* ── Efeito scroll reveal ── */
-.animate-on-scroll {
+/* ── Scroll reveal ── */
+.fade-up {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.85s ease-out, transform 0.85s ease-out;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
 }
-.animate-on-scroll.visible {
+.fade-up.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* ── Shimmer nos labels ── */
-.shimmer-text {
-  background: linear-gradient(90deg, var(--rose) 0%, #d4b4af 40%, var(--rose) 60%, #c4a09b 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: shimmer 3s linear infinite;
+/* ── Hero parallax ── */
+.hero-parallax {
+  background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&q=90');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center top;
+}
+@media (max-width: 768px) {
+  .hero-parallax {
+    background-attachment: scroll;
+  }
 }
 
-/* ── Hover card 3D (CSS fallback para touch) ── */
-.home-card:hover {
-  background-color: #EFDCC3 !important;
+/* ── Botão rose ── */
+.btn-rose {
+  display: inline-block;
+  padding: 12px 36px;
+  background-color: var(--rose);
+  color: var(--bg);
+  font-family: 'Jost', sans-serif;
+  font-weight: 400;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  border: 1px solid var(--rose);
+  transition: background-color 0.2s, border-color 0.2s;
+  cursor: pointer;
+}
+.btn-rose:hover {
+  background-color: #a8837e;
+  border-color: #a8837e;
+}
+
+/* ── Links do menu ── */
+.nav-link {
+  position: relative;
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--slate);
+  transition: color 0.2s;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--rose);
+  transition: width 0.25s ease;
+}
+.nav-link:hover { color: var(--rose); }
+.nav-link:hover::after { width: 100%; }
+.nav-link.active { color: var(--rose); }
+.nav-link.active::after { width: 100%; }
+
+/* ── Cards de navegação ── */
+.nav-card {
+  border: 1px solid var(--mist);
+  background-color: var(--bg);
+  transition: background-color 0.25s, border-color 0.25s, transform 0.2s;
+}
+.nav-card:hover {
+  background-color: var(--cream);
+  border-color: var(--rose);
+  transform: translateY(-3px);
 }
 
 /* ── Inputs de formulário ── */
@@ -90,10 +124,10 @@ body {
   border-color: var(--rose) !important;
 }
 
-/* ── Scrollbar elegante ── */
-::-webkit-scrollbar       { width: 5px; }
+/* ── Scrollbar ── */
+::-webkit-scrollbar       { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--mist); border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: var(--mist); border-radius: 2px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--rose); }
 
 /* ── Seleção de texto ── */

@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import { supabase, type RSVP } from '@/lib/supabase'
@@ -49,7 +49,7 @@ export default function Confirmar() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#F5EBE3' }}>
       {/* Header */}
-      <div className="pt-32 pb-12 px-6 text-center" style={{ backgroundColor: '#EFDCC3' }}>
+      <div className="pt-24 lg:pt-60 pb-12 px-6 text-center" style={{ backgroundColor: '#EFDCC3' }}>
         <AnimatedSection>
           <p
             className="text-xs tracking-[0.4em] uppercase mb-4"
@@ -257,3 +257,4 @@ export default function Confirmar() {
     </div>
   )
 }
+

@@ -1,4 +1,4 @@
-import FloralDivider from '@/components/FloralDivider'
+﻿import FloralDivider from '@/components/FloralDivider'
 import AnimatedSection from '@/components/AnimatedSection'
 
 const HOSPEDAGENS = [
@@ -36,7 +36,7 @@ export default function Hospedagem() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#F5EBE3' }}>
       {/* Header */}
-      <div className="pt-32 pb-12 px-6 text-center" style={{ backgroundColor: '#EFDCC3' }}>
+      <div className="pt-24 lg:pt-60 pb-12 px-6 text-center" style={{ backgroundColor: '#EFDCC3' }}>
         <AnimatedSection>
           <p
             className="text-xs tracking-[0.4em] uppercase mb-4"
@@ -130,3 +130,4 @@ export default function Hospedagem() {
     </div>
   )
 }
+
