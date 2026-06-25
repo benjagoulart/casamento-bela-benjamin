@@ -32,7 +32,7 @@ body {
 
 /* ── Hero parallax ── */
 .hero-parallax {
-  background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&q=90');
+  background-image: url('/images/FOTO%20CASAL/foto-casal-1.jpeg');
   background-attachment: fixed;
   background-size: cover;
   background-position: center top;

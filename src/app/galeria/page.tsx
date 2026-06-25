@@ -1,11 +1,11 @@
-import Image from 'next/image'
+﻿import Image from 'next/image'
 import FloralDivider from '@/components/FloralDivider'
 import AnimatedSection from '@/components/AnimatedSection'
 
 const PHOTOS = [
-  { src: 'https://images.unsplash.com/photo-1490750967868-88df5691cc3e?w=1200&q=85', alt: 'Flores silvestres', height: '280px' },
-  { src: 'https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?w=1200&q=85', alt: 'Campo florido',     height: '200px' },
-  { src: 'https://images.unsplash.com/photo-1525183480399-5e4f8e91e3f6?w=1200&q=85', alt: 'Flores rosas',      height: '240px' },
+  { src: 'https://images.unsplash.com/photo-1527668752968-14dc70a27c95?w=1200&q=85', alt: 'Vale suíço',        height: '280px' },
+  { src: 'https://images.unsplash.com/photo-1471513671800-b09c87e1497c?w=1200&q=85', alt: 'Campos da Europa',  height: '200px' },
+  { src: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200&q=85', alt: 'Campo florido',     height: '240px' },
 ]
 
 export default function Galeria() {
@@ -13,7 +13,7 @@ export default function Galeria() {
     <div className="min-h-screen" style={{ backgroundColor: '#F5EBE3' }}>
 
       {/* ── Header ── */}
-      <div className="pt-24 lg:pt-60 pb-12 px-6 text-center" style={{ backgroundColor: '#EFDCC3' }}>
+      <div className="pt-24 lg:pt-40 pb-12 px-6 text-center" style={{ backgroundColor: '#EFDCC3' }}>
         <AnimatedSection>
           <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.4em', textTransform: 'uppercase', color: '#8E98A1', marginBottom: '12px' }}>
             Memórias
@@ -76,3 +76,4 @@ export default function Galeria() {
     </div>
   )
 }
+

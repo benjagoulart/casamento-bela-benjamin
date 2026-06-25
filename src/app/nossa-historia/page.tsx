@@ -1,4 +1,4 @@
-import Image from 'next/image'
+﻿import Image from 'next/image'
 import FloralDivider from '@/components/FloralDivider'
 import AnimatedSection from '@/components/AnimatedSection'
 
@@ -46,7 +46,7 @@ export default function NossaHistoria() {
     <div className="min-h-screen" style={{ backgroundColor: '#F5EBE3' }}>
 
       {/* ── Heading com padding para o header fixo ── */}
-      <div className="pt-24 lg:pt-60 pb-10 px-6 text-center" style={{ backgroundColor: '#EFDCC3' }}>
+      <div className="pt-24 lg:pt-40 pb-10 px-6 text-center" style={{ backgroundColor: '#EFDCC3' }}>
         <AnimatedSection>
           <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.45em', textTransform: 'uppercase', color: '#BA908B', marginBottom: '10px' }}>
             Débora & Benjamin
@@ -61,7 +61,7 @@ export default function NossaHistoria() {
       {/* ── Foto da seção ── */}
       <div className="relative h-72 lg:h-[420px] overflow-hidden" style={{ backgroundColor: '#EFDCC3' }}>
         <Image
-          src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=1920&q=85"
+          src="https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1920&q=85"
           alt="Nossa História"
           fill
           className="object-cover object-center"
@@ -153,3 +153,4 @@ export default function NossaHistoria() {
     </div>
   )
 }
+

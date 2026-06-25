@@ -32,7 +32,7 @@ export default function Presentes() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#F5EBE3' }}>
       {/* Header */}
-      <div className="pt-24 lg:pt-60 pb-12 px-6 text-center" style={{ backgroundColor: '#EFDCC3' }}>
+      <div className="pt-24 lg:pt-40 pb-12 px-6 text-center" style={{ backgroundColor: '#EFDCC3' }}>
         <AnimatedSection>
           <p
             className="text-xs tracking-[0.4em] uppercase mb-4"
@@ -212,4 +212,5 @@ export default function Presentes() {
     </div>
   )
 }
+
 

@@ -6,10 +6,40 @@ export default function Cerimonia() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#F5EBE3' }}>
 
-      {/* ── Heading com padding para o header fixo ── */}
-      <div className="pt-24 lg:pt-60 pb-10 px-6 text-center" style={{ backgroundColor: '#EFDCC3' }}>
+      {/* Espaço para o header fixo */}
+      <div className="pt-24 lg:pt-40" />
+
+      {/* ── Foto do local — destaque topo ── */}
+      <div className="relative w-full" style={{ height: '500px' }}>
+        <Image
+          src="/images/foto-sonho-dourado.png.webp"
+          alt="Sonho Dourado — Morro da Fumaça, SC"
+          fill
+          className="object-cover object-center"
+          priority
+          sizes="100vw"
+        />
+      </div>
+
+      {/* Legenda */}
+      <p
+        className="text-center py-4"
+        style={{
+          fontFamily: 'Cormorant Garamond, serif',
+          fontStyle: 'italic',
+          fontWeight: 400,
+          fontSize: '1rem',
+          color: '#8E98A1',
+          backgroundColor: '#F5EBE3',
+        }}
+      >
+        Sonho Dourado — Morro da Fumaça, SC
+      </p>
+
+      {/* ── Heading ── */}
+      <div className="pb-10 px-6 text-center" style={{ backgroundColor: '#EFDCC3' }}>
         <AnimatedSection>
-          <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.45em', textTransform: 'uppercase', color: '#BA908B', marginBottom: '10px' }}>
+          <p style={{ fontFamily: 'Jost, sans-serif', fontWeight: 300, fontSize: '0.6rem', letterSpacing: '0.45em', textTransform: 'uppercase', color: '#BA908B', marginBottom: '10px', paddingTop: '24px' }}>
             27 de Março de 2027
           </p>
           <h1 style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 300, fontStyle: 'italic', fontSize: 'clamp(2.5rem, 7vw, 4.5rem)', color: '#4a4540', lineHeight: 1.1 }}>
@@ -17,19 +47,6 @@ export default function Cerimonia() {
           </h1>
           <FloralDivider />
         </AnimatedSection>
-      </div>
-
-      {/* ── Foto da cerimônia ── */}
-      <div className="relative h-72 lg:h-[420px] overflow-hidden">
-        <Image
-          src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1920&q=85"
-          alt="Cerimônia ao ar livre"
-          fill
-          className="object-cover object-center"
-          priority
-          sizes="100vw"
-        />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(245,235,227,0.1) 0%, rgba(245,235,227,0.6) 100%)' }} />
       </div>
 
       {/* ── Info principal ── */}

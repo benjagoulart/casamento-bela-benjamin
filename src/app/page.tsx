@@ -56,8 +56,8 @@ export default function Home() {
           {/* Foto */}
           <div className="relative h-[480px] overflow-hidden" style={{ border: '1px solid #D4CBC7' }}>
             <Image
-              src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=1200&q=85"
-              alt="Nossa história"
+              src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=85"
+              alt="Campos suíços"
               fill
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 50vw"

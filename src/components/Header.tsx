@@ -10,7 +10,6 @@ const navLinks = [
   { href: '/nossa-historia', label: 'Nossa História' },
   { href: '/cerimonia',      label: 'Cerimônia' },
   { href: '/presentes',      label: 'Presentes' },
-  { href: '/confirmar',      label: 'Confirmar Presença' },
   { href: '/galeria',        label: 'Galeria' },
 ]
 
@@ -29,20 +28,20 @@ export default function Header() {
       }}
     >
       {/* ── Desktop: monograma centralizado + nav abaixo ── */}
-      <div className="hidden lg:flex flex-col items-center py-8">
+      <div className="hidden lg:flex flex-col items-center py-4">
         <Link href="/" aria-label="Início">
           <div style={{ mixBlendMode: 'multiply' }}>
             <Image
               src="/images/monograma.png"
               alt="Monograma B & D"
-              width={98}
-              height={120}
+              width={59}
+              height={72}
               className="object-contain"
               priority
             />
           </div>
         </Link>
-        <nav className="flex items-center gap-10 mt-5">
+        <nav className="flex items-center gap-10 mt-4">
           {navLinks.map((l) => (
             <Link
               key={l.href}
