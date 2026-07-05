@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react'
 interface Props {
   children: React.ReactNode
   className?: string
-  delay?: number
+  delay?: number // ms
 }
 
 export default function AnimatedSection({ children, className = '', delay = 0 }: Props) {
@@ -19,20 +19,24 @@ export default function AnimatedSection({ children, className = '', delay = 0 }:
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setTimeout(() => entry.target.classList.add('visible'), delay)
+            entry.target.classList.add('visible')
             observer.unobserve(entry.target)
           }
         })
       },
-      { threshold: 0.15 }
+      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
     )
 
     observer.observe(el)
     return () => observer.disconnect()
-  }, [delay])
+  }, [])
 
   return (
-    <div ref={ref} className={`fade-up ${className}`}>
+    <div
+      ref={ref}
+      className={`fade-up ${className}`}
+      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+    >
       {children}
     </div>
   )

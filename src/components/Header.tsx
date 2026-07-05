@@ -15,22 +15,38 @@ const navLinks = [
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
 
   useEffect(() => { setMenuOpen(false) }, [pathname])
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50"
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
       style={{
-        backgroundColor: '#F5EBE3',
+        backgroundColor: scrolled ? 'rgba(245,235,227,0.92)' : '#F5EBE3',
+        backdropFilter: scrolled ? 'blur(12px)' : 'none',
         borderBottom: '1px solid #D4CBC7',
+        boxShadow: scrolled ? '0 10px 34px rgba(74,69,64,0.07)' : 'none',
       }}
     >
       {/* ── Desktop: monograma centralizado + nav abaixo ── */}
-      <div className="hidden lg:flex flex-col items-center py-4">
+      <div
+        className="hidden lg:flex flex-col items-center transition-all duration-500"
+        style={{ paddingTop: scrolled ? '10px' : '16px', paddingBottom: scrolled ? '10px' : '16px' }}
+      >
         <Link href="/" aria-label="Início">
-          <div style={{ mixBlendMode: 'multiply' }}>
+          <div
+            className="transition-all duration-500"
+            style={{ mixBlendMode: 'multiply', transform: scrolled ? 'scale(0.85)' : 'scale(1)' }}
+          >
             <Image
               src="/images/monograma.png"
               alt="Monograma B & D"

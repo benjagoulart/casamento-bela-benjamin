@@ -1,6 +1,7 @@
 ﻿import Image from 'next/image'
 import FloralDivider from '@/components/FloralDivider'
 import AnimatedSection from '@/components/AnimatedSection'
+import Tilt from '@/components/Tilt'
 
 const PHOTOS = [
   { src: 'https://images.unsplash.com/photo-1527668752968-14dc70a27c95?w=1200&q=85', alt: 'Vale suíço',        height: '280px' },
@@ -42,19 +43,20 @@ export default function Galeria() {
         <AnimatedSection delay={150}>
           <div className="columns-1 sm:columns-2 lg:columns-3 gap-4">
             {PHOTOS.map((photo, i) => (
-              <div
-                key={i}
-                className="break-inside-avoid mb-4 overflow-hidden"
-                style={{ border: '1px solid #D4CBC7', position: 'relative', height: photo.height }}
-              >
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  fill
-                  className="object-cover transition-transform duration-500 hover:scale-105"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
-              </div>
+              <Tilt key={i} max={6} scale={1.03} className="break-inside-avoid mb-4">
+                <div
+                  className="overflow-hidden"
+                  style={{ border: '1px solid #D4CBC7', position: 'relative', height: photo.height }}
+                >
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                </div>
+              </Tilt>
             ))}
             {/* Placeholders para fotos futuras */}
             {Array.from({ length: 6 }).map((_, i) => (
