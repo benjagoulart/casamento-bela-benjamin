@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Presentear – Débora e Benjamin</title>
+<meta name="description" content="Casamento de Débora e Benjamin – 27 de março de 2027, Sonho Dourado, Morro da Fumaça.">
+<meta property="og:title" content="Presentear – Débora e Benjamin">
+<meta property="og:description" content="Casamento de Débora e Benjamin – 27 de março de 2027, Sonho Dourado, Morro da Fumaça.">
+<meta name="theme-color" content="#A1B0B8">
+<link rel="icon" href="/assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Quattrocento:wght@400;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+<div class="pag-topo">
+  <a class="voltar" href="/presentes"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg> Voltar para a lista</a>
+  <a class="logo" href="/" aria-label="Início"><img src="/assets/img/mono-escuro.png" alt="Monograma B/D" width="27" height="40"></a>
+</div>
+<main class="pag" data-pagamento>
+  <div class="container" style="max-width:1160px">
+    <div class="card pag-resumo">
+      <div class="presente-img" data-p-img></div>
+      <div><span class="kicker muted">Você está presenteando</span><strong data-p-nome></strong><span class="preco preco-mobile" data-p-valor></span></div>
+      <span class="preco preco-desktop" data-p-valor></span>
+    </div>
+
+    <div class="abas" role="tablist" aria-label="Forma de pagamento">
+      <button class="aba" type="button" role="tab" data-aba="pix" aria-selected="true">PIX</button>
+      <button class="aba" type="button" role="tab" data-aba="cartao" aria-selected="false">CARTÃO</button>
+    </div>
+
+    <div class="pag-metodos">
+      <div class="card metodo" data-metodo="pix">
+        <span class="kicker" style="color:var(--azul-escuro)">Sem taxas · cai na hora</span>
+        <h2>Pix Copia e Cola</h2>
+        <p class="muted" style="font-size:13px">Copie o código e cole no app do seu banco, na opção “Pix Copia e Cola”. O valor já vem preenchido.</p>
+        <div class="codigo" id="codigo-pix"></div>
+        <button class="btn" type="button" data-copiar="codigo-pix">Copiar código Pix</button>
+        <h2 style="margin-top:12px">Ou escaneie o QR Code</h2>
+        <img class="qr" data-p-qr src="" alt="" width="200" height="200">
+        <p class="titular" data-titular></p>
+      </div>
+      <div class="card metodo" data-metodo="cartao" hidden>
+        <h2>Cartão de crédito</h2>
+        <p class="muted" style="font-size:13px">Você será levado a uma página segura de pagamento para concluir. O parcelamento pode ter acréscimo.</p>
+        <a class="btn" data-link-cartao href="#" target="_blank" rel="noopener">Pagar com cartão</a>
+      </div>
+    </div>
+
+    <div class="aviso-whats" data-so-whatsapp>
+      <div><span class="script">Conta pra gente!</span><p style="font-size:13px">Depois de pagar, mande uma mensagem pra sabermos quem nos presenteou.</p></div>
+      <a class="btn btn--light" data-whats-presente href="#" target="_blank" rel="noopener"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-13.5 7.8L3 21l1.2-4.4A9 9 0 1 1 21 12z"/></svg> Avisar no WhatsApp</a>
+    </div>
+  </div>
+</main>
+<footer class="site-footer">
+  <span class="script">Débora e Benjamin</span>
+  <span>27 · 03 · 2027</span>
+</footer>
+<script src="/assets/js/dados.js"></script>
+<script src="/assets/js/main.js"></script>
+</body>
+</html>
