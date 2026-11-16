@@ -16,9 +16,16 @@
     'Lua de mel': '<path d="M21 4L3 11l6.5 2.5L12 20z"/><path d="M9.5 13.5L21 4"/>'
   };
   function imagem(p, tamanho) {
-    if (p.imagem) return '<img src="' + p.imagem + '" alt="' + esc(p.nome) + '" loading="lazy">';
+    if (p.imagem) return '<img src="' + p.imagem + '" alt="' + esc(p.nome) + '" loading="lazy" data-cat="' + esc(p.categoria) + '" data-t="' + tamanho + '">';
     return '<svg aria-hidden="true" width="' + tamanho + '" height="' + tamanho + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">' + (ICONES[p.categoria] || ICONES['Casa']) + '</svg>';
   }
+
+  // Se a foto de um presente não carregar, mostra o ícone da categoria
+  document.addEventListener('error', function (e) {
+    var img = e.target;
+    if (img.tagName !== 'IMG' || !img.hasAttribute('data-cat')) return;
+    img.outerHTML = imagem({ categoria: img.getAttribute('data-cat') }, img.getAttribute('data-t') || 46);
+  }, true);
 
   // Menu (celular)
   var menuBtn = $('.menu-btn');

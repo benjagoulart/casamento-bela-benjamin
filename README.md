@@ -29,3 +29,7 @@ Se mudar o valor de um presente, é preciso gerar um novo QR Code e código Pix 
 ```bash
 npx serve .
 ```
+
+## Fotos dos presentes
+
+As fotos não ficam no repositório: a cada deploy, `scripts/build.mjs` baixa os links de `scripts/imagens.json`, ajusta para 600×600 e publica em `dist/`. Para trocar uma foto, troque o link correspondente nesse arquivo. Se um link falhar, o card mostra o ícone da categoria.
