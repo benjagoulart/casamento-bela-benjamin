@@ -392,14 +392,12 @@ h1, h2, h3, p { margin: 0; }
 .pasta-titulo { text-align: center; margin-bottom: 22px; }
 .pasta-titulo h2 { font-size: 22px; }
 .pasta-titulo p { font-family: var(--serif); font-size: 16px; margin-top: 8px; color: var(--texto); }
-.mural { columns: 2; column-gap: 10px; }
-.mural--js { columns: auto; display: flex; gap: 10px; align-items: flex-start; }
-.mural-col { flex: 1 1 0; min-width: 0; }
-.foto { display: block; width: 100%; margin: 0 0 10px; padding: 0; border: 0; background: var(--bege-claro); border-radius: 12px; overflow: hidden; cursor: zoom-in; break-inside: avoid; }
-.foto img { width: 100%; height: auto; display: block; transition: transform .5s ease; }
+.mural { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.foto { display: block; width: 100%; aspect-ratio: 4 / 5; margin: 0; padding: 0; border: 0; background: var(--bege-claro); border-radius: 12px; overflow: hidden; cursor: zoom-in; break-inside: avoid; }
+.foto img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s ease; }
 .foto:hover img { transform: scale(1.03); }
 .foto { position: relative; }
-.foto video { width: 100%; height: auto; display: block; }
+.foto video { width: 100%; height: 100%; object-fit: cover; display: block; }
 .selo-live { position: absolute; top: 8px; left: 8px; padding: 3px 8px 3px 20px; border-radius: 999px; background: rgba(255, 253, 241, .85); color: var(--marrom); font: 500 9px var(--mono); letter-spacing: 1.5px; }
 .selo-live::before { content: ''; position: absolute; left: 7px; top: 50%; width: 7px; height: 7px; margin-top: -3.5px; border-radius: 50%; border: 1.5px solid var(--oliva); box-sizing: border-box; animation: pulso 2s ease-in-out infinite; }
 @keyframes pulso { 50% { transform: scale(1.5); opacity: .4; } }
@@ -559,9 +557,7 @@ h1, h2, h3, p { margin: 0; }
   .pasta-capa--breve::after { font-size: 16px; }
   .pasta-texto strong { font-size: 17px; }
   .pasta-titulo h2 { font-size: 32px; }
-  .mural { columns: 3; column-gap: 16px; }
-  .foto { margin-bottom: 16px; }
-  .mural--js { gap: 16px; }
+  .mural { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; max-width: 1000px; margin: 0 auto; }
   .em-breve { padding: 80px 40px; max-width: 760px; margin: 0 auto; }
   .em-breve .script { font-size: 72px; }
   .album-topo h1 { font-size: 88px; }
