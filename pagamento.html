@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Quattrocento:wght@400;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/style.css?v=20261117f">
+<link rel="stylesheet" href="/assets/css/style.css?v=20261117g">
 </head>
 <body>
 <div class="pag-topo">
@@ -40,9 +40,10 @@
           <div class="card metodo" data-metodo="pix">
             <span class="kicker" style="color:var(--azul-escuro)">Sem taxas · cai na hora</span>
             <h2>Pix Copia e Cola</h2>
-            <p class="muted metodo-ajuda">Copie o código e cole no app do seu banco, na opção “Pix Copia e Cola”. O valor já vem preenchido.</p>
+            <p class="muted metodo-ajuda"><span class="so-pc">Copie o código e cole no app do seu banco, na opção “Pix Copia e Cola”. O valor já vem preenchido.</span><span class="so-cel">Copie e cole no app do banco, em “Pix Copia e Cola”. O valor já vem preenchido.</span></p>
             <div class="codigo" id="codigo-pix"></div>
-            <button class="btn" type="button" data-copiar="codigo-pix">Copiar código Pix</button>
+            <button class="btn" type="button" data-copiar="codigo-pix" data-copiar-pix>Copiar código Pix</button>
+            <p class="copiado-aviso" data-copiado-aviso hidden>Código copiado! Pague no app do seu banco e depois volte aqui para nos contar.</p>
             <div class="pix-qr" data-pix-qr>
               <button class="qr-toggle" type="button" aria-expanded="false" data-qr-toggle>Prefere o QR Code? Mostrar</button>
               <div class="qr-area">
@@ -60,7 +61,7 @@
         </div>
       </div>
 
-      <aside class="pag-conta">
+      <aside class="pag-conta" id="conta-pra-gente">
         <span class="passo"><b>2</b> Conta pra gente</span>
         <section class="confirma-presente" data-presente-box>
           <form class="confirma-form" data-form-presente novalidate>
@@ -82,12 +83,13 @@
       </aside>
     </div>
   </div>
+  <a class="ir-conta" href="#conta-pra-gente" data-ir-conta>Já pagou? Conta pra gente <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
 </main>
 <footer class="site-footer">
   <span class="script">Débora e Benjamin</span>
   <span>27 · 03 · 2027</span>
 </footer>
-<script src="/assets/js/dados.js?v=20261117f"></script>
-<script src="/assets/js/main.js?v=20261117f"></script>
+<script src="/assets/js/dados.js?v=20261117g"></script>
+<script src="/assets/js/main.js?v=20261117g"></script>
 </body>
 </html>

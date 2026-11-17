@@ -136,6 +136,27 @@
       cartao.classList.add('sem-link');
     }
 
+    // Celular: botão fixo que leva ao "Conta pra gente" e some quando o formulário aparece na tela
+    var conta = $('#conta-pra-gente'), irConta = $('[data-ir-conta]');
+    var celular = function () { return window.matchMedia('(max-width: 899px)').matches; };
+    var irParaConta = function () { conta.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
+    if (conta && irConta) {
+      irConta.addEventListener('click', function (e) { e.preventDefault(); irParaConta(); });
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (itens) {
+          irConta.classList.toggle('visivel', !itens[0].isIntersecting);
+        }, { rootMargin: '0px 0px -35% 0px' }).observe(conta);
+      } else { irConta.classList.add('visivel'); }
+    }
+    // Depois de copiar o Pix: avisa e, no celular, desce até o passo 2
+    var btnPix = $('[data-copiar-pix]'), copiado = $('[data-copiado-aviso]');
+    if (btnPix) {
+      btnPix.addEventListener('click', function () {
+        if (copiado) copiado.hidden = false;
+        if (conta && celular()) setTimeout(irParaConta, 900);
+      });
+    }
+
     // QR Code: no celular fica escondido até a pessoa pedir
     var qrBox = $('[data-pix-qr]'), qrBtn = $('[data-qr-toggle]');
     if (qrBox && qrBtn) {
@@ -169,6 +190,7 @@
             fp.hidden = true;
             $('[data-presente-obrigado-texto]').textContent = 'Obrigado, ' + quem.split(' ')[0] + '! Recebemos o seu presente com muito carinho.';
             $('[data-presente-obrigado]').hidden = false;
+            var ir = $('[data-ir-conta]'); if (ir) ir.remove();
           })
           .catch(function () {
             botaoP.disabled = false; botaoP.textContent = original;
