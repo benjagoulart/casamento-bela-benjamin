@@ -324,9 +324,13 @@
       var f = fotos[atual], video = f.getAttribute('data-video');
       if (video) {
         lbImg.hidden = true; lbImg.src = '';
+        var pi = $('.live-poster', f);
         lbVid.hidden = false; lbVid.muted = true; lbVid.playsInline = true;
-        lbVid.poster = $('.live-poster', f).src; lbVid.src = video;
-        lbVid.setAttribute('aria-label', $('.live-poster', f).alt);
+        lbVid.width = pi.getAttribute('width'); lbVid.height = pi.getAttribute('height');
+        lbVid.style.aspectRatio = pi.getAttribute('width') + ' / ' + pi.getAttribute('height');
+        lbVid.poster = pi.src; lbVid.src = video; lbVid.load();
+        lbVid.setAttribute('aria-label', pi.alt);
+        lb.hidden = false;
         var pv = lbVid.play(); if (pv && pv.catch) pv.catch(function () {});
       } else {
         lbVid.pause(); lbVid.hidden = true; lbVid.removeAttribute('src');
@@ -341,6 +345,7 @@
       f.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); abrir(i); } });
     });
     $('[data-lb-fechar]').addEventListener('click', fechar);
+    lbVid.addEventListener('click', function () { if (lbVid.paused) { var p = lbVid.play(); if (p && p.catch) p.catch(function () {}); } });
     $('[data-lb-ant]').addEventListener('click', function () { abrir(atual - 1); });
     $('[data-lb-prox]').addEventListener('click', function () { abrir(atual + 1); });
     lb.addEventListener('click', function (e) { if (e.target === lb) fechar(); });
