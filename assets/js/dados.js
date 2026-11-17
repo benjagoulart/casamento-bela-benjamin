@@ -4,7 +4,7 @@
 window.SITE = {
   // Endereço do app da planilha (Google Apps Script, termina em /exec). Recebe as confirmações e os presentes.
   // Vazio = os formulários aparecem, mas o envio fica desativado.
-  planilha: '',
+  planilha: 'https://script.google.com/macros/s/AKfycbxButBG56eqOpb3eKN08Z_dN1e6Shecpn9MrSeti0QPU8piZM32IZg51ZblK7MuEhoE/exec',
   chavePix: '093.370.259-06',
   titularPix: 'Débora Meister Pereira',
   listaCamicado: 'https://www.camicado.com.br'
