@@ -250,6 +250,37 @@
     window.addEventListener('hashchange', mostrarPasta);
     mostrarPasta();
 
+    // Mural equilibrado: distribui fotos e vídeos nas colunas, sempre na coluna mais curta,
+    // seguindo a ordem do álbum (assim os vídeos ficam espalhados de cima a baixo)
+    var mural = $('.mural');
+    if (mural) {
+      var itensMural = $all('.foto', mural), colunasAtuais = 0;
+      itensMural.forEach(function (el, i) { el.setAttribute('data-ordem', i); });
+      var proporcao = function (el) { var m = $('img, video', el); return (+m.getAttribute('height') || 1) / (+m.getAttribute('width') || 1); };
+      var montar = function () {
+        var n = window.innerWidth >= 900 ? 3 : 2;
+        if (n === colunasAtuais) return;
+        colunasAtuais = n;
+        var cols = [], alturas = [];
+        for (var c = 0; c < n; c++) { var d = document.createElement('div'); d.className = 'mural-col'; cols.push(d); alturas.push(0); }
+        var ultimaColVideo = -1;
+        itensMural.forEach(function (el) {
+          var i = alturas.indexOf(Math.min.apply(null, alturas));
+          if (el.classList.contains('foto--live')) {
+            // vídeo: coluna mais curta, mas nunca a mesma do vídeo anterior
+            var melhor = -1;
+            alturas.forEach(function (h, c) { if (c !== ultimaColVideo && (melhor < 0 || h < alturas[melhor])) melhor = c; });
+            i = melhor; ultimaColVideo = i;
+          }
+          cols[i].appendChild(el); alturas[i] += proporcao(el) + 0.06;
+        });
+        mural.innerHTML = ''; cols.forEach(function (d) { mural.appendChild(d); });
+        mural.classList.add('mural--js');
+      };
+      montar();
+      var tMural; window.addEventListener('resize', function () { clearTimeout(tMural); tMural = setTimeout(montar, 150); });
+    }
+
     // Fotos "live": o vídeo roda sozinho quando aparece na tela e para quando sai
     var vivos = $all('.foto--live video');
     var parado = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -265,7 +296,7 @@
     }
 
     var lb = $('[data-lightbox]'), lbImg = $('[data-lb-img]'), lbVid = $('[data-lb-video]'), lbCont = $('[data-lb-contador]');
-    var fotos = $all('[data-foto]'), atual = 0;
+    var fotos = $all('[data-foto]').sort(function (a, b) { return (+a.getAttribute('data-ordem') || 0) - (+b.getAttribute('data-ordem') || 0); }), atual = 0;
     var abrir = function (i) {
       atual = (i + fotos.length) % fotos.length;
       var f = fotos[atual], video = f.getAttribute('data-video');

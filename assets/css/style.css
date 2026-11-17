@@ -393,6 +393,8 @@ h1, h2, h3, p { margin: 0; }
 .pasta-titulo h2 { font-size: 22px; }
 .pasta-titulo p { font-family: var(--serif); font-size: 16px; margin-top: 8px; color: var(--texto); }
 .mural { columns: 2; column-gap: 10px; }
+.mural--js { columns: auto; display: flex; gap: 10px; align-items: flex-start; }
+.mural-col { flex: 1 1 0; min-width: 0; }
 .foto { display: block; width: 100%; margin: 0 0 10px; padding: 0; border: 0; background: var(--bege-claro); border-radius: 12px; overflow: hidden; cursor: zoom-in; break-inside: avoid; }
 .foto img { width: 100%; height: auto; display: block; transition: transform .5s ease; }
 .foto:hover img { transform: scale(1.03); }
@@ -559,6 +561,7 @@ h1, h2, h3, p { margin: 0; }
   .pasta-titulo h2 { font-size: 32px; }
   .mural { columns: 3; column-gap: 16px; }
   .foto { margin-bottom: 16px; }
+  .mural--js { gap: 16px; }
   .em-breve { padding: 80px 40px; max-width: 760px; margin: 0 auto; }
   .em-breve .script { font-size: 72px; }
   .album-topo h1 { font-size: 88px; }
