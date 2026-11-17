@@ -37,7 +37,7 @@ window.CONVITES = [
   'Claudiomar e Rosilene',
   'Reverson e Família',
   'Maria e Lara',
-  'Roberto Borges',
+  'Roberto e Manuela',
   'Lucas Zanatta',
   'Letícia May',
   'Bruno Pavei',
