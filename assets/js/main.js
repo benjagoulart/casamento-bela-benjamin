@@ -6,7 +6,12 @@
   function $all(sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); }
   function reais(v) { return 'R$ ' + v.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
   function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
-  function whatsLink(texto) { return 'https://wa.me/' + SITE.whatsapp + '?text=' + encodeURIComponent(texto); }
+  // Envia os dados para a planilha (Google Apps Script). text/plain evita a checagem extra de CORS.
+  function enviarPlanilha(dados) {
+    return fetch(SITE.planilha, { method: 'POST', body: JSON.stringify(dados) })
+      .then(function (r) { return r.json(); })
+      .then(function (j) { if (!j || !j.ok) throw new Error((j && j.erro) || 'falha'); return j; });
+  }
 
   var ICONES = {
     'Cozinha': '<path d="M4 11h16v2a6 6 0 0 1-6 6h-4a6 6 0 0 1-6-6z"/><path d="M1.5 11.5H4M20 11.5h2.5"/><path d="M8 8.5c0-1.4 1.8-2.5 4-2.5s4 1.1 4 2.5"/><path d="M12 4v2"/>',
@@ -59,7 +64,6 @@
   // Dados do site em elementos
   $all('[data-chave-pix]').forEach(function (el) { el.textContent = SITE.chavePix; });
   $all('[data-camicado]').forEach(function (el) { el.href = SITE.listaCamicado; });
-  $all('[data-so-whatsapp]').forEach(function (el) { if (!SITE.whatsapp) el.hidden = true; });
 
   // Contagem regressiva
   var contador = $('[data-contador]');
@@ -131,11 +135,40 @@
       cartao.hidden = true;
       cartao.classList.add('sem-link');
     }
-    var w = $('[data-whats-presente]');
-    if (w) w.href = whatsLink('Oi, Débora e Benjamin! Acabei de dar o presente "' + p.nome + '" pela lista do site. Com carinho, ');
+
+    // Confirmação do presente (vai para a planilha)
+    var fp = $('[data-form-presente]');
+    if (fp) {
+      var avisoP = $('[data-presente-aviso]');
+      var botaoP = $('[data-botao-presente]');
+      var forma = function () {
+        var aba = $('.aba[aria-selected="true"]');
+        return aba && aba.getAttribute('data-aba') === 'cartao' && p.linkCartao ? 'Cartão' : 'Pix';
+      };
+      var textoBotao = function () { botaoP.textContent = forma() === 'Cartão' ? 'Já paguei no cartão' : 'Já fiz o Pix'; };
+      $all('.aba').forEach(function (a) { a.addEventListener('click', textoBotao); });
+      if (!SITE.planilha) { botaoP.disabled = true; avisoP.textContent = 'A confirmação de presentes abre em breve.'; }
+      fp.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!SITE.planilha) return;
+        var quem = fp.quem.value.trim();
+        if (quem.length < 2) { avisoP.textContent = 'Escreva seu nome para sabermos quem nos presenteou.'; fp.quem.focus(); return; }
+        botaoP.disabled = true; var original = botaoP.textContent; botaoP.textContent = 'Enviando...'; avisoP.textContent = '';
+        enviarPlanilha({ tipo: 'presente', nome: quem, presente: p.nome, valor: p.valor, forma: forma(), recado: fp.recado.value.trim() })
+          .then(function () {
+            fp.hidden = true;
+            $('[data-presente-obrigado-texto]').textContent = 'Obrigado, ' + quem.split(' ')[0] + '! Recebemos o seu presente com muito carinho.';
+            $('[data-presente-obrigado]').hidden = false;
+          })
+          .catch(function () {
+            botaoP.disabled = false; botaoP.textContent = original;
+            avisoP.textContent = 'Não conseguimos registrar agora. Verifique sua internet e tente de novo.';
+          });
+      });
+    }
   }
 
-  // Confirmação de presença (via WhatsApp)
+  // Confirmação de presença (vai para a planilha)
   var form = $('[data-form-presenca]');
   if (form) {
     var aviso = $('[data-form-aviso]');
@@ -196,26 +229,33 @@
     });
     document.addEventListener('click', function (e) { if (!e.target.closest('.busca-nome')) fechar(); });
 
-    // Sem número de WhatsApp: dá para preencher, mas o envio fica desativado
+    // Sem o endereço da planilha: dá para preencher, mas o envio fica desativado
     var botao = $('button[type="submit"]', form);
-    if (!SITE.whatsapp) {
+    if (!SITE.planilha) {
       botao.disabled = true;
       aviso.textContent = avisoPadrao = 'As confirmações abrem em breve.';
     }
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      if (!SITE.whatsapp) return;
+      if (!SITE.planilha) return;
       var resp = form.querySelector('input[name="resposta"]:checked');
       if (!escolhido) { aviso.textContent = 'Digite seu nome e escolha o seu convite na lista.'; campo.focus(); mostrar(); return; }
       if (!resp) { aviso.textContent = 'Escolha uma das opções.'; return; }
-      var varios = / e /.test(escolhido);
-      var texto = resp.value === 'sim'
-        ? 'Oi, Débora e Benjamin! Aqui é ' + escolhido + '. ' + (varios ? 'Confirmamos nossa presença' : 'Confirmo minha presença') + ' no casamento de vocês em 27/03/2027!'
-        : 'Oi, Débora e Benjamin! Aqui é ' + escolhido + '. Infelizmente ' + (varios ? 'não poderemos ir' : 'não poderei ir') + ' ao casamento, mas ' + (varios ? 'desejamos' : 'desejo') + ' tudo de mais lindo para vocês!';
-      window.open(whatsLink(texto), '_blank');
-      form.hidden = true;
-      $('.obrigado').style.display = 'flex';
+      botao.disabled = true; botao.textContent = 'Enviando...'; aviso.textContent = '';
+      enviarPlanilha({ tipo: 'presenca', convite: escolhido, resposta: resp.value })
+        .then(function () {
+          var vai = resp.value === 'sim';
+          $('.obrigado .muted').textContent = vai
+            ? 'Recebemos sua confirmação! Que tal dar uma olhada na nossa lista de presentes?'
+            : 'Que pena! Recebemos sua resposta. Se quiser, você ainda pode nos presentear pela lista.';
+          form.hidden = true;
+          $('.obrigado').style.display = 'flex';
+        })
+        .catch(function () {
+          botao.disabled = false; botao.textContent = 'Enviar resposta';
+          aviso.textContent = 'Não conseguimos enviar agora. Verifique sua internet e tente de novo.';
+        });
     });
   }
 })();

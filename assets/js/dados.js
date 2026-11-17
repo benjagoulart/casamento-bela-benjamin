@@ -2,8 +2,9 @@
 // linkCartao: cole o link de pagamento (Mercado Pago, PagBank...) para mostrar a opção de cartão.
 // Se mudar o valor de um presente, o QR Code e o código Pix precisam ser gerados de novo.
 window.SITE = {
-  // Número do WhatsApp com DDI e DDD, só números (ex.: 5548999999999). Vazio = botões de WhatsApp ficam ocultos.
-  whatsapp: '5548998601090',
+  // Endereço do app da planilha (Google Apps Script, termina em /exec). Recebe as confirmações e os presentes.
+  // Vazio = os formulários aparecem, mas o envio fica desativado.
+  planilha: '',
   chavePix: '093.370.259-06',
   titularPix: 'Débora Meister Pereira',
   listaCamicado: 'https://www.camicado.com.br'

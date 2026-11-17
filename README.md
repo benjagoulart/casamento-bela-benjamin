@@ -18,7 +18,8 @@ Site estático (HTML, CSS e JavaScript puro), publicado na Vercel. Casamento em 
 
 Tudo fica em `assets/js/dados.js`:
 
-- `whatsapp`: número com DDI e DDD, só números (ex.: `5548999999999`). Enquanto estiver vazio, o formulário de confirmação fica desativado e o botão "Avisar no WhatsApp" fica escondido.
+- `planilha`: endereço do app da planilha (Google Apps Script, termina em `/exec`). As confirmações de presença e os presentes vão direto para a planilha "Casamento Débora & Benjamin – Respostas do site" no Google Drive. Enquanto estiver vazio, os botões de envio ficam desativados. O código da planilha está em `scripts/planilha-apps-script.gs`.
+- `CONVITES`: a lista de convites que aparece na busca da confirmação de presença.
 - `PRESENTES`: a lista de presentes. Cada item tem nome, categoria, valor, foto, QR Code e o código Pix Copia e Cola.
 - `linkCartao`: cole o link de pagamento do presente (Mercado Pago, PagBank…) para aparecer a opção de cartão.
 

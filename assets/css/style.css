@@ -214,6 +214,23 @@ h1, h2, h3, p { margin: 0; }
 .aviso-whats { margin-top: 22px; padding: 24px 20px; border-radius: 18px; background: var(--azul); color: var(--azul-texto); display: flex; flex-direction: column; gap: 12px; text-align: center; }
 .aviso-whats .script { font-size: 36px; }
 .metodo[hidden], .abas[hidden] { display: none; }
+.confirma-presente { margin-top: 22px; padding: 28px 22px; border-radius: 20px; background: var(--azul); color: var(--sepia); }
+.confirma-form, .presente-obrigado { display: flex; flex-direction: column; gap: 10px; max-width: 520px; margin: 0 auto; }
+.confirma-form > .script, .presente-obrigado .script { font-size: 38px; text-align: center; }
+.confirma-form > p:not(.form-aviso), .presente-obrigado p { font-size: 13px; text-align: center; margin-bottom: 6px; }
+.confirma-form label { font-family: var(--serif); font-size: 16px; padding-left: 6px; margin-top: 4px; }
+.confirma-form label span { font-size: 13px; opacity: .7; }
+.confirma-form input, .confirma-form textarea { width: 100%; border: 1px solid var(--bege); background: var(--creme); color: var(--marrom); font: 16px var(--serif); }
+.confirma-form input { min-height: 52px; padding: 0 24px; border-radius: 999px; }
+.confirma-form textarea { padding: 14px 22px; border-radius: 26px; resize: vertical; min-height: 96px; line-height: 1.5; }
+.confirma-form input::placeholder, .confirma-form textarea::placeholder { color: var(--marrom-claro); opacity: 1; }
+.confirma-form input:focus, .confirma-form textarea:focus { outline: 0; border-color: var(--azul-escuro); box-shadow: 0 0 0 3px rgba(94, 113, 124, .25); }
+.confirma-form .btn { margin-top: 8px; background: var(--marrom); border-color: var(--marrom); }
+.confirma-form .btn:disabled { opacity: .55; cursor: not-allowed; }
+.confirma-form .form-aviso { color: var(--sepia); min-height: 1em; }
+.presente-obrigado { align-items: center; }
+.presente-obrigado[hidden], .confirma-form[hidden], .form[hidden] { display: none; }
+.presente-obrigado .btn--outline { color: var(--sepia); border-color: var(--sepia); }
 
 /* ---------- Dicas ---------- */
 .dicas { padding: 40px 0 56px; }
@@ -339,6 +356,7 @@ h1, h2, h3, p { margin: 0; }
   .pag-metodos .metodo.sem-link { display: none; }
   .metodo { padding: 32px; }
   .metodo h2 { font-size: 26px; }
+  .confirma-presente { padding: 40px 36px; }
   .aviso-whats { flex-direction: row; justify-content: space-between; align-items: center; text-align: left; padding: 30px 36px; }
 
   .dicas { padding: 72px 0 100px; }
