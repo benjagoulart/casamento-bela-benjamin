@@ -64,7 +64,7 @@
   // Contagem regressiva
   var contador = $('[data-contador]');
   if (contador) {
-    var alvo = new Date('2027-03-27T16:00:00-03:00').getTime();
+    var alvo = new Date('2027-03-27T15:30:00-03:00').getTime();
     var campos = { d: $('[data-d]'), h: $('[data-h]'), m: $('[data-m]'), s: $('[data-s]') };
     var pad = function (n) { return String(n).padStart(2, '0'); };
     var tick = function () {
@@ -139,18 +139,80 @@
   var form = $('[data-form-presenca]');
   if (form) {
     var aviso = $('[data-form-aviso]');
+    var avisoPadrao = aviso.textContent;
+    var CONVITES = window.CONVITES || [];
+    var campo = form.nome;
+    var lista = $('#sugestoes');
+    var escolhido = '';
+    var ativo = -1;
+    var semAcento = function (s) { return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim(); };
+
+    // Mostra só os convites que combinam com o que foi digitado (a partir de 2 letras, no máximo 4)
+    var buscar = function () {
+      var t = semAcento(campo.value).replace(/\s+/g, ' ');
+      if (t.length < 2) return [];
+      return CONVITES.filter(function (c) { return semAcento(c).indexOf(t) !== -1; }).slice(0, 4);
+    };
+    var fechar = function () { lista.hidden = true; lista.innerHTML = ''; ativo = -1; campo.setAttribute('aria-expanded', 'false'); };
+    var marcarAtivo = function () {
+      $all('li', lista).forEach(function (li, i) { li.setAttribute('aria-selected', i === ativo ? 'true' : 'false'); });
+    };
+    var escolher = function (nome) {
+      escolhido = nome; campo.value = nome; fechar();
+      aviso.textContent = avisoPadrao;
+    };
+    var mostrar = function () {
+      var achados = buscar();
+      ativo = -1;
+      if (!achados.length) {
+        if (semAcento(campo.value).length >= 2) {
+          lista.innerHTML = '<li class="sugestao-vazia" aria-disabled="true">Não encontramos esse nome na lista. Tente só o primeiro nome.</li>';
+          lista.hidden = false; campo.setAttribute('aria-expanded', 'true');
+        } else { fechar(); }
+        return;
+      }
+      lista.innerHTML = achados.map(function (c, i) {
+        return '<li role="option" id="sug-' + i + '" data-nome="' + esc(c) + '" aria-selected="false">' + esc(c) + '</li>';
+      }).join('');
+      lista.hidden = false; campo.setAttribute('aria-expanded', 'true');
+    };
+
+    campo.addEventListener('input', function () { escolhido = ''; mostrar(); });
+    campo.addEventListener('focus', function () { if (!escolhido) mostrar(); });
+    campo.addEventListener('keydown', function (e) {
+      var itens = $all('li[data-nome]', lista);
+      if (lista.hidden || !itens.length) return;
+      if (e.key === 'ArrowDown') { e.preventDefault(); ativo = (ativo + 1) % itens.length; marcarAtivo(); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); ativo = (ativo - 1 + itens.length) % itens.length; marcarAtivo(); }
+      else if (e.key === 'Enter') { e.preventDefault(); escolher(itens[ativo >= 0 ? ativo : 0].getAttribute('data-nome')); }
+      else if (e.key === 'Escape') { fechar(); }
+    });
+    // mousedown para escolher antes do campo perder o foco
+    lista.addEventListener('mousedown', function (e) {
+      var li = e.target.closest('li[data-nome]');
+      if (!li) return;
+      e.preventDefault();
+      escolher(li.getAttribute('data-nome'));
+    });
+    document.addEventListener('click', function (e) { if (!e.target.closest('.busca-nome')) fechar(); });
+
+    // Sem número de WhatsApp: dá para preencher, mas o envio fica desativado
+    var botao = $('button[type="submit"]', form);
     if (!SITE.whatsapp) {
-      $all('input, button', form).forEach(function (el) { el.disabled = true; });
-      aviso.textContent = 'As confirmações abrem em breve.';
+      botao.disabled = true;
+      aviso.textContent = avisoPadrao = 'As confirmações abrem em breve.';
     }
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var nome = form.nome.value.trim();
+      if (!SITE.whatsapp) return;
       var resp = form.querySelector('input[name="resposta"]:checked');
-      if (!nome || !resp) { aviso.textContent = 'Preencha seu nome e escolha uma opção.'; return; }
+      if (!escolhido) { aviso.textContent = 'Digite seu nome e escolha o seu convite na lista.'; campo.focus(); mostrar(); return; }
+      if (!resp) { aviso.textContent = 'Escolha uma das opções.'; return; }
+      var varios = / e /.test(escolhido);
       var texto = resp.value === 'sim'
-        ? 'Oi, Débora e Benjamin! Aqui é ' + nome + '. Confirmo minha presença no casamento de vocês em 27/03/2027!'
-        : 'Oi, Débora e Benjamin! Aqui é ' + nome + '. Infelizmente não poderei ir ao casamento, mas desejo tudo de mais lindo para vocês!';
+        ? 'Oi, Débora e Benjamin! Aqui é ' + escolhido + '. ' + (varios ? 'Confirmamos nossa presença' : 'Confirmo minha presença') + ' no casamento de vocês em 27/03/2027!'
+        : 'Oi, Débora e Benjamin! Aqui é ' + escolhido + '. Infelizmente ' + (varios ? 'não poderemos ir' : 'não poderei ir') + ' ao casamento, mas ' + (varios ? 'desejamos' : 'desejo') + ' tudo de mais lindo para vocês!';
       window.open(whatsLink(texto), '_blank');
       form.hidden = true;
       $('.obrigado').style.display = 'flex';

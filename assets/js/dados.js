@@ -8,6 +8,42 @@ window.SITE = {
   titularPix: 'Débora Meister Pereira',
   listaCamicado: 'https://www.camicado.com.br'
 };
+
+// Lista de convites (confirmação de presença). O convidado digita o nome e escolhe o convite dele.
+// Para incluir ou tirar alguém, edite aqui, um convite por linha, do jeito que está na tag do convite.
+window.CONVITES = [
+  'Everson e Adriana',
+  'Odete Langbauer',
+  'Hanna Meister',
+  'Paulo e Larissa',
+  'Rodrigo e Madalena',
+  'Pedro Goulart',
+  'Lindomar e Adelir',
+  'Robson Thomas e Família',
+  'Max Roberto e Família',
+  'Saimon e Família',
+  'Sibeli e Família',
+  'Edília Meister',
+  'Norvin e Enília',
+  'Marli da Silva',
+  'Niltamar Sazan',
+  'Miguel e Naura',
+  'Gildete da Silva',
+  'Zilma Sazan',
+  'Amanda Netto',
+  'Moacir e Soraia',
+  'Júlio e Família',
+  'Wellington e Yasmin',
+  'Claudiomar e Rosilene',
+  'Reverson e Família',
+  'Maria e Lara',
+  'Roberto Borges',
+  'Lucas Zanatta',
+  'Letícia May',
+  'Bruno Pavei',
+  'Pedro Semeniuk',
+  'Gabriel e Débora'
+];
 window.PRESENTES = [
   {
     "id": "09-jogo-de-facas-6-pecas-tramontina-plenus",

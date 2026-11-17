@@ -27,10 +27,10 @@
       <p>Sua presença vai deixar o nosso dia ainda mais especial. Responda até <strong>15 de fevereiro de 2027</strong> para organizarmos tudo com carinho.</p>
       <div class="lista-info">
         <div><span>DATA</span><strong>27 de março de 2027</strong></div>
-        <div><span>HORÁRIO</span><strong>16h</strong></div>
+        <div><span>HORÁRIO</span><strong>15h30</strong></div>
         <div><span>LOCAL</span><strong>Sonho Dourado · Morro da Fumaça</strong></div>
       </div>
-      <a href="/dicas" style="color:var(--azul-texto)">Ver dress code e como chegar →</a>
+      <a href="/dicas">Ver dress code e como chegar →</a>
     </div>
 
     <div class="convite">
@@ -41,7 +41,10 @@
         <div class="divisor"></div>
         <form class="form" data-form-presenca novalidate>
           <label for="nome">Seu nome</label>
-          <input id="nome" name="nome" type="text" placeholder="Nome e sobrenome" autocomplete="name" required>
+          <div class="busca-nome">
+            <input id="nome" name="nome" type="text" placeholder="Comece a digitar seu nome" autocomplete="off" autocapitalize="words" spellcheck="false" required role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="sugestoes">
+            <ul class="sugestoes" id="sugestoes" role="listbox" hidden></ul>
+          </div>
           <fieldset>
             <legend>Você vai comemorar conosco?</legend>
             <label class="opcao"><input type="radio" name="resposta" value="sim"> Sim! Já estou com a roupa de ir.</label>
@@ -60,7 +63,7 @@
 
     <div class="info-faixa presenca-mobile-info">
       <div><span>DATA</span><strong>27 · 03 · 27</strong></div>
-      <div><span>HORÁRIO</span><strong>16h</strong></div>
+      <div><span>HORÁRIO</span><strong>15h30</strong></div>
       <div><span>LOCAL</span><strong>Sonho Dourado</strong></div>
     </div>
   </div>
