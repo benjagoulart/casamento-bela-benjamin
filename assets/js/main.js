@@ -136,6 +136,16 @@
       cartao.classList.add('sem-link');
     }
 
+    // QR Code: no celular fica escondido até a pessoa pedir
+    var qrBox = $('[data-pix-qr]'), qrBtn = $('[data-qr-toggle]');
+    if (qrBox && qrBtn) {
+      qrBtn.addEventListener('click', function () {
+        var aberto = qrBox.classList.toggle('aberto');
+        qrBtn.setAttribute('aria-expanded', aberto ? 'true' : 'false');
+        qrBtn.textContent = aberto ? 'Esconder QR Code' : 'Prefere o QR Code? Mostrar';
+      });
+    }
+
     // Confirmação do presente (vai para a planilha)
     var fp = $('[data-form-presente]');
     if (fp) {

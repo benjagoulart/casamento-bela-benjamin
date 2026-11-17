@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Quattrocento:wght@400;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/style.css?v=20261117d">
+<link rel="stylesheet" href="/assets/css/style.css?v=20261117f">
 </head>
 <body>
 <div class="pag-topo">
@@ -20,60 +20,74 @@
   <a class="logo" href="/" aria-label="Início"><img src="/assets/img/mono-escuro.png" alt="Monograma B/D" width="27" height="40"></a>
 </div>
 <main class="pag" data-pagamento>
-  <div class="container" style="max-width:1160px">
+  <div class="container pag-container">
     <div class="card pag-resumo">
       <div class="presente-img" data-p-img></div>
       <div><span class="kicker muted">Você está presenteando</span><strong data-p-nome></strong><span class="preco preco-mobile" data-p-valor></span></div>
       <span class="preco preco-desktop" data-p-valor></span>
     </div>
 
-    <div class="abas" role="tablist" aria-label="Forma de pagamento">
-      <button class="aba" type="button" role="tab" data-aba="pix" aria-selected="true">PIX</button>
-      <button class="aba" type="button" role="tab" data-aba="cartao" aria-selected="false">CARTÃO</button>
-    </div>
+    <div class="pag-grid">
+      <div class="pag-pagar">
+        <span class="passo"><b>1</b> Faça o pagamento</span>
 
-    <div class="pag-metodos">
-      <div class="card metodo" data-metodo="pix">
-        <span class="kicker" style="color:var(--azul-escuro)">Sem taxas · cai na hora</span>
-        <h2>Pix Copia e Cola</h2>
-        <p class="muted" style="font-size:13px">Copie o código e cole no app do seu banco, na opção “Pix Copia e Cola”. O valor já vem preenchido.</p>
-        <div class="codigo" id="codigo-pix"></div>
-        <button class="btn" type="button" data-copiar="codigo-pix">Copiar código Pix</button>
-        <h2 style="margin-top:12px">Ou escaneie o QR Code</h2>
-        <img class="qr" data-p-qr src="" alt="" width="200" height="200">
-        <p class="titular" data-titular></p>
-      </div>
-      <div class="card metodo" data-metodo="cartao" hidden>
-        <h2>Cartão de crédito</h2>
-        <p class="muted" style="font-size:13px">Você será levado a uma página segura de pagamento para concluir. O parcelamento pode ter acréscimo.</p>
-        <a class="btn" data-link-cartao href="#" target="_blank" rel="noopener">Pagar com cartão</a>
-      </div>
-    </div>
+        <div class="abas" role="tablist" aria-label="Forma de pagamento">
+          <button class="aba" type="button" role="tab" data-aba="pix" aria-selected="true">PIX</button>
+          <button class="aba" type="button" role="tab" data-aba="cartao" aria-selected="false">CARTÃO</button>
+        </div>
 
-    <section class="confirma-presente" data-presente-box>
-      <form class="confirma-form" data-form-presente novalidate>
-        <span class="script">Conta pra gente!</span>
-        <p>Depois de pagar, deixe seu nome aqui para sabermos quem nos presenteou.</p>
-        <label for="quem">Seu nome</label>
-        <input id="quem" name="quem" type="text" placeholder="Nome e sobrenome" autocomplete="name" maxlength="120" required>
-        <label for="recado">Recado para os noivos <span>(opcional)</span></label>
-        <textarea id="recado" name="recado" rows="3" maxlength="1000" placeholder="Escreva uma mensagem com carinho"></textarea>
-        <button class="btn" type="submit" data-botao-presente>Já fiz o Pix</button>
-        <p class="form-aviso" data-presente-aviso aria-live="polite"></p>
-      </form>
-      <div class="presente-obrigado" data-presente-obrigado hidden>
-        <span class="script">Muito obrigado!</span>
-        <p data-presente-obrigado-texto>Recebemos seu presente com muito carinho.</p>
-        <a class="btn btn--outline btn--sm" href="/presentes">Ver a lista de presentes</a>
+        <div class="pag-metodos">
+          <div class="card metodo" data-metodo="pix">
+            <span class="kicker" style="color:var(--azul-escuro)">Sem taxas · cai na hora</span>
+            <h2>Pix Copia e Cola</h2>
+            <p class="muted metodo-ajuda">Copie o código e cole no app do seu banco, na opção “Pix Copia e Cola”. O valor já vem preenchido.</p>
+            <div class="codigo" id="codigo-pix"></div>
+            <button class="btn" type="button" data-copiar="codigo-pix">Copiar código Pix</button>
+            <div class="pix-qr" data-pix-qr>
+              <button class="qr-toggle" type="button" aria-expanded="false" data-qr-toggle>Prefere o QR Code? Mostrar</button>
+              <div class="qr-area">
+                <img class="qr" data-p-qr src="" alt="" width="180" height="180">
+                <div class="qr-texto"><h2>Ou escaneie o QR Code</h2><p class="muted">Abra o app do banco, escolha pagar com Pix e aponte a câmera.</p></div>
+              </div>
+            </div>
+            <p class="titular" data-titular></p>
+          </div>
+          <div class="card metodo" data-metodo="cartao" hidden>
+            <h2>Cartão de crédito</h2>
+            <p class="muted metodo-ajuda">Você será levado a uma página segura de pagamento para concluir. O parcelamento pode ter acréscimo.</p>
+            <a class="btn" data-link-cartao href="#" target="_blank" rel="noopener">Pagar com cartão</a>
+          </div>
+        </div>
       </div>
-    </section>
+
+      <aside class="pag-conta">
+        <span class="passo"><b>2</b> Conta pra gente</span>
+        <section class="confirma-presente" data-presente-box>
+          <form class="confirma-form" data-form-presente novalidate>
+            <span class="script">Conta pra gente!</span>
+            <p class="confirma-intro">Depois de pagar, deixe seu nome aqui para sabermos quem nos presenteou.</p>
+            <label for="quem">Seu nome</label>
+            <input id="quem" name="quem" type="text" placeholder="Nome e sobrenome" autocomplete="name" maxlength="120" required>
+            <label for="recado">Recado para os noivos <span>(opcional)</span></label>
+            <textarea id="recado" name="recado" rows="3" maxlength="1000" placeholder="Escreva uma mensagem com carinho"></textarea>
+            <button class="btn" type="submit" data-botao-presente>Já fiz o Pix</button>
+            <p class="form-aviso" data-presente-aviso aria-live="polite"></p>
+          </form>
+          <div class="presente-obrigado" data-presente-obrigado hidden>
+            <span class="script">Muito obrigado!</span>
+            <p data-presente-obrigado-texto>Recebemos seu presente com muito carinho.</p>
+            <a class="btn btn--outline btn--sm" href="/presentes">Ver a lista de presentes</a>
+          </div>
+        </section>
+      </aside>
+    </div>
   </div>
 </main>
 <footer class="site-footer">
   <span class="script">Débora e Benjamin</span>
   <span>27 · 03 · 2027</span>
 </footer>
-<script src="/assets/js/dados.js?v=20261117d"></script>
-<script src="/assets/js/main.js?v=20261117d"></script>
+<script src="/assets/js/dados.js?v=20261117f"></script>
+<script src="/assets/js/main.js?v=20261117f"></script>
 </body>
 </html>

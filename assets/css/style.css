@@ -205,21 +205,32 @@ h1, h2, h3, p { margin: 0; }
 .abas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; padding: 5px; margin: 18px 0 14px; background: var(--bege-claro); border-radius: 999px; }
 .aba { min-height: 44px; border: 0; border-radius: 999px; background: transparent; color: var(--tinta); font: 500 12px var(--mono); letter-spacing: 2px; cursor: pointer; }
 .aba[aria-selected="true"] { background: var(--tinta); color: var(--creme); }
-.pag-metodos { display: grid; gap: 14px; margin-top: 14px; }
+.pag-metodos { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; margin-top: 14px; }
+.metodo, .codigo { min-width: 0; max-width: 100%; }
 .metodo { padding: 22px 20px; display: flex; flex-direction: column; gap: 12px; }
 .metodo h2 { font-family: var(--serif); font-weight: 400; font-size: 20px; }
 .codigo { background: var(--bege-claro); border-radius: 10px; padding: 14px; font-size: 12px; line-height: 1.5; word-break: break-all; user-select: all; }
-.qr { width: 200px; height: 200px; margin: 0 auto; image-rendering: pixelated; }
+.qr { width: 180px; height: 180px; margin: 0 auto; image-rendering: pixelated; }
+.pag-container { max-width: 1160px; }
+.passo { display: flex; align-items: center; gap: 10px; margin: 28px 0 4px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--azul-escuro); }
+.passo b { flex: 0 0 26px; width: 26px; height: 26px; border-radius: 50%; background: var(--marrom); color: var(--creme); display: grid; place-content: center; font-weight: 500; font-size: 12px; letter-spacing: 0; }
+.metodo-ajuda { font-size: 13px; }
+.pix-qr { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.qr-toggle { border: 0; background: transparent; color: var(--azul-escuro); font: 12px var(--mono); letter-spacing: 1px; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; min-height: 44px; }
+.qr-area { display: none; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+.pix-qr.aberto .qr-area { display: flex; }
+.qr-texto h2 { font-family: var(--serif); font-weight: 400; font-size: 20px; }
+.qr-texto p { font-size: 13px; }
 .titular { font-size: 11px; color: var(--texto); text-align: center; }
 .aviso-whats { margin-top: 22px; padding: 24px 20px; border-radius: 18px; background: var(--azul); color: var(--azul-texto); display: flex; flex-direction: column; gap: 12px; text-align: center; }
 .aviso-whats .script { font-size: 36px; }
 .metodo[hidden], .abas[hidden] { display: none; }
-.confirma-presente { margin-top: 22px; padding: 28px 22px; border-radius: 20px; background: var(--azul); color: var(--sepia); }
+.confirma-presente { margin-top: 12px; padding: 30px 22px; border-radius: 20px; background: var(--azul); color: var(--sepia); }
 .confirma-form, .presente-obrigado { display: flex; flex-direction: column; gap: 10px; max-width: 520px; margin: 0 auto; }
-.confirma-form > .script, .presente-obrigado .script { font-size: 38px; text-align: center; }
-.confirma-form > p:not(.form-aviso), .presente-obrigado p { font-size: 13px; text-align: center; margin-bottom: 6px; }
-.confirma-form label { font-family: var(--serif); font-size: 16px; padding-left: 6px; margin-top: 4px; }
-.confirma-form label span { font-size: 13px; opacity: .7; }
+.confirma-form > .script, .presente-obrigado .script { font-size: 46px; text-align: center; }
+.confirma-form > p:not(.form-aviso), .presente-obrigado p { font-family: var(--serif); font-size: 17px; line-height: 1.5; text-align: center; margin-bottom: 8px; }
+.confirma-form label { font-family: var(--serif); font-size: 17px; padding-left: 6px; margin-top: 4px; }
+.confirma-form label span { font-size: 14px; opacity: .7; }
 .confirma-form input, .confirma-form textarea { width: 100%; border: 1px solid var(--bege); background: var(--creme); color: var(--marrom); font: 16px var(--serif); }
 .confirma-form input { min-height: 52px; padding: 0 24px; border-radius: 999px; }
 .confirma-form textarea { padding: 14px 22px; border-radius: 26px; resize: vertical; min-height: 96px; line-height: 1.5; }
@@ -230,6 +241,10 @@ h1, h2, h3, p { margin: 0; }
 .confirma-form .form-aviso { color: var(--sepia); min-height: 1em; }
 .presente-obrigado { align-items: center; }
 .presente-obrigado[hidden], .confirma-form[hidden], .form[hidden] { display: none; }
+@media (max-width: 899px) {
+  .codigo { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; word-break: normal; padding: 12px 16px; }
+  .confirma-form > .script, .presente-obrigado .script { font-size: 40px; }
+}
 .presente-obrigado .btn--outline { color: var(--sepia); border-color: var(--sepia); }
 
 /* ---------- Dicas ---------- */
@@ -342,7 +357,7 @@ h1, h2, h3, p { margin: 0; }
   .extra-pix .script { font-size: 46px; }
 
   .pag-topo { max-width: 1160px; margin: 0 auto; padding: 32px 40px 0; border: 0; }
-  .pag { padding: 40px 0 100px; }
+  .pag { padding: 32px 0 90px; }
   .pag-resumo { padding: 22px; gap: 22px; }
   .pag-resumo .presente-img { flex-basis: 96px; width: 96px; height: 96px; }
   .pag-resumo strong { font-size: 30px; }
@@ -351,12 +366,21 @@ h1, h2, h3, p { margin: 0; }
   .preco-desktop { display: block; }
   .atalho svg { display: none; }
   .abas { display: none; }
-  .pag-metodos { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; margin-top: 24px; }
+  .pag-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 36px; align-items: start; }
+  .pag-conta { position: sticky; top: 24px; }
+  .passo { margin-top: 30px; font-size: 13px; }
+  .pag-metodos { grid-template-columns: minmax(0, 1fr); gap: 20px; margin-top: 12px; }
+  .qr-toggle { display: none; }
+  .pix-qr { align-items: stretch; }
+  .qr-area, .pix-qr.aberto .qr-area { display: flex; flex-direction: row; align-items: center; gap: 24px; text-align: left; padding-top: 6px; }
+  .qr-area .qr { flex: 0 0 160px; width: 160px; height: 160px; margin: 0; }
+  .qr-texto h2 { font-size: 24px; margin-bottom: 6px; }
   .pag-metodos .metodo[hidden] { display: flex; }
   .pag-metodos .metodo.sem-link { display: none; }
   .metodo { padding: 32px; }
   .metodo h2 { font-size: 26px; }
-  .confirma-presente { padding: 40px 36px; }
+  .confirma-presente { padding: 38px 36px; }
+  .confirma-form > .script, .presente-obrigado .script { font-size: 54px; }
   .aviso-whats { flex-direction: row; justify-content: space-between; align-items: center; text-align: left; padding: 30px 36px; }
 
   .dicas { padding: 72px 0 100px; }
