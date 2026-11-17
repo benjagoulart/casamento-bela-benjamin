@@ -250,17 +250,38 @@
     window.addEventListener('hashchange', mostrarPasta);
     mostrarPasta();
 
-    var lb = $('[data-lightbox]'), lbImg = $('[data-lb-img]'), lbCont = $('[data-lb-contador]');
+    // Fotos "live": o vídeo roda sozinho quando aparece na tela e para quando sai
+    var vivos = $all('.foto--live video');
+    var parado = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (vivos.length && !parado && 'IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function (itens) {
+        itens.forEach(function (it) {
+          var v = it.target;
+          if (it.isIntersecting) { v.preload = 'auto'; var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+          else v.pause();
+        });
+      }, { threshold: 0.35 });
+      vivos.forEach(function (v) { obs.observe(v); });
+    }
+
+    var lb = $('[data-lightbox]'), lbImg = $('[data-lb-img]'), lbVid = $('[data-lb-video]'), lbCont = $('[data-lb-contador]');
     var fotos = $all('[data-foto]'), atual = 0;
     var abrir = function (i) {
       atual = (i + fotos.length) % fotos.length;
-      var f = fotos[atual];
-      lbImg.src = f.getAttribute('data-grande');
-      lbImg.alt = $('img', f).alt;
+      var f = fotos[atual], video = f.getAttribute('data-video');
+      if (video) {
+        lbImg.hidden = true; lbImg.src = '';
+        lbVid.hidden = false; lbVid.src = video; lbVid.poster = $('video', f).poster;
+        lbVid.setAttribute('aria-label', $('video', f).getAttribute('aria-label'));
+        var pv = lbVid.play(); if (pv && pv.catch) pv.catch(function () {});
+      } else {
+        lbVid.pause(); lbVid.hidden = true; lbVid.removeAttribute('src');
+        lbImg.hidden = false; lbImg.src = f.getAttribute('data-grande'); lbImg.alt = $('img', f).alt;
+      }
       lbCont.textContent = (atual + 1) + ' / ' + fotos.length;
       lb.hidden = false; document.body.style.overflow = 'hidden';
     };
-    var fechar = function () { lb.hidden = true; lbImg.src = ''; document.body.style.overflow = ''; fotos[atual].focus(); };
+    var fechar = function () { lb.hidden = true; lbImg.src = ''; lbVid.pause(); lbVid.removeAttribute('src'); document.body.style.overflow = ''; fotos[atual].focus(); };
     fotos.forEach(function (f, i) { f.addEventListener('click', function () { abrir(i); }); });
     $('[data-lb-fechar]').addEventListener('click', fechar);
     $('[data-lb-ant]').addEventListener('click', function () { abrir(atual - 1); });

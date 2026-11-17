@@ -396,6 +396,13 @@ h1, h2, h3, p { margin: 0; }
 .foto { display: block; width: 100%; margin: 0 0 10px; padding: 0; border: 0; background: var(--bege-claro); border-radius: 12px; overflow: hidden; cursor: zoom-in; break-inside: avoid; }
 .foto img { width: 100%; height: auto; display: block; transition: transform .5s ease; }
 .foto:hover img { transform: scale(1.03); }
+.foto { position: relative; }
+.foto video { width: 100%; height: auto; display: block; }
+.selo-live { position: absolute; top: 8px; left: 8px; padding: 3px 8px 3px 20px; border-radius: 999px; background: rgba(255, 253, 241, .85); color: var(--marrom); font: 500 9px var(--mono); letter-spacing: 1.5px; }
+.selo-live::before { content: ''; position: absolute; left: 7px; top: 50%; width: 7px; height: 7px; margin-top: -3.5px; border-radius: 50%; border: 1.5px solid var(--oliva); box-sizing: border-box; animation: pulso 2s ease-in-out infinite; }
+@keyframes pulso { 50% { transform: scale(1.5); opacity: .4; } }
+.lightbox video { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 6px; box-shadow: 0 20px 60px rgba(0, 0, 0, .35); }
+.lightbox video[hidden], .lightbox img[hidden] { display: none; }
 .em-breve { text-align: center; padding: 48px 24px; border-radius: 22px; background: var(--azul); color: var(--marrom); display: flex; flex-direction: column; gap: 12px; align-items: center; }
 .em-breve .script { font-size: 52px; }
 .em-breve p { font-family: var(--serif); font-size: 17px; line-height: 1.6; max-width: 36ch; }
