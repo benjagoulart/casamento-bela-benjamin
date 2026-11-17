@@ -15,8 +15,10 @@
 
   var ICONES = {
     'Cozinha': '<path d="M4 11h16v2a6 6 0 0 1-6 6h-4a6 6 0 0 1-6-6z"/><path d="M1.5 11.5H4M20 11.5h2.5"/><path d="M8 8.5c0-1.4 1.8-2.5 4-2.5s4 1.1 4 2.5"/><path d="M12 4v2"/>',
-    'Mesa & Bar': '<path d="M5 3h5v4a2.5 2.5 0 0 1-5 0z"/><path d="M7.5 9.5V18M5.5 20h4"/><path d="M14 3h5v4a2.5 2.5 0 0 1-5 0z"/><path d="M16.5 9.5V18M14.5 20h4"/>',
-    'Casa': '<path d="M9 3h6"/><path d="M10 3v3.5C7.5 8 6 10.5 6 13.5a6 6 0 0 0 12 0c0-3-1.5-5.5-4-7V3"/><path d="M7 14h10"/>',
+    'Mesa posta': '<circle cx="12" cy="12" r="6.5"/><circle cx="12" cy="12" r="3.5"/><path d="M3 4v6M4.5 4v6M3 10c0 1 .7 1.5 1.5 1.5V20M21 4c-1.5 0-2.5 2-2.5 5s1 3 2.5 3v8"/>',
+    'Bar & drinks': '<path d="M5 3h5v4a2.5 2.5 0 0 1-5 0z"/><path d="M7.5 9.5V18M5.5 20h4"/><path d="M14 3h5v4a2.5 2.5 0 0 1-5 0z"/><path d="M16.5 9.5V18M14.5 20h4"/>',
+    'Decoração': '<path d="M9 3h6"/><path d="M10 3v3.5C7.5 8 6 10.5 6 13.5a6 6 0 0 0 12 0c0-3-1.5-5.5-4-7V3"/><path d="M7 14h10"/>',
+    'Casa': '<path d="M3 11l9-7 9 7"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-6h4v6"/>',
     'Cama & Banho': '<path d="M3 19v-7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v7"/><path d="M3 15h18"/><path d="M6 10V7.5A1.5 1.5 0 0 1 7.5 6h3A1.5 1.5 0 0 1 12 7.5V10"/>',
     'Lua de mel': '<path d="M21 4L3 11l6.5 2.5L12 20z"/><path d="M9.5 13.5L21 4"/>',
     'Valor livre': '<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>'
@@ -227,6 +229,56 @@
           });
       });
     }
+  }
+
+  // Álbum: pastas e foto ampliada
+  var pastas = $all('[data-pasta]');
+  if (pastas.length) {
+    var mostrarPasta = function () {
+      var nome = (location.hash || '#nossa-historia').slice(1);
+      if (!$('[data-conteudo="' + nome + '"]')) nome = 'nossa-historia';
+      pastas.forEach(function (a) { a.setAttribute('aria-current', a.getAttribute('data-pasta') === nome ? 'true' : 'false'); });
+      $all('[data-conteudo]').forEach(function (c) { c.hidden = c.getAttribute('data-conteudo') !== nome; });
+    };
+    pastas.forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        history.replaceState(null, '', a.getAttribute('href'));
+        mostrarPasta();
+      });
+    });
+    window.addEventListener('hashchange', mostrarPasta);
+    mostrarPasta();
+
+    var lb = $('[data-lightbox]'), lbImg = $('[data-lb-img]'), lbCont = $('[data-lb-contador]');
+    var fotos = $all('[data-foto]'), atual = 0;
+    var abrir = function (i) {
+      atual = (i + fotos.length) % fotos.length;
+      var f = fotos[atual];
+      lbImg.src = f.getAttribute('data-grande');
+      lbImg.alt = $('img', f).alt;
+      lbCont.textContent = (atual + 1) + ' / ' + fotos.length;
+      lb.hidden = false; document.body.style.overflow = 'hidden';
+    };
+    var fechar = function () { lb.hidden = true; lbImg.src = ''; document.body.style.overflow = ''; fotos[atual].focus(); };
+    fotos.forEach(function (f, i) { f.addEventListener('click', function () { abrir(i); }); });
+    $('[data-lb-fechar]').addEventListener('click', fechar);
+    $('[data-lb-ant]').addEventListener('click', function () { abrir(atual - 1); });
+    $('[data-lb-prox]').addEventListener('click', function () { abrir(atual + 1); });
+    lb.addEventListener('click', function (e) { if (e.target === lb) fechar(); });
+    document.addEventListener('keydown', function (e) {
+      if (lb.hidden) return;
+      if (e.key === 'Escape') fechar();
+      if (e.key === 'ArrowLeft') abrir(atual - 1);
+      if (e.key === 'ArrowRight') abrir(atual + 1);
+    });
+    var x0 = null;
+    lb.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+    lb.addEventListener('touchend', function (e) {
+      if (x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0; x0 = null;
+      if (Math.abs(dx) > 50) abrir(atual + (dx < 0 ? 1 : -1));
+    });
   }
 
   // Confirmação de presença (vai para a planilha)

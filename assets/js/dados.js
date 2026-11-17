@@ -89,7 +89,7 @@ window.PRESENTES = [
   {
     "id": "07-kit-para-queijos-com-5-pecas-madeira",
     "nome": "Kit para queijos em madeira (5 peças)",
-    "categoria": "Mesa & Bar",
+    "categoria": "Mesa posta",
     "valor": 180.0,
     "imagem": "/assets/img/presentes/07-kit-para-queijos-com-5-pecas-madeira.jpg",
     "qr": "/assets/pix/07-kit-para-queijos-com-5-pecas-madeira.png",
@@ -99,7 +99,7 @@ window.PRESENTES = [
   {
     "id": "08-jogo-de-tacas-de-vinho-6-pecas-bohemia-xtra-sommelier",
     "nome": "Taças de vinho Bohemia Sommelier (6 peças)",
-    "categoria": "Mesa & Bar",
+    "categoria": "Bar & drinks",
     "valor": 180.0,
     "imagem": "/assets/img/presentes/08-jogo-de-tacas-de-vinho-6-pecas-bohemia-xtra-sommelier.jpg",
     "qr": "/assets/pix/08-jogo-de-tacas-de-vinho-6-pecas-bohemia-xtra-sommelier.png",
@@ -129,7 +129,7 @@ window.PRESENTES = [
   {
     "id": "16-conjunto-de-porta-copos-de-gres-com-frutas-zara-home",
     "nome": "Porta-copos de grês com frutas Zara Home",
-    "categoria": "Mesa & Bar",
+    "categoria": "Bar & drinks",
     "valor": 199.9,
     "imagem": "/assets/img/presentes/16-conjunto-de-porta-copos-de-gres-com-frutas-zara-home.jpg",
     "qr": "/assets/pix/16-conjunto-de-porta-copos-de-gres-com-frutas-zara-home.png",
@@ -169,7 +169,7 @@ window.PRESENTES = [
   {
     "id": "12-box-mesa-posta-4-lugares-sao-joao-mocca-copa-cia",
     "nome": "Box mesa posta para 4 pessoas Copa&Cia",
-    "categoria": "Mesa & Bar",
+    "categoria": "Mesa posta",
     "valor": 215.0,
     "imagem": "/assets/img/presentes/12-box-mesa-posta-4-lugares-sao-joao-mocca-copa-cia.jpg",
     "qr": "/assets/pix/12-box-mesa-posta-4-lugares-sao-joao-mocca-copa-cia.png",
@@ -179,7 +179,7 @@ window.PRESENTES = [
   {
     "id": "15-vaso-decorativo-de-ceramica-creme-zara-home",
     "nome": "Vaso de cerâmica creme Zara Home",
-    "categoria": "Casa",
+    "categoria": "Decoração",
     "valor": 269.9,
     "imagem": "/assets/img/presentes/15-vaso-decorativo-de-ceramica-creme-zara-home.jpg",
     "qr": "/assets/pix/15-vaso-decorativo-de-ceramica-creme-zara-home.png",
@@ -189,7 +189,7 @@ window.PRESENTES = [
   {
     "id": "14-relogio-calendario-flip-alarme-zara-home",
     "nome": "Relógio calendário flip Zara Home",
-    "categoria": "Casa",
+    "categoria": "Decoração",
     "valor": 289.9,
     "imagem": "/assets/img/presentes/14-relogio-calendario-flip-alarme-zara-home.jpg",
     "qr": "/assets/pix/14-relogio-calendario-flip-alarme-zara-home.png",
@@ -249,7 +249,7 @@ window.PRESENTES = [
   {
     "id": "19-abajur-de-mesa-sem-fios-de-vidro-zara-home",
     "nome": "Abajur de vidro sem fio Zara Home",
-    "categoria": "Casa",
+    "categoria": "Decoração",
     "valor": 379.9,
     "imagem": "/assets/img/presentes/19-abajur-de-mesa-sem-fios-de-vidro-zara-home.jpg",
     "qr": "/assets/pix/19-abajur-de-mesa-sem-fios-de-vidro-zara-home.png",
@@ -259,7 +259,7 @@ window.PRESENTES = [
   {
     "id": "20-bandeja-alta-de-ceramica-craquelada-zara-home",
     "nome": "Bandeja alta de cerâmica craquelada Zara Home",
-    "categoria": "Mesa & Bar",
+    "categoria": "Mesa posta",
     "valor": 379.9,
     "imagem": "/assets/img/presentes/20-bandeja-alta-de-ceramica-craquelada-zara-home.jpg",
     "qr": "/assets/pix/20-bandeja-alta-de-ceramica-craquelada-zara-home.png",
@@ -269,7 +269,7 @@ window.PRESENTES = [
   {
     "id": "21-bandeja-dobravel-com-alcas-zara-home",
     "nome": "Bandeja dobrável com alças Zara Home",
-    "categoria": "Casa",
+    "categoria": "Decoração",
     "valor": 379.9,
     "imagem": "/assets/img/presentes/21-bandeja-dobravel-com-alcas-zara-home.jpg",
     "qr": "/assets/pix/21-bandeja-dobravel-com-alcas-zara-home.png",
@@ -279,7 +279,7 @@ window.PRESENTES = [
   {
     "id": "25-luminaria-arandela-de-parede-de-vidro-zara-home",
     "nome": "Arandela de vidro Zara Home",
-    "categoria": "Casa",
+    "categoria": "Decoração",
     "valor": 379.9,
     "imagem": "/assets/img/presentes/25-luminaria-arandela-de-parede-de-vidro-zara-home.jpg",
     "qr": "/assets/pix/25-luminaria-arandela-de-parede-de-vidro-zara-home.png",
@@ -299,7 +299,7 @@ window.PRESENTES = [
   {
     "id": "22-prato-para-bolo-de-madeira-zara-home",
     "nome": "Prato para bolo de madeira Zara Home",
-    "categoria": "Mesa & Bar",
+    "categoria": "Mesa posta",
     "valor": 429.9,
     "imagem": "/assets/img/presentes/22-prato-para-bolo-de-madeira-zara-home.jpg",
     "qr": "/assets/pix/22-prato-para-bolo-de-madeira-zara-home.png",
@@ -399,7 +399,7 @@ window.PRESENTES = [
   {
     "id": "30-toca-disco-vinil-audio-technica-automatico",
     "nome": "Toca-discos Audio-Technica",
-    "categoria": "Casa",
+    "categoria": "Decoração",
     "valor": 1599.0,
     "imagem": "/assets/img/presentes/30-toca-disco-vinil-audio-technica-automatico.jpg",
     "qr": "/assets/pix/30-toca-disco-vinil-audio-technica-automatico.png",

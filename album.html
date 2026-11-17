@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Quattrocento:wght@400;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/style.css?v=20261117k">
+<link rel="stylesheet" href="/assets/css/style.css?v=20261117l">
 </head>
 <body>
 <div class="album-topo bg-foto" style="background-image:url('/assets/img/capa-flores.jpg')">
@@ -24,21 +24,75 @@
 </header>
   <div class="conteudo">
     <h1 class="script">Álbum de fotos</h1>
-    <span class="kicker">Nossos momentos favoritos</span>
+    <span class="kicker">Nossa história em fotos</span>
   </div>
 </div>
-<main class="container">
-  <div class="galeria">
-    <img src="/assets/img/casal-praia.jpg" alt="Débora e Benjamin abraçados na praia ao entardecer" loading="lazy">
-    <img src="/assets/img/casal-sepia.jpg" alt="Débora e Benjamin diante do mar" loading="lazy">
-    <img src="/assets/img/casal-selfie.jpg" alt="Débora e Benjamin sorrindo juntos" loading="lazy">
-    <img src="/assets/img/casal-noite.jpg" alt="Débora e Benjamin em um jantar" loading="lazy">
+<main class="album">
+  <div class="container">
+    <nav class="pastas" aria-label="Pastas do álbum">
+      <a class="pasta" href="#nossa-historia" data-pasta="nossa-historia" aria-current="true">
+        <span class="pasta-capa" style="background-image:url('/assets/img/album/10-p.jpg')"></span>
+        <span class="pasta-texto"><strong>Nossa história até agora</strong><span>16 fotos</span></span>
+      </a>
+      <a class="pasta" href="#pre-wedding" data-pasta="pre-wedding">
+        <span class="pasta-capa pasta-capa--breve" aria-hidden="true"></span>
+        <span class="pasta-texto"><strong>Pré-wedding</strong><span>Em breve</span></span>
+      </a>
+      <a class="pasta" href="#casamento" data-pasta="casamento">
+        <span class="pasta-capa pasta-capa--breve" aria-hidden="true"></span>
+        <span class="pasta-texto"><strong>Casamento</strong><span>Em breve</span></span>
+      </a>
+    </nav>
+
+    <section class="pasta-conteudo" id="pasta-nossa-historia" data-conteudo="nossa-historia">
+      <div class="pasta-titulo"><h2 class="serif-caps">Nossa história até agora</h2><p>Os momentos que trouxeram a Débora e o Benjamin até aqui. Toque em uma foto para ampliar.</p></div>
+      <div class="mural">
+      <button class="foto" type="button" data-foto="0" data-grande="/assets/img/album/01.jpg" aria-label="Ampliar: Débora e Benjamin arrumados, fotografando no espelho"><img src="/assets/img/album/01-p.jpg" alt="Débora e Benjamin arrumados, fotografando no espelho" width="405" height="720" loading="lazy"></button>
+      <button class="foto" type="button" data-foto="1" data-grande="/assets/img/album/02.jpg" aria-label="Ampliar: Benjamin beijando a testa da Débora"><img src="/assets/img/album/02-p.jpg" alt="Benjamin beijando a testa da Débora" width="720" height="540" loading="lazy"></button>
+      <button class="foto" type="button" data-foto="2" data-grande="/assets/img/album/03.jpg" aria-label="Ampliar: Débora e Benjamin abraçados em frente a balões"><img src="/assets/img/album/03-p.jpg" alt="Débora e Benjamin abraçados em frente a balões" width="720" height="466" loading="lazy"></button>
+      <button class="foto" type="button" data-foto="3" data-grande="/assets/img/album/04.jpg" aria-label="Ampliar: Débora e Benjamin abraçados à beira da lagoa"><img src="/assets/img/album/04-p.jpg" alt="Débora e Benjamin abraçados à beira da lagoa" width="540" height="720" loading="lazy"></button>
+      <button class="foto" type="button" data-foto="4" data-grande="/assets/img/album/05.jpg" aria-label="Ampliar: Débora e Benjamin sorrindo à beira da lagoa"><img src="/assets/img/album/05-p.jpg" alt="Débora e Benjamin sorrindo à beira da lagoa" width="540" height="720" loading="lazy"></button>
+      <button class="foto" type="button" data-foto="5" data-grande="/assets/img/album/06.jpg" aria-label="Ampliar: Selfie de Débora e Benjamin nas dunas da praia"><img src="/assets/img/album/06-p.jpg" alt="Selfie de Débora e Benjamin nas dunas da praia" width="720" height="404" loading="lazy"></button>
+      <button class="foto" type="button" data-foto="6" data-grande="/assets/img/album/07.jpg" aria-label="Ampliar: Débora brindando no Monastério"><img src="/assets/img/album/07-p.jpg" alt="Débora brindando no Monastério" width="540" height="720" loading="lazy"></button>
+      <button class="foto" type="button" data-foto="7" data-grande="/assets/img/album/08.jpg" aria-label="Ampliar: Débora e Benjamin sorrindo juntos"><img src="/assets/img/album/08-p.jpg" alt="Débora e Benjamin sorrindo juntos" width="720" height="540" loading="lazy"></button>
+      <button class="foto" type="button" data-foto="8" data-grande="/assets/img/album/09.jpg" aria-label="Ampliar: Selfie de Débora e Benjamin ao entardecer na praia"><img src="/assets/img/album/09-p.jpg" alt="Selfie de Débora e Benjamin ao entardecer na praia" width="540" height="720" loading="lazy"></button>
+      <button class="foto" type="button" data-foto="9" data-grande="/assets/img/album/10.jpg" aria-label="Ampliar: Débora e Benjamin mostrando o anel de noivado na praia"><img src="/assets/img/album/10-p.jpg" alt="Débora e Benjamin mostrando o anel de noivado na praia" width="720" height="540" loading="lazy"></button>
+      <button class="foto" type="button" data-foto="10" data-grande="/assets/img/album/11.jpg" aria-label="Ampliar: Débora com um buquê de flores e Benjamin no elevador"><img src="/assets/img/album/11-p.jpg" alt="Débora com um buquê de flores e Benjamin no elevador" width="540" height="720" loading="lazy"></button>
+      <button class="foto" type="button" data-foto="11" data-grande="/assets/img/album/12.jpg" aria-label="Ampliar: Débora e Benjamin abraçados em casa"><img src="/assets/img/album/12-p.jpg" alt="Débora e Benjamin abraçados em casa" width="720" height="540" loading="lazy"></button>
+      <button class="foto" type="button" data-foto="12" data-grande="/assets/img/album/13.jpg" aria-label="Ampliar: Débora e Benjamin em um jantar"><img src="/assets/img/album/13-p.jpg" alt="Débora e Benjamin em um jantar" width="720" height="479" loading="lazy"></button>
+      <button class="foto" type="button" data-foto="13" data-grande="/assets/img/album/14.jpg" aria-label="Ampliar: Selfie de Débora e Benjamin em um restaurante"><img src="/assets/img/album/14-p.jpg" alt="Selfie de Débora e Benjamin em um restaurante" width="720" height="479" loading="lazy"></button>
+      <button class="foto" type="button" data-foto="14" data-grande="/assets/img/album/15.jpg" aria-label="Ampliar: Benjamin tomando um chope"><img src="/assets/img/album/15-p.jpg" alt="Benjamin tomando um chope" width="479" height="720" loading="lazy"></button>
+      <button class="foto" type="button" data-foto="15" data-grande="/assets/img/album/16.jpg" aria-label="Ampliar: Débora e Benjamin abraçados à noite"><img src="/assets/img/album/16-p.jpg" alt="Débora e Benjamin abraçados à noite" width="405" height="720" loading="lazy"></button>
+      </div>
+    </section>
+
+    <section class="pasta-conteudo" data-conteudo="pre-wedding" hidden>
+      <div class="em-breve">
+        <span class="script">Em breve</span>
+        <p>As fotos do pré-wedding ainda vão ser tiradas. Assim que ficarem prontas, elas aparecem aqui.</p>
+      </div>
+    </section>
+
+    <section class="pasta-conteudo" data-conteudo="casamento" hidden>
+      <div class="em-breve">
+        <span class="script">Em breve</span>
+        <p>Depois do dia 27 de março de 2027, as fotos do casamento vão morar aqui. Quem sabe você não aparece em alguma?</p>
+      </div>
+    </section>
+  </div>
+
+  <div class="lightbox" data-lightbox hidden role="dialog" aria-modal="true" aria-label="Foto ampliada">
+    <button class="lb-fechar" type="button" data-lb-fechar aria-label="Fechar">×</button>
+    <button class="lb-nav lb-ant" type="button" data-lb-ant aria-label="Foto anterior">‹</button>
+    <img data-lb-img alt="">
+    <button class="lb-nav lb-prox" type="button" data-lb-prox aria-label="Próxima foto">›</button>
+    <span class="lb-contador" data-lb-contador></span>
   </div>
 </main>
 <footer class="site-footer">
   <span class="script">Débora e Benjamin</span>
   <span>27 · 03 · 2027</span>
 </footer>
-<script src="/assets/js/main.js?v=20261117k"></script>
+<script src="/assets/js/main.js?v=20261117l"></script>
 </body>
 </html>
