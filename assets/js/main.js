@@ -250,6 +250,48 @@
     window.addEventListener('hashchange', mostrarPasta);
     mostrarPasta();
 
+    // Mural em fileiras justificadas: cada foto/vídeo mantém a proporção original,
+    // cada fileira ocupa a largura toda e o conjunto fecha um retângulo (reto em cima e embaixo)
+    var mural = $('.mural');
+    if (mural) {
+      var pecas = $all('.foto', mural);
+      var prop = pecas.map(function (el) { var m = $('img, video', el); return (+m.getAttribute('width') || 1) / (+m.getAttribute('height') || 1); });
+      var larguraAnterior = 0;
+      var montar = function () {
+        var W = mural.clientWidth; if (!W || W === larguraAnterior) return; larguraAnterior = W;
+        var celular = W < 600, gap = celular ? 8 : 14, alvo = celular ? 210 : 320, maxPorFileira = celular ? 3 : 5;
+        var n = pecas.length, custo = [0], corte = [0];
+        // escolhe onde quebrar as fileiras para que todas fiquem perto da altura-alvo
+        for (var i = 1; i <= n; i++) {
+          custo[i] = Infinity;
+          for (var j = Math.max(0, i - maxPorFileira); j < i; j++) {
+            var soma = 0; for (var k = j; k < i; k++) soma += prop[k];
+            var h = (W - gap * (i - j - 1)) / soma;
+            var menor = Infinity; for (var k3 = j; k3 < i; k3++) menor = Math.min(menor, prop[k3] * h);
+            var c = custo[j] + Math.pow(h / alvo - 1, 2) * 100 + (i - j === 1 ? 1.5 : 0) + (celular && menor < W * 0.27 ? 40 : 0);
+            if (c < custo[i]) { custo[i] = c; corte[i] = j; }
+          }
+        }
+        var fileiras = []; for (var f = n; f > 0; f = corte[f]) fileiras.unshift([corte[f], f]);
+        mural.innerHTML = '';
+        fileiras.forEach(function (r) {
+          var linha = document.createElement('div'); linha.className = 'mural-fileira'; linha.style.gap = gap + 'px';
+          var soma = 0; for (var k = r[0]; k < r[1]; k++) soma += prop[k];
+          var h = (W - gap * (r[1] - r[0] - 1)) / soma;
+          for (var k2 = r[0]; k2 < r[1]; k2++) {
+            var el = pecas[k2];
+            el.style.width = (prop[k2] * h) + 'px'; el.style.height = h + 'px';
+            linha.appendChild(el);
+          }
+          mural.appendChild(linha);
+        });
+        mural.style.rowGap = gap + 'px';
+        mural.classList.add('mural--justificado');
+      };
+      montar();
+      var tMural; window.addEventListener('resize', function () { clearTimeout(tMural); tMural = setTimeout(montar, 120); });
+    }
+
     // Fotos "live": o vídeo roda sozinho quando aparece na tela e para quando sai
     var vivos = $all('.foto--live video');
     var parado = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
