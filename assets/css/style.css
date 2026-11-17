@@ -75,7 +75,7 @@ h1, h2, h3, p { margin: 0; }
 .bg-foto > .conteudo { position: relative; }
 
 /* ---------- Início ---------- */
-.hero { min-height: 600px; display: flex; flex-direction: column; background-image: url('/assets/img/flor.jpg'); }
+.hero { min-height: 600px; display: flex; flex-direction: column; background-image: url('/assets/img/capa-flores-celular.jpg'); }
 .hero .overlay { background: rgba(40, 32, 22, .55); }
 .hero .conteudo { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 90px 28px 56px; }
 .hero h1 { font-size: 68px; line-height: 1.05; margin-top: 22px; }
@@ -303,7 +303,7 @@ h1, h2, h3, p { margin: 0; }
   .site-footer { padding: 56px 24px; }
   .site-footer .script { font-size: 52px; }
 
-  .hero { min-height: 720px; background-image: url('/assets/img/hero-flores.jpg'); }
+  .hero { min-height: 720px; background-image: url('/assets/img/capa-flores.jpg'); }
   .hero .conteudo { padding: 120px 40px 40px; }
   .hero h1 { font-size: 104px; margin-top: 0; }
   .hero h1 br { display: none; }
