@@ -292,19 +292,30 @@
       var tMural; window.addEventListener('resize', function () { clearTimeout(tMural); tMural = setTimeout(montar, 120); });
     }
 
-    // Fotos "live": o vídeo roda sozinho quando aparece na tela e para quando sai
-    var vivos = $all('.foto--live video');
-    var parado = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (vivos.length && !parado && 'IntersectionObserver' in window) {
+    // Fotos "live": a foto fica por baixo e o vídeo aparece por cima quando começa a rodar.
+    // Se o celular não deixar tocar (ex.: economia de bateria), a foto continua aparecendo.
+    var vivos = $all('.live-video');
+    var tocar = function (v) {
+      v.muted = true; v.defaultMuted = true; v.playsInline = true;
+      var p = v.play(); if (p && p.catch) p.catch(function () {});
+    };
+    vivos.forEach(function (v) {
+      v.addEventListener('playing', function () { v.parentNode.classList.add('tocando'); });
+      tocar(v);
+    });
+    if (vivos.length && 'IntersectionObserver' in window) {
       var obs = new IntersectionObserver(function (itens) {
-        itens.forEach(function (it) {
-          var v = it.target;
-          if (it.isIntersecting) { v.preload = 'auto'; var p = v.play(); if (p && p.catch) p.catch(function () {}); }
-          else v.pause();
-        });
-      }, { threshold: 0.35 });
+        itens.forEach(function (it) { if (it.isIntersecting) tocar(it.target); else it.target.pause(); });
+      }, { threshold: 0.2 });
       vivos.forEach(function (v) { obs.observe(v); });
     }
+    // primeiro toque na página: tenta de novo (destrava vídeos no iPhone)
+    var destravar = function () {
+      vivos.forEach(function (v) { if (v.paused) tocar(v); });
+      document.removeEventListener('touchstart', destravar); document.removeEventListener('click', destravar);
+    };
+    document.addEventListener('touchstart', destravar, { passive: true });
+    document.addEventListener('click', destravar);
 
     var lb = $('[data-lightbox]'), lbImg = $('[data-lb-img]'), lbVid = $('[data-lb-video]'), lbCont = $('[data-lb-contador]');
     var fotos = $all('[data-foto]'), atual = 0;
@@ -313,8 +324,9 @@
       var f = fotos[atual], video = f.getAttribute('data-video');
       if (video) {
         lbImg.hidden = true; lbImg.src = '';
-        lbVid.hidden = false; lbVid.src = video; lbVid.poster = $('video', f).poster;
-        lbVid.setAttribute('aria-label', $('video', f).getAttribute('aria-label'));
+        lbVid.hidden = false; lbVid.muted = true; lbVid.playsInline = true;
+        lbVid.poster = $('.live-poster', f).src; lbVid.src = video;
+        lbVid.setAttribute('aria-label', $('.live-poster', f).alt);
         var pv = lbVid.play(); if (pv && pv.catch) pv.catch(function () {});
       } else {
         lbVid.pause(); lbVid.hidden = true; lbVid.removeAttribute('src');
@@ -324,7 +336,10 @@
       lb.hidden = false; document.body.style.overflow = 'hidden';
     };
     var fechar = function () { lb.hidden = true; lbImg.src = ''; lbVid.pause(); lbVid.removeAttribute('src'); document.body.style.overflow = ''; fotos[atual].focus(); };
-    fotos.forEach(function (f, i) { f.addEventListener('click', function () { abrir(i); }); });
+    fotos.forEach(function (f, i) {
+      f.addEventListener('click', function () { abrir(i); });
+      f.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); abrir(i); } });
+    });
     $('[data-lb-fechar]').addEventListener('click', fechar);
     $('[data-lb-ant]').addEventListener('click', function () { abrir(atual - 1); });
     $('[data-lb-prox]').addEventListener('click', function () { abrir(atual + 1); });
