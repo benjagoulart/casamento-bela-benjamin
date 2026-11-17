@@ -3,7 +3,7 @@
 // Se mudar o valor de um presente, o QR Code e o código Pix precisam ser gerados de novo.
 window.SITE = {
   // Número do WhatsApp com DDI e DDD, só números (ex.: 5548999999999). Vazio = botões de WhatsApp ficam ocultos.
-  whatsapp: '',
+  whatsapp: '5548998601090',
   chavePix: '093.370.259-06',
   titularPix: 'Débora Meister Pereira',
   listaCamicado: 'https://www.camicado.com.br'
