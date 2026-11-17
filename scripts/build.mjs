@@ -1,6 +1,6 @@
 // Build do site: copia os arquivos para dist/ e baixa as fotos dos presentes.
 // As fotos vêm dos links em scripts/imagens.json e são salvas em
-// dist/assets/img/presentes/<id>.jpg (600x600, fundo branco).
+// dist/assets/img/presentes/<id>.jpg (600x600, fundo creme da paleta).
 // Se uma foto falhar, o site mostra um ícone no lugar.
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -29,8 +29,8 @@ await Promise.all(Object.entries(imagens).map(async ([id, url]) => {
     if (!r.ok) throw new Error('HTTP ' + r.status);
     const buf = Buffer.from(await r.arrayBuffer());
     await sharp(buf)
-      .resize(600, 600, { fit: 'contain', background: '#ffffff' })
-      .flatten({ background: '#ffffff' })
+      .resize(600, 600, { fit: 'contain', background: '#FFFDF1' })
+      .flatten({ background: '#FFFDF1' })
       .jpeg({ quality: 82 })
       .toFile(path.join(pasta, id + '.jpg'));
     ok++;
