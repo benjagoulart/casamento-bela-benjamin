@@ -7,7 +7,7 @@ window.SITE = {
   planilha: 'https://script.google.com/macros/s/AKfycbxButBG56eqOpb3eKN08Z_dN1e6Shecpn9MrSeti0QPU8piZM32IZg51ZblK7MuEhoE/exec',
   chavePix: '093.370.259-06',
   titularPix: 'Débora Meister Pereira',
-  listaCamicado: 'https://www.camicado.com.br'
+  cidadePix: 'Criciúma'
 };
 
 // Lista de convites (confirmação de presença). O convidado digita o nome e escolhe o convite dele.

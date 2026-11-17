@@ -18,7 +18,8 @@
     'Mesa & Bar': '<path d="M5 3h5v4a2.5 2.5 0 0 1-5 0z"/><path d="M7.5 9.5V18M5.5 20h4"/><path d="M14 3h5v4a2.5 2.5 0 0 1-5 0z"/><path d="M16.5 9.5V18M14.5 20h4"/>',
     'Casa': '<path d="M9 3h6"/><path d="M10 3v3.5C7.5 8 6 10.5 6 13.5a6 6 0 0 0 12 0c0-3-1.5-5.5-4-7V3"/><path d="M7 14h10"/>',
     'Cama & Banho': '<path d="M3 19v-7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v7"/><path d="M3 15h18"/><path d="M6 10V7.5A1.5 1.5 0 0 1 7.5 6h3A1.5 1.5 0 0 1 12 7.5V10"/>',
-    'Lua de mel': '<path d="M21 4L3 11l6.5 2.5L12 20z"/><path d="M9.5 13.5L21 4"/>'
+    'Lua de mel': '<path d="M21 4L3 11l6.5 2.5L12 20z"/><path d="M9.5 13.5L21 4"/>',
+    'Valor livre': '<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>'
   };
   function imagem(p, tamanho) {
     if (p.imagem) return '<img src="' + p.imagem + '" alt="' + esc(p.nome) + '" loading="lazy" data-cat="' + esc(p.categoria) + '" data-t="' + tamanho + '">';
@@ -63,7 +64,6 @@
 
   // Dados do site em elementos
   $all('[data-chave-pix]').forEach(function (el) { el.textContent = SITE.chavePix; });
-  $all('[data-camicado]').forEach(function (el) { el.href = SITE.listaCamicado; });
 
   // Contagem regressiva
   var contador = $('[data-contador]');
@@ -110,14 +110,43 @@
   var pag = $('[data-pagamento]');
   if (pag) {
     var id = new URLSearchParams(location.search).get('p');
-    var p = PRESENTES.filter(function (x) { return x.id === id; })[0];
+    var livre = id === 'valor-livre';
+    var p = livre
+      ? { id: id, nome: 'Presente com valor livre', categoria: 'Valor livre', valor: '', pix: '', qr: '', linkCartao: '' }
+      : PRESENTES.filter(function (x) { return x.id === id; })[0];
     if (!p) { location.replace('/presentes'); return; }
     document.title = p.nome + ' – Presentear Débora e Benjamin';
     $('[data-p-img]').innerHTML = imagem(p, 34);
     $('[data-p-nome]').textContent = p.nome;
-    $all('[data-p-valor]').forEach(function (el) { el.textContent = reais(p.valor); });
-    $('#codigo-pix').textContent = p.pix;
-    var qr = $('[data-p-qr]'); qr.src = p.qr; qr.alt = 'QR Code Pix – ' + p.nome;
+    $all('[data-p-valor]').forEach(function (el) { el.textContent = livre ? 'Você escolhe o valor' : reais(p.valor); });
+    var qr = $('[data-p-qr]');
+    if (livre) {
+      // Valor livre: gera o Pix (copia e cola + QR Code) com o valor digitado
+      var qrImagem = function (texto) {
+        var q = qrcode(0, 'M'); q.addData(texto); q.make();
+        var n = q.getModuleCount(), m = 4, t = 8, c = document.createElement('canvas');
+        c.width = c.height = (n + m * 2) * t;
+        var g = c.getContext('2d'); g.fillStyle = '#FFFDF1'; g.fillRect(0, 0, c.width, c.height); g.fillStyle = '#483F29';
+        for (var r = 0; r < n; r++) for (var k = 0; k < n; k++) if (q.isDark(r, k)) g.fillRect((k + m) * t, (r + m) * t, t, t);
+        return c.toDataURL('image/png');
+      };
+      var atualizarPix = function () {
+        var v = parseFloat(($('#valor-livre').value || '').replace(/\./g, '').replace(',', '.'));
+        v = v > 0 ? Math.round(v * 100) / 100 : '';
+        p.valor = v;
+        var codigo = gerarPix(SITE.chavePix.replace(/\D/g, ''), SITE.titularPix, SITE.cidadePix, v);
+        $('#codigo-pix').textContent = codigo;
+        qr.src = qrImagem(codigo);
+        $all('[data-p-valor]').forEach(function (el) { el.textContent = v ? reais(v) : 'Você escolhe o valor'; });
+      };
+      $('[data-valor-livre]').hidden = false;
+      var tempo; $('#valor-livre').addEventListener('input', function () { clearTimeout(tempo); tempo = setTimeout(atualizarPix, 250); });
+      atualizarPix();
+    } else {
+      $('#codigo-pix').textContent = p.pix;
+      qr.src = p.qr;
+    }
+    qr.alt = 'QR Code Pix – ' + p.nome;
     $('[data-titular]').textContent = 'Chave CPF ' + SITE.chavePix + ' · ' + SITE.titularPix;
     var cartao = $('[data-metodo="cartao"]');
     var abas = $('.abas');

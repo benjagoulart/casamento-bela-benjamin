@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Quattrocento:wght@400;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/style.css?v=20261117j">
+<link rel="stylesheet" href="/assets/css/style.css?v=20261117k">
 </head>
 <body>
 <div class="pag-topo">
@@ -30,6 +30,12 @@
     <div class="pag-grid">
       <div class="pag-pagar">
         <span class="passo"><b>1</b> Faça o pagamento</span>
+
+        <div class="card valor-livre" data-valor-livre hidden>
+          <label for="valor-livre">Quanto você quer presentear?</label>
+          <div class="campo-valor"><span>R$</span><input id="valor-livre" type="text" inputmode="decimal" placeholder="0,00" autocomplete="off"></div>
+          <p class="muted">O código Pix e o QR Code se atualizam com o valor que você digitar.</p>
+        </div>
 
         <div class="abas" role="tablist" aria-label="Forma de pagamento">
           <button class="aba" type="button" role="tab" data-aba="pix" aria-selected="true">PIX</button>
@@ -89,7 +95,9 @@
   <span class="script">Débora e Benjamin</span>
   <span>27 · 03 · 2027</span>
 </footer>
-<script src="/assets/js/dados.js?v=20261117j"></script>
-<script src="/assets/js/main.js?v=20261117j"></script>
+<script src="/assets/js/dados.js?v=20261117k"></script>
+<script src="/assets/js/vendor/qrcode.js"></script>
+<script src="/assets/js/pix.js?v=20261117k"></script>
+<script src="/assets/js/main.js?v=20261117k"></script>
 </body>
 </html>
