@@ -126,6 +126,66 @@ h1, h2, h3, p { margin: 0; }
 .momento { padding: 24px; border-top: 2px solid var(--azul); }
 .momento:last-child { border-color: var(--tinta); }
 .momento strong { display: block; font-family: var(--serif); font-weight: 400; font-size: 21px; margin-bottom: 6px; }
+.historia-hero .texto p { font-family: var(--serif); font-size: 17px; line-height: 1.6; }
+.historia-cta { align-self: center; color: var(--marrom); border-color: var(--marrom); }
+
+/* faixas (linha do tempo em forma de álbum) */
+.faixas-secao { padding-top: 56px; }
+.faixas-secao .container { max-width: 820px; }
+.faixas-kicker { display: block; text-align: center; color: var(--oliva); margin-bottom: 8px; }
+.faixas-secao h2 { font-size: 24px; text-align: center; margin-bottom: 30px; color: var(--marrom); }
+.faixas { list-style: none; margin: 0; padding: 0; position: relative; }
+.faixas::before { content: ''; position: absolute; left: 27px; top: 10px; bottom: 10px; width: 1px; background: var(--bege); }
+.faixa { position: relative; display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 16px; padding-bottom: 30px; }
+.faixa-num { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.faixa-num b { font: 500 12px var(--mono); letter-spacing: 1px; color: var(--oliva); background: var(--creme); padding: 2px 0; }
+.disco { width: 56px; height: 56px; border-radius: 50%; background:
+  radial-gradient(circle, var(--creme) 0 3px, var(--oliva) 3.5px 13px, var(--marrom) 13.5px 100%);
+  box-shadow: inset 0 0 0 4px rgba(255, 253, 241, .06), inset 0 0 0 9px var(--marrom), inset 0 0 0 10px rgba(255, 253, 241, .12), inset 0 0 0 16px var(--marrom), inset 0 0 0 17px rgba(255, 253, 241, .12); }
+.faixa:hover .disco, .faixa:focus-within .disco { animation: girar 2.4s linear infinite; }
+@keyframes girar { to { transform: rotate(360deg); } }
+.faixa-corpo { background: var(--creme); border: 1px solid var(--linha); border-radius: 20px; padding: 20px 20px 22px; display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.faixa-quando { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--oliva); }
+.faixa-corpo h3 { margin: 0; font-family: var(--serif); font-weight: 400; font-size: 24px; color: var(--marrom); line-height: 1.2; }
+.faixa-corpo p { font-family: var(--serif); font-size: 16px; line-height: 1.6; color: var(--texto); }
+.faixa--bonus .faixa-corpo { background: var(--azul); border-color: transparent; }
+.faixa--bonus .faixa-corpo p { color: var(--marrom); }
+.faixa--bonus .faixa-quando { color: var(--marrom); }
+.faixa:last-child { padding-bottom: 0; }
+
+.ouvir, .chip-musica { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px 0 8px; border-radius: 999px; border: 1px solid var(--oliva); color: var(--marrom); text-decoration: none; font: 500 12px var(--mono); letter-spacing: 1px; transition: background .2s, color .2s; }
+.ouvir { margin-top: 6px; }
+.ouvir:hover, .chip-musica:hover { background: var(--oliva); color: var(--creme); }
+.ouvir-play { flex: 0 0 28px; width: 28px; height: 28px; border-radius: 50%; background: var(--oliva); position: relative; }
+.ouvir-play::after { content: ''; position: absolute; left: 11px; top: 8px; border-style: solid; border-width: 6px 0 6px 9px; border-color: transparent transparent transparent var(--creme); }
+.ouvir:hover .ouvir-play, .chip-musica:hover .ouvir-play { background: var(--creme); }
+.ouvir:hover .ouvir-play::after, .chip-musica:hover .ouvir-play::after { border-left-color: var(--oliva); }
+
+/* lado A / lado B */
+.lados { background: var(--azul); color: var(--marrom); }
+.lados h2 { font-size: 24px; text-align: center; }
+.lados-intro { text-align: center; font-family: var(--serif); font-size: 17px; margin: 10px 0 30px; }
+.lados-grid { display: grid; gap: 18px; }
+.lado { position: relative; overflow: hidden; background: var(--creme); border-radius: 22px; padding: 26px 22px; display: flex; flex-direction: column; gap: 8px; }
+.lado .kicker { color: var(--oliva); }
+.lado h3 { margin: 0; font-family: var(--script); font-weight: 400; font-size: 46px; line-height: 1; color: var(--marrom); }
+.lado p { font-family: var(--serif); font-size: 16px; line-height: 1.5; max-width: 30ch; }
+.lado--nos { background: var(--marrom); color: var(--creme); }
+.lado--nos h3 { color: var(--creme); }
+.lado--nos .kicker { color: var(--azul); }
+.lado--nos .chip-musica { color: var(--creme); border-color: rgba(255, 253, 241, .5); }
+.lado--nos .chip-musica:hover { background: var(--creme); color: var(--marrom); }
+.lado--nos .ouvir-play { background: var(--azul); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.vinil { position: absolute; right: -40px; top: -40px; width: 150px; height: 150px; border-radius: 50%; display: grid; place-content: center; background:
+  radial-gradient(circle, var(--oliva) 0 30px, transparent 31px),
+  repeating-radial-gradient(circle, var(--marrom) 0 3px, rgba(255, 253, 241, .14) 3.5px 4px);
+  opacity: .9; transition: transform 1.2s ease; }
+.vinil span { font: 400 26px var(--serif); color: var(--creme); transform: translate(-6px, 6px); }
+.lado--nos .vinil { background: radial-gradient(circle, var(--azul) 0 30px, transparent 31px), repeating-radial-gradient(circle, rgba(255, 253, 241, .2) 0 1px, var(--marrom) 1.5px 4px); }
+.lado:hover .vinil { transform: rotate(180deg); }
+.lado .kicker, .lado h3, .lado p, .chips { position: relative; }
+
 .proximo { display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; padding: 36px 24px; border-radius: 22px; background: var(--creme-2); }
 .proximo .script { font-size: 42px; }
 
@@ -347,6 +407,19 @@ h1, h2, h3, p { margin: 0; }
   .historia-hero .serif-caps { font-size: 26px; }
   .trilha h2 { font-size: 32px; margin-bottom: 44px; }
   .trilha-lista { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+  .historia-hero .texto p { font-size: 18px; }
+  .historia-cta { align-self: flex-start; }
+  .faixas-secao { padding-top: 90px; }
+  .faixas-secao h2, .lados h2 { font-size: 34px; }
+  .faixas::before { left: 35px; }
+  .faixa { grid-template-columns: 72px minmax(0, 1fr); gap: 26px; padding-bottom: 36px; }
+  .disco { width: 72px; height: 72px; }
+  .faixa-corpo { padding: 26px 30px 28px; }
+  .faixa-corpo h3 { font-size: 28px; }
+  .faixa-corpo p { font-size: 17px; }
+  .lados-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+  .lado { padding: 34px 30px; }
+  .lado h3 { font-size: 56px; }
   .proximo { max-width: 900px; margin: 0 auto; padding: 56px 40px; }
   .proximo .script { font-size: 56px; }
 
