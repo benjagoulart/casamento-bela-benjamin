@@ -42,7 +42,8 @@
     'Valor livre': '<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>'
   };
   function imagem(p, tamanho) {
-    if (p.imagem) return '<img src="' + p.imagem + '" alt="' + esc(p.nome) + '" loading="lazy" data-cat="' + esc(p.categoria) + '" data-t="' + tamanho + '">';
+    // ?v= força o navegador a baixar a foto nova quando ela é trocada (mude SITE.versaoFotos em dados.js)
+    if (p.imagem) return '<img src="' + p.imagem + (SITE.versaoFotos ? '?v=' + SITE.versaoFotos : '') + '" alt="' + esc(p.nome) + '" loading="lazy" data-cat="' + esc(p.categoria) + '" data-t="' + tamanho + '">';
     return '<svg aria-hidden="true" width="' + tamanho + '" height="' + tamanho + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">' + (ICONES[p.categoria] || ICONES['Casa']) + '</svg>';
   }
 

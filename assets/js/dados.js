@@ -9,7 +9,9 @@ window.SITE = {
   cidadePix: 'Criciúma',
   // Cartão de crédito (Mercado Pago): cole aqui a Public Key (começa com APP_USR-).
   // Vazio = a opção de cartão não aparece no site oficial (só na prévia).
-  mercadoPagoPublicKey: ''
+  mercadoPagoPublicKey: '',
+  // Versão das fotos dos presentes: troque o número sempre que mudar alguma foto
+  versaoFotos: '20261123'
 };
 
 // Lista de convites (confirmação de presença). O convidado digita o nome e escolhe o convite dele.
