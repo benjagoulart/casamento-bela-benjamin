@@ -263,12 +263,25 @@ h1, h2, h3, p { margin: 0; }
 .filtro { flex: 0 0 auto; min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--bege); background: transparent; color: var(--tinta); font: 12px var(--mono); white-space: nowrap; cursor: pointer; }
 .filtro[aria-pressed="true"] { background: var(--tinta); border-color: var(--tinta); color: var(--creme); }
 .presentes-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-.presente { display: flex; flex-direction: column; gap: 8px; padding: 12px; }
-.presente-img { aspect-ratio: 1 / 1; border-radius: 10px; overflow: hidden; background: var(--bege-claro); display: flex; align-items: center; justify-content: center; color: var(--azul-escuro); }
+.presente { display: flex; flex-direction: column; gap: 10px; padding: 10px 10px 12px; text-align: center; }
+.presente-img { position: relative; aspect-ratio: 1 / 1; border-radius: 12px; overflow: hidden; background: var(--bege-claro); display: flex; align-items: center; justify-content: center; color: var(--azul-escuro); }
 .presente-img img { width: 100%; height: 100%; object-fit: contain; background: transparent; mix-blend-mode: multiply; }
-.presente h2 { flex: 1; font-family: var(--serif); font-weight: 400; font-size: 15px; line-height: 1.3; }
-.presente .preco { font-size: 16px; font-weight: 500; }
+/* Nome + detalhe ocupam sempre a mesma altura, para preço e botão ficarem alinhados entre os cards */
+.presente-info { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 4px; min-height: 64px; padding: 2px 2px 0; }
+.presente h2 { font-family: var(--serif); font-weight: 700; font-size: 15px; line-height: 1.25; color: var(--marrom); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.presente-detalhe { font: 400 10px/1.4 var(--mono); letter-spacing: 0; color: var(--marrom-claro); }
+.presente .preco { font-family: var(--mono); font-size: 15px; font-weight: 500; color: var(--oliva); padding-top: 8px; border-top: 1px solid var(--linha); }
 .presente .btn { min-height: 44px; padding: 0 10px; font-size: 11px; }
+/* Já presenteado: o item continua na lista, apagadinho, com etiqueta e sem botão de presentear */
+.presenteado .presente-img img { opacity: .45; filter: grayscale(.6); }
+.presenteado .presente-info, .presenteado .preco { opacity: .6; }
+.presenteado .preco { text-decoration: line-through; text-decoration-thickness: 1px; }
+.etiqueta-presenteado { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-6deg); display: inline-flex; align-items: center; gap: 5px; padding: 7px 13px; border-radius: 999px; background: var(--oliva); color: var(--creme); font: 500 10.5px var(--mono); letter-spacing: 1.5px; text-transform: uppercase; white-space: nowrap; box-shadow: 0 4px 14px rgba(72, 63, 41, .18); }
+.btn--presenteado, .btn--presenteado:hover { background: transparent; border-color: var(--bege); color: var(--marrom-claro); opacity: 1; cursor: default; }
+.ja-presenteado { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 18px; padding: 30px 22px; text-align: center; }
+.ja-presenteado .script { font-size: 44px; color: var(--marrom); }
+.ja-presenteado p { font-family: var(--serif); font-size: 17px; line-height: 1.5; max-width: 34ch; }
+.pag-grid[hidden] { display: none !important; }
 .extras { display: grid; gap: 16px; padding: 40px 0 64px; }
 .extra-pix { padding: 28px 22px; border-radius: 20px; background: var(--azul); color: var(--azul-texto); display: flex; flex-direction: column; gap: 12px; text-align: center; }
 .extra-pix .script { font-size: 38px; }
@@ -517,8 +530,12 @@ h1, h2, h3, p { margin: 0; }
   .filtros { flex-wrap: wrap; justify-content: center; overflow: visible; padding: 0 40px 28px; gap: 10px; }
   .filtro { padding: 0 20px; font-size: 13px; }
   .presentes-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
-  .presente { padding: 14px; gap: 10px; }
-  .presente h2 { font-size: 18px; }
+  .presente { padding: 12px 12px 14px; gap: 12px; }
+  .presente-info { min-height: 72px; }
+  .presente h2 { font-size: 17px; }
+  .presente-detalhe { font-size: 11px; }
+  .presente .preco { font-size: 16px; }
+  .etiqueta-presenteado { font-size: 11px; padding: 8px 15px; }
   .extras { max-width: 720px; margin: 0 auto; padding: 56px 0 100px; }
   .extra-pix { padding: 44px 48px; align-items: center; }
   .extra-pix .script { font-size: 46px; }

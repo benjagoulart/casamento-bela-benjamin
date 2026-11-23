@@ -33,4 +33,15 @@ npx serve .
 
 ## Fotos dos presentes
 
-As fotos não ficam no repositório: a cada deploy, `scripts/build.mjs` baixa os links de `scripts/imagens.json`, ajusta para 600×600 e publica em `dist/`. Para trocar uma foto, troque o link correspondente nesse arquivo. Se um link falhar, o card mostra o ícone da categoria.
+A cada deploy, `scripts/build.mjs` prepara as fotos: corta as bordas vazias, centraliza o produto com a mesma margem em todas e salva em 600×600.
+
+- Se existir uma foto em `fotos-presentes/<id>.jpg` (ou .png), ela é usada. É o jeito mais bonito: foto com fundo branco, só o produto.
+- Senão, a foto é baixada do link em `scripts/imagens.json`.
+
+Se a foto falhar, o card mostra o ícone da categoria.
+
+No card aparecem `titulo` (nome curto do produto) e `detalhe` (marca, tamanho, peças). O `nome` completo vai para a página de pagamento e para a planilha.
+
+## Presentes já dados
+
+Quando o convidado envia nome e recado depois de pagar, o presente vai para a aba "Presentes" da planilha com o ID e "Sim" na coluna **Mostrar como presenteado**. O site lê essa lista e mostra o item com a etiqueta "Presenteado", sem o botão de presentear. Para devolver um item à lista (ex.: alguém enviou sem pagar), troque "Sim" por "Não" nessa coluna.

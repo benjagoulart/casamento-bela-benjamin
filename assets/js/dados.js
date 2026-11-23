@@ -49,6 +49,8 @@ window.PRESENTES = [
   {
     "id": "09-jogo-de-facas-6-pecas-tramontina-plenus",
     "nome": "Jogo de facas Tramontina Plenus (6 peças)",
+    "titulo": "Jogo de facas",
+    "detalhe": "Tramontina Plenus · 6 peças",
     "categoria": "Cozinha",
     "valor": 150.0,
     "imagem": "/assets/img/presentes/09-jogo-de-facas-6-pecas-tramontina-plenus.jpg",
@@ -59,6 +61,8 @@ window.PRESENTES = [
   {
     "id": "10-jogo-de-utensilios-tramontina-softta-em-silicone-6-pecas",
     "nome": "Utensílios de silicone Tramontina Softta (6 peças)",
+    "titulo": "Utensílios de silicone",
+    "detalhe": "Tramontina Softta · 6 peças",
     "categoria": "Cozinha",
     "valor": 150.0,
     "imagem": "/assets/img/presentes/10-jogo-de-utensilios-tramontina-softta-em-silicone-6-pecas.jpg",
@@ -69,6 +73,8 @@ window.PRESENTES = [
   {
     "id": "23-tigela-misturadora-de-cozinha-empilhavel-zara-home",
     "nome": "Tigelas empilháveis Zara Home",
+    "titulo": "Tigelas empilháveis",
+    "detalhe": "Zara Home",
     "categoria": "Cozinha",
     "valor": 159.9,
     "imagem": "/assets/img/presentes/23-tigela-misturadora-de-cozinha-empilhavel-zara-home.jpg",
@@ -79,6 +85,8 @@ window.PRESENTES = [
   {
     "id": "03-grill-philco-2-em-1-chapa-com-abertura-180",
     "nome": "Grill Philco 2 em 1 com abertura 180°",
+    "titulo": "Grill 2 em 1",
+    "detalhe": "Philco · abertura 180°",
     "categoria": "Cozinha",
     "valor": 169.9,
     "imagem": "/assets/img/presentes/03-grill-philco-2-em-1-chapa-com-abertura-180.jpg",
@@ -89,6 +97,8 @@ window.PRESENTES = [
   {
     "id": "07-kit-para-queijos-com-5-pecas-madeira",
     "nome": "Kit para queijos em madeira (5 peças)",
+    "titulo": "Kit para queijos",
+    "detalhe": "Madeira · 5 peças",
     "categoria": "Mesa posta",
     "valor": 180.0,
     "imagem": "/assets/img/presentes/07-kit-para-queijos-com-5-pecas-madeira.jpg",
@@ -99,6 +109,8 @@ window.PRESENTES = [
   {
     "id": "08-jogo-de-tacas-de-vinho-6-pecas-bohemia-xtra-sommelier",
     "nome": "Taças de vinho Bohemia Sommelier (6 peças)",
+    "titulo": "Taças de vinho",
+    "detalhe": "Bohemia Sommelier · 6 peças",
     "categoria": "Bar & drinks",
     "valor": 180.0,
     "imagem": "/assets/img/presentes/08-jogo-de-tacas-de-vinho-6-pecas-bohemia-xtra-sommelier.jpg",
@@ -109,6 +121,8 @@ window.PRESENTES = [
   {
     "id": "06-vonder-caixa-para-ferramentas",
     "nome": "Caixa de ferramentas Vonder",
+    "titulo": "Caixa de ferramentas",
+    "detalhe": "Vonder",
     "categoria": "Casa",
     "valor": 185.0,
     "imagem": "/assets/img/presentes/06-vonder-caixa-para-ferramentas.jpg",
@@ -119,6 +133,8 @@ window.PRESENTES = [
   {
     "id": "13-escorredor-de-louca-tramontina",
     "nome": "Escorredor de louça Tramontina",
+    "titulo": "Escorredor de louça",
+    "detalhe": "Tramontina",
     "categoria": "Cozinha",
     "valor": 190.0,
     "imagem": "/assets/img/presentes/13-escorredor-de-louca-tramontina.jpg",
@@ -129,6 +145,8 @@ window.PRESENTES = [
   {
     "id": "16-conjunto-de-porta-copos-de-gres-com-frutas-zara-home",
     "nome": "Porta-copos de grês com frutas Zara Home",
+    "titulo": "Porta-copos de frutas",
+    "detalhe": "Zara Home · grês",
     "categoria": "Bar & drinks",
     "valor": 199.9,
     "imagem": "/assets/img/presentes/16-conjunto-de-porta-copos-de-gres-com-frutas-zara-home.jpg",
@@ -139,6 +157,8 @@ window.PRESENTES = [
   {
     "id": "11-balanca-digital-de-cozinha-black-decker",
     "nome": "Balança digital de cozinha Black+Decker",
+    "titulo": "Balança de cozinha",
+    "detalhe": "Black+Decker · digital",
     "categoria": "Cozinha",
     "valor": 200.0,
     "imagem": "/assets/img/presentes/11-balanca-digital-de-cozinha-black-decker.jpg",
@@ -149,6 +169,8 @@ window.PRESENTES = [
   {
     "id": "04-ferro-de-passar-a-vapor-philco-320ml",
     "nome": "Ferro de passar a vapor Philco",
+    "titulo": "Ferro de passar a vapor",
+    "detalhe": "Philco",
     "categoria": "Casa",
     "valor": 209.99,
     "imagem": "/assets/img/presentes/04-ferro-de-passar-a-vapor-philco-320ml.jpg",
@@ -159,6 +181,8 @@ window.PRESENTES = [
   {
     "id": "05-pipoqueira-tramontina-paris",
     "nome": "Pipoqueira Tramontina Paris",
+    "titulo": "Pipoqueira",
+    "detalhe": "Tramontina Paris",
     "categoria": "Cozinha",
     "valor": 209.99,
     "imagem": "/assets/img/presentes/05-pipoqueira-tramontina-paris.jpg",
@@ -169,6 +193,8 @@ window.PRESENTES = [
   {
     "id": "12-box-mesa-posta-4-lugares-sao-joao-mocca-copa-cia",
     "nome": "Box mesa posta para 4 pessoas Copa&Cia",
+    "titulo": "Mesa posta",
+    "detalhe": "Copa&Cia · 4 lugares",
     "categoria": "Mesa posta",
     "valor": 215.0,
     "imagem": "/assets/img/presentes/12-box-mesa-posta-4-lugares-sao-joao-mocca-copa-cia.jpg",
@@ -179,6 +205,8 @@ window.PRESENTES = [
   {
     "id": "15-vaso-decorativo-de-ceramica-creme-zara-home",
     "nome": "Vaso de cerâmica creme Zara Home",
+    "titulo": "Vaso de cerâmica",
+    "detalhe": "Zara Home · creme",
     "categoria": "Decoração",
     "valor": 269.9,
     "imagem": "/assets/img/presentes/15-vaso-decorativo-de-ceramica-creme-zara-home.jpg",
@@ -189,6 +217,8 @@ window.PRESENTES = [
   {
     "id": "14-relogio-calendario-flip-alarme-zara-home",
     "nome": "Relógio calendário flip Zara Home",
+    "titulo": "Relógio calendário",
+    "detalhe": "Zara Home · flip com alarme",
     "categoria": "Decoração",
     "valor": 289.9,
     "imagem": "/assets/img/presentes/14-relogio-calendario-flip-alarme-zara-home.jpg",
@@ -199,6 +229,8 @@ window.PRESENTES = [
   {
     "id": "01-chaleira-eletrica-arno-soleil",
     "nome": "Chaleira elétrica Arno Soleil",
+    "titulo": "Chaleira elétrica",
+    "detalhe": "Arno Soleil",
     "categoria": "Cozinha",
     "valor": 289.99,
     "imagem": "/assets/img/presentes/01-chaleira-eletrica-arno-soleil.jpg",
@@ -209,6 +241,8 @@ window.PRESENTES = [
   {
     "id": "02-cafeteira-eletrica-arno-soleil",
     "nome": "Cafeteira elétrica Arno Soleil",
+    "titulo": "Cafeteira elétrica",
+    "detalhe": "Arno Soleil",
     "categoria": "Cozinha",
     "valor": 289.99,
     "imagem": "/assets/img/presentes/02-cafeteira-eletrica-arno-soleil.jpg",
@@ -219,6 +253,8 @@ window.PRESENTES = [
   {
     "id": "18-purificador-de-agua-natural-consul",
     "nome": "Purificador de água Consul",
+    "titulo": "Purificador de água",
+    "detalhe": "Consul",
     "categoria": "Cozinha",
     "valor": 300.0,
     "imagem": "/assets/img/presentes/18-purificador-de-agua-natural-consul.jpg",
@@ -229,6 +265,8 @@ window.PRESENTES = [
   {
     "id": "28-philips-walita-fritadeira-airfryer",
     "nome": "Air fryer Philips Walita",
+    "titulo": "Air fryer",
+    "detalhe": "Philips Walita",
     "categoria": "Cozinha",
     "valor": 359.99,
     "imagem": "/assets/img/presentes/28-philips-walita-fritadeira-airfryer.jpg",
@@ -239,6 +277,8 @@ window.PRESENTES = [
   {
     "id": "29-midea-panela-de-pressao-eletrica-6l",
     "nome": "Panela de pressão elétrica Midea 6 L",
+    "titulo": "Panela de pressão elétrica",
+    "detalhe": "Midea · 6 L",
     "categoria": "Cozinha",
     "valor": 369.99,
     "imagem": "/assets/img/presentes/29-midea-panela-de-pressao-eletrica-6l.jpg",
@@ -249,6 +289,8 @@ window.PRESENTES = [
   {
     "id": "19-abajur-de-mesa-sem-fios-de-vidro-zara-home",
     "nome": "Abajur de vidro sem fio Zara Home",
+    "titulo": "Abajur de vidro",
+    "detalhe": "Zara Home · sem fio",
     "categoria": "Decoração",
     "valor": 379.9,
     "imagem": "/assets/img/presentes/19-abajur-de-mesa-sem-fios-de-vidro-zara-home.jpg",
@@ -259,6 +301,8 @@ window.PRESENTES = [
   {
     "id": "20-bandeja-alta-de-ceramica-craquelada-zara-home",
     "nome": "Bandeja alta de cerâmica craquelada Zara Home",
+    "titulo": "Bandeja de cerâmica",
+    "detalhe": "Zara Home · craquelada",
     "categoria": "Mesa posta",
     "valor": 379.9,
     "imagem": "/assets/img/presentes/20-bandeja-alta-de-ceramica-craquelada-zara-home.jpg",
@@ -269,6 +313,8 @@ window.PRESENTES = [
   {
     "id": "21-bandeja-dobravel-com-alcas-zara-home",
     "nome": "Bandeja dobrável com alças Zara Home",
+    "titulo": "Bandeja dobrável",
+    "detalhe": "Zara Home · com alças",
     "categoria": "Decoração",
     "valor": 379.9,
     "imagem": "/assets/img/presentes/21-bandeja-dobravel-com-alcas-zara-home.jpg",
@@ -279,6 +325,8 @@ window.PRESENTES = [
   {
     "id": "25-luminaria-arandela-de-parede-de-vidro-zara-home",
     "nome": "Arandela de vidro Zara Home",
+    "titulo": "Arandela de vidro",
+    "detalhe": "Zara Home",
     "categoria": "Decoração",
     "valor": 379.9,
     "imagem": "/assets/img/presentes/25-luminaria-arandela-de-parede-de-vidro-zara-home.jpg",
@@ -289,6 +337,8 @@ window.PRESENTES = [
   {
     "id": "26-multiprocessador-arno-multichef",
     "nome": "Multiprocessador Arno Multichef",
+    "titulo": "Multiprocessador",
+    "detalhe": "Arno Multichef",
     "categoria": "Cozinha",
     "valor": 419.99,
     "imagem": "/assets/img/presentes/26-multiprocessador-arno-multichef.jpg",
@@ -299,6 +349,8 @@ window.PRESENTES = [
   {
     "id": "22-prato-para-bolo-de-madeira-zara-home",
     "nome": "Prato para bolo de madeira Zara Home",
+    "titulo": "Prato para bolo",
+    "detalhe": "Zara Home · madeira e vidro",
     "categoria": "Mesa posta",
     "valor": 429.9,
     "imagem": "/assets/img/presentes/22-prato-para-bolo-de-madeira-zara-home.jpg",
@@ -309,6 +361,8 @@ window.PRESENTES = [
   {
     "id": "24-travessa-para-ir-ao-forno-de-borossilicato-e-madeira-zara-ho",
     "nome": "Travessa de borossilicato e madeira Zara Home",
+    "titulo": "Travessas para forno",
+    "detalhe": "Zara Home · vidro e madeira",
     "categoria": "Cozinha",
     "valor": 469.9,
     "imagem": "/assets/img/presentes/24-travessa-para-ir-ao-forno-de-borossilicato-e-madeira-zara-ho.jpg",
@@ -319,6 +373,8 @@ window.PRESENTES = [
   {
     "id": "27-aspirador-electrolux-cyclone-power-3-em-1",
     "nome": "Aspirador Electrolux Cyclone Power 3 em 1",
+    "titulo": "Aspirador vertical",
+    "detalhe": "Electrolux · 3 em 1",
     "categoria": "Casa",
     "valor": 499.99,
     "imagem": "/assets/img/presentes/27-aspirador-electrolux-cyclone-power-3-em-1.jpg",
@@ -329,6 +385,8 @@ window.PRESENTES = [
   {
     "id": "17-batedeira-arno-planetaria",
     "nome": "Batedeira planetária Arno",
+    "titulo": "Batedeira planetária",
+    "detalhe": "Arno",
     "categoria": "Cozinha",
     "valor": 500.0,
     "imagem": "/assets/img/presentes/17-batedeira-arno-planetaria.jpg",
@@ -339,6 +397,8 @@ window.PRESENTES = [
   {
     "id": "33-jogo-de-banho-trussardi-imperiale-oliva",
     "nome": "Jogo de banho Trussardi Imperiale oliva (5 peças)",
+    "titulo": "Jogo de banho oliva",
+    "detalhe": "Trussardi Imperiale · 5 peças",
     "categoria": "Cama & Banho",
     "valor": 539.91,
     "imagem": "/assets/img/presentes/33-jogo-de-banho-trussardi-imperiale-oliva.jpg",
@@ -349,6 +409,8 @@ window.PRESENTES = [
   {
     "id": "34-jogo-de-banho-trussardi-imperiale-branco",
     "nome": "Jogo de banho Trussardi Imperiale branco (5 peças)",
+    "titulo": "Jogo de banho branco",
+    "detalhe": "Trussardi Imperiale · 5 peças",
     "categoria": "Cama & Banho",
     "valor": 539.91,
     "imagem": "/assets/img/presentes/34-jogo-de-banho-trussardi-imperiale-branco.jpg",
@@ -359,6 +421,8 @@ window.PRESENTES = [
   {
     "id": "37-tramontina-jogo-de-panelas-de-aco-inox-7-pecas",
     "nome": "Jogo de panelas Tramontina inox (7 peças)",
+    "titulo": "Jogo de panelas inox",
+    "detalhe": "Tramontina · 7 peças",
     "categoria": "Cozinha",
     "valor": 569.99,
     "imagem": "/assets/img/presentes/37-tramontina-jogo-de-panelas-de-aco-inox-7-pecas.jpg",
@@ -369,6 +433,8 @@ window.PRESENTES = [
   {
     "id": "32-micro-ondas-brastemp-32-litros",
     "nome": "Micro-ondas Brastemp 32 L",
+    "titulo": "Micro-ondas",
+    "detalhe": "Brastemp · 32 L",
     "categoria": "Cozinha",
     "valor": 677.7,
     "imagem": "/assets/img/presentes/32-micro-ondas-brastemp-32-litros.jpg",
@@ -379,6 +445,8 @@ window.PRESENTES = [
   {
     "id": "35-jogo-de-cama-queen-trussardi-percal-300-fios-piera-marrom",
     "nome": "Jogo de cama queen Trussardi Piera marrom",
+    "titulo": "Jogo de cama marrom",
+    "detalhe": "Trussardi Piera · queen",
     "categoria": "Cama & Banho",
     "valor": 815.94,
     "imagem": "/assets/img/presentes/35-jogo-de-cama-queen-trussardi-percal-300-fios-piera-marrom.jpg",
@@ -389,6 +457,8 @@ window.PRESENTES = [
   {
     "id": "36-jogo-de-cama-queen-trussardi-300-fios-percal-100-algodao-ari",
     "nome": "Jogo de cama queen Trussardi Ariani branco e legno",
+    "titulo": "Jogo de cama branco",
+    "detalhe": "Trussardi Ariani · queen",
     "categoria": "Cama & Banho",
     "valor": 959.94,
     "imagem": "/assets/img/presentes/36-jogo-de-cama-queen-trussardi-300-fios-percal-100-algodao-ari.jpg",
@@ -399,6 +469,8 @@ window.PRESENTES = [
   {
     "id": "30-toca-disco-vinil-audio-technica-automatico",
     "nome": "Toca-discos Audio-Technica",
+    "titulo": "Toca-discos",
+    "detalhe": "Audio-Technica",
     "categoria": "Decoração",
     "valor": 1599.0,
     "imagem": "/assets/img/presentes/30-toca-disco-vinil-audio-technica-automatico.jpg",
@@ -409,6 +481,8 @@ window.PRESENTES = [
   {
     "id": "31-maquina-de-lavar-11kg-branca-slim-midea",
     "nome": "Máquina de lavar Midea 11 kg",
+    "titulo": "Máquina de lavar",
+    "detalhe": "Midea · 11 kg",
     "categoria": "Casa",
     "valor": 2300.0,
     "imagem": "/assets/img/presentes/31-maquina-de-lavar-11kg-branca-slim-midea.jpg",

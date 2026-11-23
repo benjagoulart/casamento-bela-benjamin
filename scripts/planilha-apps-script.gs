@@ -46,9 +46,31 @@ function doPost(e) {
 }
 
 // Abrir a URL /exec no navegador mostra se está funcionando.
-function doGet() {
+// O site chama /exec?acao=presenteados para saber quais presentes já foram dados.
+function doGet(e) {
   garantirAbas_();
+  if (e && e.parameter && e.parameter.acao === 'presenteados') return json_(listarPresenteados_());
   return json_({ ok: true, mensagem: 'Planilha do casamento funcionando.' });
+}
+
+// Presentes que aparecem no site com a etiqueta "Presenteado".
+// Para tirar a etiqueta de um item (ex.: alguém enviou sem pagar), troque
+// "Sim" por "Não" na coluna "Mostrar como presenteado" da aba Presentes.
+function listarPresenteados_() {
+  const aba = SpreadsheetApp.getActive().getSheetByName(ABA_PRESENTES);
+  const total = aba.getLastRow() - 1;
+  if (total < 1) return { ok: true, ids: [], nomes: [] };
+  const linhas = aba.getRange(2, 1, total, 8).getValues();
+  const ids = [], nomes = [];
+  linhas.forEach(function (l) {
+    const mostrar = String(l[7]).trim().toLowerCase();
+    if (mostrar === 'não' || mostrar === 'nao') return;
+    const id = String(l[6]).trim();
+    if (id === 'valor-livre') return;
+    if (id) ids.push(id);
+    else if (l[2] && l[2] !== 'Presente com valor livre') nomes.push(String(l[2]).replace(/^'/, ''));
+  });
+  return { ok: true, ids: ids, nomes: nomes };
 }
 
 function salvarPresenca_(d) {
@@ -78,8 +100,9 @@ function salvarPresente_(d) {
   const valor = Number(d.valor) || '';
   const forma = limpa_(d.forma, 30) || 'Pix';
   const recado = limpa_(d.recado, 1000);
+  const id = limpa_(d.id, 120);
   const aba = SpreadsheetApp.getActive().getSheetByName(ABA_PRESENTES);
-  aba.appendRow([agora_(), nome, presente, valor, forma, recado]);
+  aba.appendRow([agora_(), nome, presente, valor, forma, recado, id, id && id !== 'valor-livre' ? 'Sim' : '']);
   aba.getRange(aba.getLastRow(), 4).setNumberFormat('R$ #,##0.00');
   return { ok: true };
 }
@@ -98,6 +121,11 @@ function garantirAbas_() {
     g = ss.insertSheet(ABA_PRESENTES, 1);
     g.getRange(1, 1, 1, 6).setValues([['Data e hora', 'Nome de quem presenteou', 'Presente', 'Valor', 'Forma de pagamento', 'Recado']]);
     formatarCabecalho_(g, 6, [140, 220, 300, 110, 150, 360]);
+  }
+  // Colunas novas (ID e etiqueta "Presenteado") numa planilha que já existia
+  if (!g.getRange(1, 7).getValue()) {
+    g.getRange(1, 7, 1, 2).setValues([['ID do presente', 'Mostrar como presenteado']]);
+    formatarCabecalho_(g, 8, [140, 220, 300, 110, 150, 360, 260, 190]);
   }
   // Remove a aba vazia padrão, se existir
   const padrao = ss.getSheetByName('Página1') || ss.getSheetByName('Sheet1');

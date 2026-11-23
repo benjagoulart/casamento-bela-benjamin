@@ -13,6 +13,24 @@
       .then(function (j) { if (!j || !j.ok) throw new Error((j && j.erro) || 'falha'); return j; });
   }
 
+  // Presentes já dados: a planilha devolve a lista (ids e, para registros antigos, nomes).
+  // Quem acabou de presentear neste aparelho já vê a etiqueta na hora, sem esperar a planilha.
+  var CHAVE_LOCAL = 'presenteados-local';
+  function presenteadosLocal() { try { return JSON.parse(sessionStorage.getItem(CHAVE_LOCAL) || '[]'); } catch (e) { return []; } }
+  function marcarLocal(id) { try { var l = presenteadosLocal(); if (l.indexOf(id) < 0) l.push(id); sessionStorage.setItem(CHAVE_LOCAL, JSON.stringify(l)); } catch (e) {} }
+  function buscarPresenteados() {
+    var local = presenteadosLocal();
+    if (!SITE.planilha) return Promise.resolve(local);
+    return fetch(SITE.planilha + '?acao=presenteados', { cache: 'no-store' })
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        var ids = (j && j.ids) || [], nomes = (j && j.nomes) || [];
+        PRESENTES.forEach(function (p) { if (nomes.indexOf(p.nome) >= 0) ids.push(p.id); });
+        return ids.concat(local);
+      })
+      .catch(function () { return local; });
+  }
+
   var ICONES = {
     'Cozinha': '<path d="M4 11h16v2a6 6 0 0 1-6 6h-4a6 6 0 0 1-6-6z"/><path d="M1.5 11.5H4M20 11.5h2.5"/><path d="M8 8.5c0-1.4 1.8-2.5 4-2.5s4 1.1 4 2.5"/><path d="M12 4v2"/>',
     'Mesa posta': '<circle cx="12" cy="12" r="6.5"/><circle cx="12" cy="12" r="3.5"/><path d="M3 4v6M4.5 4v6M3 10c0 1 .7 1.5 1.5 1.5V20M21 4c-1.5 0-2.5 2-2.5 5s1 3 2.5 3v8"/>',
@@ -87,17 +105,30 @@
   var grade = $('[data-presentes]');
   if (grade) {
     var filtroAtual = 'Todos';
+    var dados = presenteadosLocal();
     var desenhar = function () {
       var lista = PRESENTES.filter(function (p) { return filtroAtual === 'Todos' || p.categoria === filtroAtual; });
-      grade.innerHTML = lista.map(function (p) {
-        return '<article class="card presente">' +
-          '<div class="presente-img">' + imagem(p, 46) + '</div>' +
-          '<h2>' + esc(p.nome) + '</h2>' +
+      // Os já presenteados vão para o fim, na mesma ordem de preço
+      var livres = lista.filter(function (p) { return dados.indexOf(p.id) < 0; });
+      var dadosLista = lista.filter(function (p) { return dados.indexOf(p.id) >= 0; });
+      grade.innerHTML = livres.concat(dadosLista).map(function (p) {
+        var foi = dados.indexOf(p.id) >= 0;
+        return '<article class="card presente' + (foi ? ' presenteado' : '') + '">' +
+          '<div class="presente-img">' + imagem(p, 46) +
+            (foi ? '<span class="etiqueta-presenteado"><svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Presenteado</span>' : '') +
+          '</div>' +
+          '<div class="presente-info">' +
+            '<h2>' + esc(p.titulo || p.nome) + '</h2>' +
+            (p.detalhe ? '<span class="presente-detalhe">' + esc(p.detalhe) + '</span>' : '') +
+          '</div>' +
           '<span class="preco">' + reais(p.valor) + '</span>' +
-          '<a class="btn" href="/pagamento?p=' + encodeURIComponent(p.id) + '">Presentear</a>' +
+          (foi
+            ? '<span class="btn btn--presenteado" aria-disabled="true">Já presenteado</span>'
+            : '<a class="btn" href="/pagamento?p=' + encodeURIComponent(p.id) + '">Presentear</a>') +
           '</article>';
       }).join('');
     };
+    buscarPresenteados().then(function (ids) { dados = ids; desenhar(); });
     $all('.filtro').forEach(function (b) {
       b.addEventListener('click', function () {
         filtroAtual = b.getAttribute('data-filtro');
@@ -120,6 +151,22 @@
     document.title = p.nome + ' – Presentear Débora e Benjamin';
     $('[data-p-img]').innerHTML = imagem(p, 34);
     $('[data-p-nome]').textContent = p.nome;
+    // Se alguém já deu este presente, avisa e esconde o pagamento
+    var jaDado = function () {
+      var aviso = document.createElement('div');
+      aviso.className = 'card ja-presenteado';
+      aviso.innerHTML = '<span class="script">Este já foi!</span>' +
+        '<p>Alguém já nos deu este presente. Que tal escolher outro item da lista?</p>' +
+        '<a class="btn" href="/presentes">Ver a lista de presentes</a>';
+      var grid = $('.pag-grid');
+      grid.parentNode.insertBefore(aviso, grid);
+      grid.hidden = true;
+      var ir = $('[data-ir-conta]'); if (ir) ir.remove();
+    };
+    var recemDado = false;
+    if (!livre) {
+      buscarPresenteados().then(function (ids) { if (ids.indexOf(p.id) >= 0 && !recemDado) jaDado(); });
+    }
     $all('[data-p-valor]').forEach(function (el) { el.textContent = livre ? 'Você escolhe o valor' : reais(p.valor); });
     var qr = $('[data-p-qr]');
     if (livre) {
@@ -216,8 +263,10 @@
         var quem = fp.quem.value.trim();
         if (quem.length < 2) { avisoP.textContent = 'Escreva seu nome para sabermos quem nos presenteou.'; fp.quem.focus(); return; }
         botaoP.disabled = true; var original = botaoP.textContent; botaoP.textContent = 'Enviando...'; avisoP.textContent = '';
-        enviarPlanilha({ tipo: 'presente', nome: quem, presente: p.nome, valor: p.valor, forma: forma(), recado: fp.recado.value.trim() })
+        enviarPlanilha({ tipo: 'presente', id: p.id, nome: quem, presente: p.nome, valor: p.valor, forma: forma(), recado: fp.recado.value.trim() })
           .then(function () {
+            recemDado = true;
+            if (!livre) marcarLocal(p.id);
             fp.hidden = true;
             $('[data-presente-obrigado-texto]').textContent = 'Obrigado, ' + quem.split(' ')[0] + '! Recebemos o seu presente com muito carinho.';
             $('[data-presente-obrigado]').hidden = false;
