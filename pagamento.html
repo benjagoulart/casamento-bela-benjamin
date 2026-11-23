@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Quattrocento:wght@400;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/style.css?v=20261123b">
+<link rel="stylesheet" href="/assets/css/style.css?v=20261123c">
 </head>
 <body>
 <div class="pag-topo">
@@ -27,84 +27,134 @@
       <span class="preco preco-desktop" data-p-valor></span>
     </div>
 
-    <div class="pag-grid">
-      <div class="pag-pagar">
-        <span class="passo"><b>1</b> Faça o pagamento</span>
-
-        <div class="card valor-livre" data-valor-livre hidden>
-          <label for="valor-livre">Quanto você quer presentear?</label>
-          <div class="campo-valor"><span>R$</span><input id="valor-livre" type="text" inputmode="decimal" placeholder="0,00" autocomplete="off"></div>
-          <p class="muted">O código Pix e o QR Code se atualizam com o valor que você digitar.</p>
-        </div>
-
-        <div class="abas" role="tablist" aria-label="Forma de pagamento">
-          <button class="aba" type="button" role="tab" data-aba="pix" aria-selected="true">PIX</button>
-          <button class="aba" type="button" role="tab" data-aba="cartao" aria-selected="false">CARTÃO</button>
-        </div>
-
-        <div class="pag-metodos">
-          <div class="card metodo" data-metodo="pix">
-            <span class="kicker" style="color:var(--azul-escuro)">Sem taxas · cai na hora</span>
-            <h2>Pix Copia e Cola</h2>
-            <p class="muted metodo-ajuda"><span class="so-pc">Copie o código e cole no app do seu banco, na opção “Pix Copia e Cola”. O valor já vem preenchido.</span><span class="so-cel">Copie e cole no app do banco, em “Pix Copia e Cola”. O valor já vem preenchido.</span></p>
-            <div class="codigo" id="codigo-pix"></div>
-            <button class="btn" type="button" data-copiar="codigo-pix" data-copiar-pix>Copiar código Pix</button>
-            <p class="copiado-aviso" data-copiado-aviso hidden>Código copiado! Pague no app do seu banco e depois volte aqui para nos contar.</p>
-            <div class="pix-qr" data-pix-qr>
-              <button class="qr-toggle" type="button" aria-expanded="false" data-qr-toggle>Prefere o QR Code? Mostrar</button>
-              <div class="qr-area">
-                <img class="qr" data-p-qr src="" alt="" width="180" height="180">
-                <div class="qr-texto"><h2>Ou escaneie o QR Code</h2><p class="muted">Abra o app do banco, escolha pagar com Pix e aponte a câmera.</p></div>
-              </div>
-            </div>
-            <p class="titular" data-titular></p>
-          </div>
-          <div class="card metodo metodo-cartao" data-metodo="cartao" hidden>
-            <span class="kicker" style="color:var(--azul-escuro)">À vista ou parcelado</span>
-            <h2>Cartão de crédito</h2>
-            <div class="cartao-valor"><span class="muted">Valor do presente</span><strong data-p-valor></strong></div>
-            <ol class="cartao-passos">
-              <li><b>1</b><span>Toque em <em>Pagar com cartão</em>. A página segura do <span data-cartao-nome>PicPay</span> abre em outra aba, com o valor já preenchido.</span></li>
-              <li><b>2</b><span>Escolha pagar à vista ou parcelado e conclua o pagamento.</span></li>
-              <li><b>3</b><span>Volte para esta aba e deixe seu nome e recado no passo 2.</span></li>
-            </ol>
-            <a class="btn btn-cartao" data-link-cartao href="#" target="_blank" rel="noopener"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Pagar com cartão</a>
-            <p class="cartao-nota" data-cartao-nota>Pagamento processado pelo <span data-cartao-nome>PicPay</span>. Seus dados do cartão não passam pelo nosso site. O parcelamento pode ter acréscimo.</p>
-          </div>
-        </div>
+    <div class="pag-grid checkout">
+      <div class="card valor-livre" data-valor-livre hidden>
+        <label for="valor-livre">Quanto você quer presentear?</label>
+        <div class="campo-valor"><span>R$</span><input id="valor-livre" type="text" inputmode="decimal" placeholder="0,00" autocomplete="off"></div>
       </div>
 
-      <aside class="pag-conta" id="conta-pra-gente">
-        <span class="passo"><b>2</b> Conta pra gente</span>
-        <section class="confirma-presente" data-presente-box>
-          <form class="confirma-form" data-form-presente novalidate>
-            <span class="script">Conta pra gente!</span>
-            <p class="confirma-intro">Depois de pagar, deixe seu nome aqui para sabermos quem nos presenteou.</p>
-            <label for="quem">Seu nome</label>
-            <input id="quem" name="quem" type="text" placeholder="Nome e sobrenome" autocomplete="name" maxlength="120" required>
-            <label for="recado">Recado para os noivos <span>(opcional)</span></label>
-            <textarea id="recado" name="recado" rows="3" maxlength="1000" placeholder="Escreva uma mensagem com carinho"></textarea>
-            <button class="btn" type="submit" data-botao-presente>Já fiz o Pix</button>
-            <p class="form-aviso" data-presente-aviso aria-live="polite"></p>
-          </form>
-          <div class="presente-obrigado" data-presente-obrigado hidden>
-            <span class="script">Muito obrigado!</span>
-            <p data-presente-obrigado-texto>Recebemos seu presente com muito carinho.</p>
-            <a class="btn btn--outline btn--sm" href="/presentes">Ver a lista de presentes</a>
+      <!-- Etapa 1: escolher a forma de pagamento -->
+      <section class="card etapa" data-etapa="escolha">
+        <h2 class="etapa-titulo">Como você quer presentear?</h2>
+        <div class="opcoes" role="radiogroup" aria-label="Forma de pagamento">
+          <label class="opcao">
+            <input type="radio" name="forma" value="pix" checked>
+            <span class="opcao-icone" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M12 2.8l3.6 3.6-3.6 3.6-3.6-3.6zM12 14l3.6 3.6-3.6 3.6-3.6-3.6zM2.8 12l3.6-3.6L10 12l-3.6 3.6zM14 12l3.6-3.6 3.6 3.6-3.6 3.6z"/></svg></span>
+            <span class="opcao-texto"><strong>Pix</strong><small>Aprovação na hora · sem taxas</small></span>
+            <span class="opcao-marca" aria-hidden="true"></span>
+          </label>
+          <label class="opcao" data-opcao-cartao>
+            <input type="radio" name="forma" value="cartao">
+            <span class="opcao-icone" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 9.5h19M6 15h4"/></svg></span>
+            <span class="opcao-texto"><strong>Cartão de crédito</strong><small>À vista ou em até 12x</small></span>
+            <span class="opcao-marca" aria-hidden="true"></span>
+          </label>
+        </div>
+        <button class="btn btn-continuar" type="button" data-continuar>Continuar</button>
+      </section>
+
+      <!-- Etapa 2a: Pix -->
+      <section class="card etapa" data-etapa="pix" hidden>
+        <div class="etapa-topo"><h2 class="etapa-titulo">Pagar com Pix</h2><button class="trocar" type="button" data-trocar>Trocar</button></div>
+        <div class="pix-valor"><span class="muted">Valor</span><strong data-p-valor></strong></div>
+        <div class="pix-qr aberto" data-pix-qr>
+          <div class="qr-area">
+            <img class="qr" data-p-qr src="" alt="" width="180" height="180">
+            <div class="qr-texto"><h3>Escaneie o QR Code</h3><p class="muted">Abra o app do seu banco, escolha pagar com Pix e aponte a câmera.</p></div>
           </div>
-        </section>
-      </aside>
+        </div>
+        <div class="ou"><span>ou copie o código</span></div>
+        <div class="codigo" id="codigo-pix"></div>
+        <button class="btn" type="button" data-copiar="codigo-pix" data-copiar-pix>Copiar código Pix</button>
+        <p class="copiado-aviso" data-copiado-aviso hidden>Código copiado! Cole no app do banco, em “Pix Copia e Cola”. Depois, é só nos contar logo abaixo.</p>
+        <p class="titular" data-titular></p>
+      </section>
+
+      <!-- Etapa 2b: Cartão de crédito -->
+      <section class="card etapa" data-etapa="cartao" hidden>
+        <div class="etapa-topo"><h2 class="etapa-titulo">Cartão de crédito</h2><button class="trocar" type="button" data-trocar>Trocar</button></div>
+        <form class="form-cartao" data-form-cartao novalidate>
+          <div class="campo">
+            <label for="cc-numero">Número do cartão</label>
+            <div class="campo-caixa"><input id="cc-numero" type="text" inputmode="numeric" autocomplete="cc-number" placeholder="0000 0000 0000 0000" maxlength="23"><span class="bandeira" data-bandeira></span></div>
+          </div>
+          <div class="campo">
+            <label for="cc-nome">Nome impresso no cartão</label>
+            <div class="campo-caixa"><input id="cc-nome" type="text" autocomplete="cc-name" placeholder="Como está no cartão" maxlength="60"></div>
+          </div>
+          <div class="campos-linha">
+            <div class="campo">
+              <label for="cc-validade">Validade</label>
+              <div class="campo-caixa"><input id="cc-validade" type="text" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/AA" maxlength="5"></div>
+            </div>
+            <div class="campo">
+              <label for="cc-cvv">Código de segurança</label>
+              <div class="campo-caixa"><input id="cc-cvv" type="text" inputmode="numeric" autocomplete="cc-csc" placeholder="CVV" maxlength="4"></div>
+            </div>
+          </div>
+          <div class="campo">
+            <label for="cc-cpf">CPF do titular do cartão</label>
+            <div class="campo-caixa"><input id="cc-cpf" type="text" inputmode="numeric" placeholder="000.000.000-00" maxlength="14"></div>
+          </div>
+          <div class="campo">
+            <label for="cc-email">E-mail <span>(para receber o comprovante)</span></label>
+            <div class="campo-caixa"><input id="cc-email" type="email" autocomplete="email" placeholder="voce@email.com"></div>
+          </div>
+          <div class="campo">
+            <label for="cc-parcelas">Parcelas</label>
+            <div class="campo-caixa campo-select"><select id="cc-parcelas" data-parcelas></select></div>
+          </div>
+
+          <div class="separador-noivos">Para os noivos</div>
+          <div class="campo">
+            <label for="cc-quem">Seu nome</label>
+            <div class="campo-caixa"><input id="cc-quem" type="text" autocomplete="name" placeholder="Nome e sobrenome" maxlength="120"></div>
+          </div>
+          <div class="campo">
+            <label for="cc-recado">Recado <span>(opcional)</span></label>
+            <textarea id="cc-recado" rows="3" maxlength="1000" placeholder="Escreva uma mensagem com carinho"></textarea>
+          </div>
+
+          <button class="btn btn-pagar" type="submit" data-botao-pagar><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>Pagar <span data-p-valor></span></span></button>
+          <p class="form-aviso" data-cartao-aviso aria-live="polite"></p>
+          <p class="seguro"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> Pagamento seguro pelo Mercado Pago. Os dados do cartão vão direto para o Mercado Pago e não ficam guardados no site.</p>
+          <p class="bandeiras">Visa · Mastercard · Elo · American Express · Hipercard</p>
+        </form>
+      </section>
+
+      <!-- Pix: conta pra gente -->
+      <section class="confirma-presente" id="conta-pra-gente" data-presente-box hidden>
+        <form class="confirma-form" data-form-presente novalidate>
+          <span class="script">Conta pra gente!</span>
+          <p class="confirma-intro">Depois de pagar, deixe seu nome aqui para sabermos quem nos presenteou.</p>
+          <label for="quem">Seu nome</label>
+          <input id="quem" name="quem" type="text" placeholder="Nome e sobrenome" autocomplete="name" maxlength="120" required>
+          <label for="recado">Recado para os noivos <span>(opcional)</span></label>
+          <textarea id="recado" name="recado" rows="3" maxlength="1000" placeholder="Escreva uma mensagem com carinho"></textarea>
+          <button class="btn" type="submit" data-botao-presente>Já fiz o Pix</button>
+          <p class="form-aviso" data-presente-aviso aria-live="polite"></p>
+        </form>
+      </section>
+
+      <!-- Obrigado (Pix ou cartão) -->
+      <section class="confirma-presente presente-obrigado-box" data-obrigado hidden>
+        <div class="presente-obrigado">
+          <span class="script">Muito obrigado!</span>
+          <p data-presente-obrigado-texto>Recebemos seu presente com muito carinho.</p>
+          <p class="obrigado-previa" data-obrigado-previa hidden>Prévia: nenhum pagamento foi feito.</p>
+          <a class="btn btn--outline btn--sm" href="/presentes">Ver a lista de presentes</a>
+        </div>
+      </section>
     </div>
   </div>
-  <a class="ir-conta" href="#conta-pra-gente" data-ir-conta>Já pagou? Conta pra gente <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
 </main>
 <footer class="site-footer">
   <span class="script">Débora e Benjamin</span>
   <span>27 · 03 · 2027</span>
 </footer>
-<script src="/assets/js/dados.js?v=20261123b"></script>
+<script src="/assets/js/dados.js?v=20261123c"></script>
 <script src="/assets/js/vendor/qrcode.js"></script>
-<script src="/assets/js/pix.js?v=20261123b"></script>
-<script src="/assets/js/main.js?v=20261123b"></script>
+<script src="/assets/js/pix.js?v=20261123c"></script>
+<script src="/assets/js/main.js?v=20261123c"></script>
 </body>
 </html>

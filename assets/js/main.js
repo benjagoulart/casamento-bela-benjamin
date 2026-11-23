@@ -139,7 +139,7 @@
     desenhar();
   }
 
-  // Pagamento
+  // Pagamento (estilo checkout: escolhe a forma, continua, paga)
   var pag = $('[data-pagamento]');
   if (pag) {
     var id = new URLSearchParams(location.search).get('p');
@@ -151,6 +151,47 @@
     document.title = p.nome + ' – Presentear Débora e Benjamin';
     $('[data-p-img]').innerHTML = imagem(p, 34);
     $('[data-p-nome]').textContent = p.nome;
+
+    // Cartão: ativo quando a chave pública do Mercado Pago estiver em dados.js.
+    // Nos endereços de prévia (*.vercel.app) a tela aparece mesmo sem a chave, só para ver o visual.
+    var previa = /\.vercel\.app$/.test(location.hostname) || location.hostname === 'localhost';
+    var cartaoAtivo = !!SITE.mercadoPagoPublicKey;
+    var mostraCartao = cartaoAtivo || previa;
+    if (!mostraCartao) { var oc = $('[data-opcao-cartao]'); if (oc) oc.remove(); }
+    if (!cartaoAtivo) {
+      var aviso = document.createElement('p');
+      aviso.className = 'aviso-previa';
+      aviso.textContent = 'Prévia: o cartão ainda não está ligado ao Mercado Pago. Pode testar com números inventados, nada é enviado.';
+      $('[data-form-cartao]').insertBefore(aviso, $('[data-form-cartao]').firstChild);
+    }
+
+    var valorTexto = function () { return p.valor ? reais(p.valor) : 'Você escolhe o valor'; };
+    var atualizarValores = function () {
+      $all('[data-p-valor]').forEach(function (el) { el.textContent = valorTexto(); });
+      montarParcelas();
+    };
+
+    // Etapas
+    var etapas = $all('[data-etapa]');
+    var boxConta = $('[data-presente-box]');
+    var boxObrigado = $('[data-obrigado]');
+    var irPara = function (nome) {
+      etapas.forEach(function (el) { el.hidden = el.getAttribute('data-etapa') !== nome; });
+      boxConta.hidden = nome !== 'pix';
+      var checkout = $('.checkout');
+      if (nome !== 'escolha') checkout.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+    var formaEscolhida = function () { var r = $('input[name="forma"]:checked'); return r ? r.value : 'pix'; };
+    var avisoValor = function () {
+      if (livre && !(p.valor > 0)) { var c = $('#valor-livre'); c.focus(); c.closest('.campo-valor').classList.add('erro'); return true; }
+      return false;
+    };
+    $('[data-continuar]').addEventListener('click', function () {
+      if (avisoValor()) return;
+      irPara(formaEscolhida());
+    });
+    $all('[data-trocar]').forEach(function (b) { b.addEventListener('click', function () { irPara('escolha'); }); });
+
     // Se alguém já deu este presente, avisa e esconde o pagamento
     var jaDado = function () {
       var aviso = document.createElement('div');
@@ -161,32 +202,30 @@
       var grid = $('.pag-grid');
       grid.parentNode.insertBefore(aviso, grid);
       grid.hidden = true;
-      var ir = $('[data-ir-conta]'); if (ir) ir.remove();
     };
     var recemDado = false;
-    if (!livre) {
-      buscarPresenteados().then(function (ids) { if (ids.indexOf(p.id) >= 0 && !recemDado) jaDado(); });
-    }
-    $all('[data-p-valor]').forEach(function (el) { el.textContent = livre ? 'Você escolhe o valor' : reais(p.valor); });
+    if (!livre) buscarPresenteados().then(function (ids) { if (ids.indexOf(p.id) >= 0 && !recemDado) jaDado(); });
+
+    // Pix
     var qr = $('[data-p-qr]');
+    var qrImagem = function (texto) {
+      var q = qrcode(0, 'M'); q.addData(texto); q.make();
+      var n = q.getModuleCount(), m = 4, t = 8, c = document.createElement('canvas');
+      c.width = c.height = (n + m * 2) * t;
+      var g = c.getContext('2d'); g.fillStyle = '#FFFDF1'; g.fillRect(0, 0, c.width, c.height); g.fillStyle = '#483F29';
+      for (var r = 0; r < n; r++) for (var k = 0; k < n; k++) if (q.isDark(r, k)) g.fillRect((k + m) * t, (r + m) * t, t, t);
+      return c.toDataURL('image/png');
+    };
     if (livre) {
-      // Valor livre: gera o Pix (copia e cola + QR Code) com o valor digitado
-      var qrImagem = function (texto) {
-        var q = qrcode(0, 'M'); q.addData(texto); q.make();
-        var n = q.getModuleCount(), m = 4, t = 8, c = document.createElement('canvas');
-        c.width = c.height = (n + m * 2) * t;
-        var g = c.getContext('2d'); g.fillStyle = '#FFFDF1'; g.fillRect(0, 0, c.width, c.height); g.fillStyle = '#483F29';
-        for (var r = 0; r < n; r++) for (var k = 0; k < n; k++) if (q.isDark(r, k)) g.fillRect((k + m) * t, (r + m) * t, t, t);
-        return c.toDataURL('image/png');
-      };
       var atualizarPix = function () {
         var v = parseFloat(($('#valor-livre').value || '').replace(/\./g, '').replace(',', '.'));
         v = v > 0 ? Math.round(v * 100) / 100 : '';
         p.valor = v;
+        if (v) $('#valor-livre').closest('.campo-valor').classList.remove('erro');
         var codigo = gerarPix(SITE.chavePix.replace(/\D/g, ''), SITE.titularPix, SITE.cidadePix, v);
         $('#codigo-pix').textContent = codigo;
         qr.src = qrImagem(codigo);
-        $all('[data-p-valor]').forEach(function (el) { el.textContent = v ? reais(v) : 'Você escolhe o valor'; });
+        atualizarValores();
       };
       $('[data-valor-livre]').hidden = false;
       var tempo; $('#valor-livre').addEventListener('input', function () { clearTimeout(tempo); tempo = setTimeout(atualizarPix, 250); });
@@ -197,104 +236,105 @@
     }
     qr.alt = 'QR Code Pix – ' + p.nome;
     $('[data-titular]').textContent = 'Chave CPF ' + SITE.chavePix + ' · ' + SITE.titularPix;
-    var cartao = $('[data-metodo="cartao"]');
-    var abas = $('.abas');
-    $all('[data-cartao-nome]').forEach(function (el) { el.textContent = SITE.cartaoNome || 'PicPay'; });
-    // Prévia (endereços *.vercel.app): mostra a opção de cartão mesmo sem link, só para ver o visual
-    var previa = /\.vercel\.app$/.test(location.hostname) || location.hostname === 'localhost';
-    if (previa && !p.linkCartao && !livre) {
-      var bt = $('[data-link-cartao]');
-      bt.classList.add('demo'); bt.removeAttribute('target');
-      bt.addEventListener('click', function (e) { e.preventDefault(); });
-      $('[data-cartao-nota]').textContent = 'Prévia: o link do cartão deste presente ainda não foi cadastrado.';
-    }
-    if (p.linkCartao || (previa && !livre)) {
-      if (p.linkCartao) $('[data-link-cartao]').href = p.linkCartao;
-      $all('.aba').forEach(function (aba) {
-        aba.addEventListener('click', function () {
-          var m = aba.getAttribute('data-aba');
-          $all('.aba').forEach(function (x) { x.setAttribute('aria-selected', x === aba ? 'true' : 'false'); });
-          $all('[data-metodo]').forEach(function (el) { el.hidden = el.getAttribute('data-metodo') !== m; });
-        });
-      });
-    } else {
-      abas.hidden = true;
-      cartao.hidden = true;
-      cartao.classList.add('sem-link');
-    }
-
-    // Celular: botão fixo que leva ao "Conta pra gente" e some quando o formulário aparece na tela
-    var conta = $('#conta-pra-gente'), irConta = $('[data-ir-conta]');
-    var celular = function () { return window.matchMedia('(max-width: 899px)').matches; };
-    var irParaConta = function () { conta.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
-    if (conta && irConta) {
-      irConta.addEventListener('click', function (e) { e.preventDefault(); irParaConta(); });
-      if ('IntersectionObserver' in window) {
-        new IntersectionObserver(function (itens) {
-          irConta.classList.toggle('visivel', !itens[0].isIntersecting);
-        }, { rootMargin: '0px 0px -35% 0px' }).observe(conta);
-      } else { irConta.classList.add('visivel'); }
-    }
-    // Depois de copiar o Pix: avisa e, no celular, desce até o passo 2
     var btnPix = $('[data-copiar-pix]'), copiado = $('[data-copiado-aviso]');
-    if (btnPix) {
-      btnPix.addEventListener('click', function () {
-        if (copiado) copiado.hidden = false;
-        if (conta && celular()) setTimeout(irParaConta, 900);
-      });
-    }
+    if (btnPix) btnPix.addEventListener('click', function () { if (copiado) copiado.hidden = false; });
 
-    // QR Code: no celular fica escondido até a pessoa pedir
-    var qrBox = $('[data-pix-qr]'), qrBtn = $('[data-qr-toggle]');
-    if (qrBox && qrBtn) {
-      qrBtn.addEventListener('click', function () {
-        var aberto = qrBox.classList.toggle('aberto');
-        qrBtn.setAttribute('aria-expanded', aberto ? 'true' : 'false');
-        qrBtn.textContent = aberto ? 'Esconder QR Code' : 'Prefere o QR Code? Mostrar';
-      });
-    }
+    var obrigado = function (quem, ehPrevia) {
+      recemDado = true;
+      if (!livre && !ehPrevia) marcarLocal(p.id);
+      etapas.forEach(function (el) { el.hidden = true; });
+      boxConta.hidden = true;
+      var vl = $('[data-valor-livre]'); if (vl) vl.hidden = true;
+      $('[data-presente-obrigado-texto]').textContent = 'Obrigado, ' + quem.split(' ')[0] + '! Recebemos o seu presente com muito carinho.';
+      $('[data-obrigado-previa]').hidden = !ehPrevia;
+      boxObrigado.hidden = false;
+      boxObrigado.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
 
-    // Confirmação do presente (vai para a planilha)
+    // Pix: "Conta pra gente" (vai para a planilha)
     var fp = $('[data-form-presente]');
-    if (fp) {
-      var avisoP = $('[data-presente-aviso]');
-      var botaoP = $('[data-botao-presente]');
-      // No computador as duas opções aparecem juntas: vale a última que a pessoa usou
-      var usouCartao = false;
-      var lc = $('[data-link-cartao]');
-      if (lc) lc.addEventListener('click', function () { if (p.linkCartao) usouCartao = true; textoBotao(); });
-      var bp = $('[data-copiar-pix]');
-      if (bp) bp.addEventListener('click', function () { usouCartao = false; textoBotao(); });
-      var forma = function () {
-        if (!p.linkCartao) return 'Pix';
-        var aba = $('.aba[aria-selected="true"]');
-        if (aba && getComputedStyle($('.abas')).display !== 'none') return aba.getAttribute('data-aba') === 'cartao' ? 'Cartão' : 'Pix';
-        return usouCartao ? 'Cartão' : 'Pix';
-      };
-      var textoBotao = function () { botaoP.textContent = forma() === 'Cartão' ? 'Já paguei no cartão' : 'Já fiz o Pix'; };
-      $all('.aba').forEach(function (a) { a.addEventListener('click', textoBotao); });
-      if (!SITE.planilha) { botaoP.disabled = true; avisoP.textContent = 'A confirmação de presentes abre em breve.'; }
-      fp.addEventListener('submit', function (e) {
-        e.preventDefault();
-        if (!SITE.planilha) return;
-        var quem = fp.quem.value.trim();
-        if (quem.length < 2) { avisoP.textContent = 'Escreva seu nome para sabermos quem nos presenteou.'; fp.quem.focus(); return; }
-        botaoP.disabled = true; var original = botaoP.textContent; botaoP.textContent = 'Enviando...'; avisoP.textContent = '';
-        enviarPlanilha({ tipo: 'presente', id: p.id, nome: quem, presente: p.nome, valor: p.valor, forma: forma(), recado: fp.recado.value.trim() })
-          .then(function () {
-            recemDado = true;
-            if (!livre) marcarLocal(p.id);
-            fp.hidden = true;
-            $('[data-presente-obrigado-texto]').textContent = 'Obrigado, ' + quem.split(' ')[0] + '! Recebemos o seu presente com muito carinho.';
-            $('[data-presente-obrigado]').hidden = false;
-            var ir = $('[data-ir-conta]'); if (ir) ir.remove();
-          })
-          .catch(function () {
-            botaoP.disabled = false; botaoP.textContent = original;
-            avisoP.textContent = 'Não conseguimos registrar agora. Verifique sua internet e tente de novo.';
-          });
-      });
+    var avisoP = $('[data-presente-aviso]');
+    var botaoP = $('[data-botao-presente]');
+    if (!SITE.planilha) { botaoP.disabled = true; avisoP.textContent = 'A confirmação de presentes abre em breve.'; }
+    fp.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!SITE.planilha) return;
+      var quem = fp.quem.value.trim();
+      if (quem.length < 2) { avisoP.textContent = 'Escreva seu nome para sabermos quem nos presenteou.'; fp.quem.focus(); return; }
+      botaoP.disabled = true; var original = botaoP.textContent; botaoP.textContent = 'Enviando...'; avisoP.textContent = '';
+      enviarPlanilha({ tipo: 'presente', id: p.id, nome: quem, presente: p.nome, valor: p.valor, forma: 'Pix', recado: fp.recado.value.trim() })
+        .then(function () { obrigado(quem, false); })
+        .catch(function () {
+          botaoP.disabled = false; botaoP.textContent = original;
+          avisoP.textContent = 'Não conseguimos registrar agora. Verifique sua internet e tente de novo.';
+        });
+    });
+
+    // Cartão de crédito
+    var selParcelas = $('[data-parcelas]');
+    function montarParcelas() {
+      if (!selParcelas) return;
+      var v = Number(p.valor) || 0, atual = selParcelas.value || '1', html = '';
+      var max = v ? Math.max(1, Math.min(12, Math.floor(v / 10))) : 1; // parcela mínima de R$ 10
+      for (var n = 1; n <= max; n++) {
+        html += '<option value="' + n + '">' + n + 'x de ' + (v ? reais(Math.round(v / n * 100) / 100) : 'R$ 0,00') + (n === 1 ? ' (à vista)' : '') + '</option>';
+      }
+      selParcelas.innerHTML = html;
+      if (Number(atual) <= max) selParcelas.value = atual;
     }
+    var soNumeros = function (s) { return String(s).replace(/\D/g, ''); };
+    var mascara = function (el, fn) { el.addEventListener('input', function () { el.value = fn(el.value); }); };
+    var numero = $('#cc-numero'), validade = $('#cc-validade'), cvv = $('#cc-cvv'), cpf = $('#cc-cpf');
+    var bandeira = function (n) {
+      if (/^4/.test(n)) return 'Visa';
+      if (/^(5[1-5]|2[2-7])/.test(n)) return 'Mastercard';
+      if (/^3[47]/.test(n)) return 'Amex';
+      if (/^(4011|4312|4389|4514|4576|5041|5066|5067|509|6277|6362|6363|650|6516|6550)/.test(n)) return 'Elo';
+      if (/^(606282|3841)/.test(n)) return 'Hipercard';
+      return '';
+    };
+    mascara(numero, function (v) { v = soNumeros(v).slice(0, 19); return v.replace(/(\d{4})(?=\d)/g, '$1 '); });
+    numero.addEventListener('input', function () { $('[data-bandeira]').textContent = bandeira(soNumeros(numero.value)); });
+    mascara(validade, function (v) { v = soNumeros(v).slice(0, 4); return v.length > 2 ? v.slice(0, 2) + '/' + v.slice(2) : v; });
+    mascara(cvv, function (v) { return soNumeros(v).slice(0, 4); });
+    mascara(cpf, function (v) {
+      v = soNumeros(v).slice(0, 11);
+      return v.replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})\.(\d{3})(\d)/, '$1.$2.$3').replace(/\.(\d{3})(\d{1,2})$/, '.$1-$2');
+    });
+    var ccNome = $('#cc-nome'), ccQuem = $('#cc-quem'), quemMexido = false;
+    ccQuem.addEventListener('input', function () { quemMexido = true; });
+    ccNome.addEventListener('input', function () {
+      if (!quemMexido) ccQuem.value = ccNome.value.toLowerCase().replace(/(^|\s)\S/g, function (l) { return l.toUpperCase(); });
+    });
+
+    var fc = $('[data-form-cartao]');
+    var avisoC = $('[data-cartao-aviso]');
+    fc.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var faltando = [];
+      $all('.campo-caixa.erro', fc).forEach(function (c) { c.classList.remove('erro'); });
+      var checa = function (el, ok) { if (!ok) { el.closest('.campo-caixa').classList.add('erro'); faltando.push(el); } };
+      checa(numero, soNumeros(numero.value).length >= 13);
+      checa(ccNome, ccNome.value.trim().length >= 3);
+      checa(validade, /^(0[1-9]|1[0-2])\/\d\d$/.test(validade.value));
+      checa(cvv, soNumeros(cvv.value).length >= 3);
+      checa(cpf, soNumeros(cpf.value).length === 11);
+      checa($('#cc-email'), /^\S+@\S+\.\S+$/.test($('#cc-email').value));
+      checa(ccQuem, ccQuem.value.trim().length >= 2);
+      if (faltando.length) { avisoC.textContent = 'Confira os campos destacados.'; faltando[0].focus(); return; }
+      if (livre && !(p.valor > 0)) { avisoValor(); return; }
+      avisoC.textContent = '';
+      var botao = $('[data-botao-pagar]');
+      botao.disabled = true; botao.classList.add('carregando');
+      if (!cartaoAtivo) {
+        // Prévia: simula a aprovação para mostrar a tela final
+        setTimeout(function () { obrigado(ccQuem.value.trim(), true); }, 1200);
+        return;
+      }
+      // Aqui entra o envio ao Mercado Pago (Secure Fields + função na Vercel) quando a conta estiver pronta.
+    });
+
+    atualizarValores();
   }
 
   // Álbum: pastas e foto ampliada

@@ -21,7 +21,7 @@ Tudo fica em `assets/js/dados.js`:
 - `planilha`: endereço do app da planilha (Google Apps Script, termina em `/exec`). As confirmações de presença e os presentes vão direto para a planilha "Casamento Débora & Benjamin – Respostas do site" no Google Drive. Enquanto estiver vazio, os botões de envio ficam desativados. O código da planilha está em `scripts/planilha-apps-script.gs`.
 - `CONVITES`: a lista de convites que aparece na busca da confirmação de presença.
 - `PRESENTES`: a lista de presentes. Cada item tem nome, categoria, valor, foto, QR Code e o código Pix Copia e Cola.
-- `linkCartao`: cole o link de pagamento do presente (Mercado Pago, PagBank…) para aparecer a opção de cartão.
+- `mercadoPagoPublicKey`: a Public Key do Mercado Pago. Com ela preenchida, a opção "Cartão de crédito" aparece no site oficial. Nos endereços de prévia (*.vercel.app) a tela do cartão aparece sempre, em modo de teste.
 
 Se mudar o valor de um presente, é preciso gerar um novo QR Code e código Pix para ele.
 

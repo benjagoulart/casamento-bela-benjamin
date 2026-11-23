@@ -1,5 +1,4 @@
 // Lista de presentes. Para mudar um presente, edite aqui.
-// linkCartao: cole o link de pagamento (Mercado Pago, PagBank...) para mostrar a opção de cartão.
 // Se mudar o valor de um presente, o QR Code e o código Pix precisam ser gerados de novo.
 window.SITE = {
   // Endereço do app da planilha (Google Apps Script, termina em /exec). Recebe as confirmações e os presentes.
@@ -8,8 +7,9 @@ window.SITE = {
   chavePix: '093.370.259-06',
   titularPix: 'Débora Meister Pereira',
   cidadePix: 'Criciúma',
-  // Nome do serviço que processa o cartão (aparece na tela de pagamento)
-  cartaoNome: 'PicPay'
+  // Cartão de crédito (Mercado Pago): cole aqui a Public Key (começa com APP_USR-).
+  // Vazio = a opção de cartão não aparece no site oficial (só na prévia).
+  mercadoPagoPublicKey: ''
 };
 
 // Lista de convites (confirmação de presença). O convidado digita o nome e escolhe o convite dele.
@@ -57,8 +57,7 @@ window.PRESENTES = [
     "valor": 150.0,
     "imagem": "/assets/img/presentes/09-jogo-de-facas-6-pecas-tramontina-plenus.jpg",
     "qr": "/assets/pix/09-jogo-de-facas-6-pecas-tramontina-plenus.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406150.005802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304D480",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406150.005802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304D480"
   },
   {
     "id": "10-jogo-de-utensilios-tramontina-softta-em-silicone-6-pecas",
@@ -69,8 +68,7 @@ window.PRESENTES = [
     "valor": 150.0,
     "imagem": "/assets/img/presentes/10-jogo-de-utensilios-tramontina-softta-em-silicone-6-pecas.jpg",
     "qr": "/assets/pix/10-jogo-de-utensilios-tramontina-softta-em-silicone-6-pecas.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406150.005802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304D480",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406150.005802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304D480"
   },
   {
     "id": "23-tigela-misturadora-de-cozinha-empilhavel-zara-home",
@@ -81,8 +79,7 @@ window.PRESENTES = [
     "valor": 159.9,
     "imagem": "/assets/img/presentes/23-tigela-misturadora-de-cozinha-empilhavel-zara-home.jpg",
     "qr": "/assets/pix/23-tigela-misturadora-de-cozinha-empilhavel-zara-home.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406159.905802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304ECEE",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406159.905802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304ECEE"
   },
   {
     "id": "03-grill-philco-2-em-1-chapa-com-abertura-180",
@@ -93,8 +90,7 @@ window.PRESENTES = [
     "valor": 169.9,
     "imagem": "/assets/img/presentes/03-grill-philco-2-em-1-chapa-com-abertura-180.jpg",
     "qr": "/assets/pix/03-grill-philco-2-em-1-chapa-com-abertura-180.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406169.905802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63049E39",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406169.905802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63049E39"
   },
   {
     "id": "07-kit-para-queijos-com-5-pecas-madeira",
@@ -105,8 +101,7 @@ window.PRESENTES = [
     "valor": 180.0,
     "imagem": "/assets/img/presentes/07-kit-para-queijos-com-5-pecas-madeira.jpg",
     "qr": "/assets/pix/07-kit-para-queijos-com-5-pecas-madeira.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406180.005802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304D1AF",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406180.005802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304D1AF"
   },
   {
     "id": "08-jogo-de-tacas-de-vinho-6-pecas-bohemia-xtra-sommelier",
@@ -117,8 +112,7 @@ window.PRESENTES = [
     "valor": 180.0,
     "imagem": "/assets/img/presentes/08-jogo-de-tacas-de-vinho-6-pecas-bohemia-xtra-sommelier.jpg",
     "qr": "/assets/pix/08-jogo-de-tacas-de-vinho-6-pecas-bohemia-xtra-sommelier.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406180.005802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304D1AF",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406180.005802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304D1AF"
   },
   {
     "id": "06-vonder-caixa-para-ferramentas",
@@ -129,8 +123,7 @@ window.PRESENTES = [
     "valor": 185.0,
     "imagem": "/assets/img/presentes/06-vonder-caixa-para-ferramentas.jpg",
     "qr": "/assets/pix/06-vonder-caixa-para-ferramentas.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406185.005802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63048DA3",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406185.005802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63048DA3"
   },
   {
     "id": "13-escorredor-de-louca-tramontina",
@@ -141,8 +134,7 @@ window.PRESENTES = [
     "valor": 190.0,
     "imagem": "/assets/img/presentes/13-escorredor-de-louca-tramontina.jpg",
     "qr": "/assets/pix/13-escorredor-de-louca-tramontina.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406190.005802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63040FFD",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406190.005802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63040FFD"
   },
   {
     "id": "16-conjunto-de-porta-copos-de-gres-com-frutas-zara-home",
@@ -153,8 +145,7 @@ window.PRESENTES = [
     "valor": 199.9,
     "imagem": "/assets/img/presentes/16-conjunto-de-porta-copos-de-gres-com-frutas-zara-home.jpg",
     "qr": "/assets/pix/16-conjunto-de-porta-copos-de-gres-com-frutas-zara-home.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406199.905802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63043793",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406199.905802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63043793"
   },
   {
     "id": "11-balanca-digital-de-cozinha-black-decker",
@@ -165,8 +156,7 @@ window.PRESENTES = [
     "valor": 200.0,
     "imagem": "/assets/img/presentes/11-balanca-digital-de-cozinha-black-decker.jpg",
     "qr": "/assets/pix/11-balanca-digital-de-cozinha-black-decker.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406200.005802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304CA2C",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406200.005802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304CA2C"
   },
   {
     "id": "04-ferro-de-passar-a-vapor-philco-320ml",
@@ -177,8 +167,7 @@ window.PRESENTES = [
     "valor": 209.99,
     "imagem": "/assets/img/presentes/04-ferro-de-passar-a-vapor-philco-320ml.jpg",
     "qr": "/assets/pix/04-ferro-de-passar-a-vapor-philco-320ml.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406209.995802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304C3D0",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406209.995802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304C3D0"
   },
   {
     "id": "05-pipoqueira-tramontina-paris",
@@ -189,8 +178,7 @@ window.PRESENTES = [
     "valor": 209.99,
     "imagem": "/assets/img/presentes/05-pipoqueira-tramontina-paris.jpg",
     "qr": "/assets/pix/05-pipoqueira-tramontina-paris.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406209.995802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304C3D0",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406209.995802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304C3D0"
   },
   {
     "id": "12-box-mesa-posta-4-lugares-sao-joao-mocca-copa-cia",
@@ -201,8 +189,7 @@ window.PRESENTES = [
     "valor": 215.0,
     "imagem": "/assets/img/presentes/12-box-mesa-posta-4-lugares-sao-joao-mocca-copa-cia.jpg",
     "qr": "/assets/pix/12-box-mesa-posta-4-lugares-sao-joao-mocca-copa-cia.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406215.005802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63044872",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406215.005802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63044872"
   },
   {
     "id": "15-vaso-decorativo-de-ceramica-creme-zara-home",
@@ -213,8 +200,7 @@ window.PRESENTES = [
     "valor": 269.9,
     "imagem": "/assets/img/presentes/15-vaso-decorativo-de-ceramica-creme-zara-home.jpg",
     "qr": "/assets/pix/15-vaso-decorativo-de-ceramica-creme-zara-home.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406269.905802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***630417EC",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406269.905802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***630417EC"
   },
   {
     "id": "14-relogio-calendario-flip-alarme-zara-home",
@@ -225,8 +211,7 @@ window.PRESENTES = [
     "valor": 289.9,
     "imagem": "/assets/img/presentes/14-relogio-calendario-flip-alarme-zara-home.jpg",
     "qr": "/assets/pix/14-relogio-calendario-flip-alarme-zara-home.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406289.905802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63046014",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406289.905802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63046014"
   },
   {
     "id": "01-chaleira-eletrica-arno-soleil",
@@ -237,8 +222,7 @@ window.PRESENTES = [
     "valor": 289.99,
     "imagem": "/assets/img/presentes/01-chaleira-eletrica-arno-soleil.jpg",
     "qr": "/assets/pix/01-chaleira-eletrica-arno-soleil.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406289.995802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63045186",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406289.995802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63045186"
   },
   {
     "id": "02-cafeteira-eletrica-arno-soleil",
@@ -249,8 +233,7 @@ window.PRESENTES = [
     "valor": 289.99,
     "imagem": "/assets/img/presentes/02-cafeteira-eletrica-arno-soleil.jpg",
     "qr": "/assets/pix/02-cafeteira-eletrica-arno-soleil.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406289.995802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63045186",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406289.995802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63045186"
   },
   {
     "id": "18-purificador-de-agua-natural-consul",
@@ -261,8 +244,7 @@ window.PRESENTES = [
     "valor": 300.0,
     "imagem": "/assets/img/presentes/18-purificador-de-agua-natural-consul.jpg",
     "qr": "/assets/pix/18-purificador-de-agua-natural-consul.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406300.005802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304B29F",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406300.005802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304B29F"
   },
   {
     "id": "28-philips-walita-fritadeira-airfryer",
@@ -273,8 +255,7 @@ window.PRESENTES = [
     "valor": 359.99,
     "imagem": "/assets/img/presentes/28-philips-walita-fritadeira-airfryer.jpg",
     "qr": "/assets/pix/28-philips-walita-fritadeira-airfryer.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406359.995802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63042C1A",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406359.995802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63042C1A"
   },
   {
     "id": "29-midea-panela-de-pressao-eletrica-6l",
@@ -285,8 +266,7 @@ window.PRESENTES = [
     "valor": 369.99,
     "imagem": "/assets/img/presentes/29-midea-panela-de-pressao-eletrica-6l.jpg",
     "qr": "/assets/pix/29-midea-panela-de-pressao-eletrica-6l.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406369.995802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63045ECD",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406369.995802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63045ECD"
   },
   {
     "id": "19-abajur-de-mesa-sem-fios-de-vidro-zara-home",
@@ -297,8 +277,7 @@ window.PRESENTES = [
     "valor": 379.9,
     "imagem": "/assets/img/presentes/19-abajur-de-mesa-sem-fios-de-vidro-zara-home.jpg",
     "qr": "/assets/pix/19-abajur-de-mesa-sem-fios-de-vidro-zara-home.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406379.905802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304B10D",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406379.905802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304B10D"
   },
   {
     "id": "20-bandeja-alta-de-ceramica-craquelada-zara-home",
@@ -309,8 +288,7 @@ window.PRESENTES = [
     "valor": 379.9,
     "imagem": "/assets/img/presentes/20-bandeja-alta-de-ceramica-craquelada-zara-home.jpg",
     "qr": "/assets/pix/20-bandeja-alta-de-ceramica-craquelada-zara-home.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406379.905802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304B10D",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406379.905802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304B10D"
   },
   {
     "id": "21-bandeja-dobravel-com-alcas-zara-home",
@@ -321,8 +299,7 @@ window.PRESENTES = [
     "valor": 379.9,
     "imagem": "/assets/img/presentes/21-bandeja-dobravel-com-alcas-zara-home.jpg",
     "qr": "/assets/pix/21-bandeja-dobravel-com-alcas-zara-home.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406379.905802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304B10D",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406379.905802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304B10D"
   },
   {
     "id": "25-luminaria-arandela-de-parede-de-vidro-zara-home",
@@ -333,8 +310,7 @@ window.PRESENTES = [
     "valor": 379.9,
     "imagem": "/assets/img/presentes/25-luminaria-arandela-de-parede-de-vidro-zara-home.jpg",
     "qr": "/assets/pix/25-luminaria-arandela-de-parede-de-vidro-zara-home.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406379.905802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304B10D",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406379.905802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304B10D"
   },
   {
     "id": "26-multiprocessador-arno-multichef",
@@ -345,8 +321,7 @@ window.PRESENTES = [
     "valor": 419.99,
     "imagem": "/assets/img/presentes/26-multiprocessador-arno-multichef.jpg",
     "qr": "/assets/pix/26-multiprocessador-arno-multichef.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406419.995802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63041E09",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406419.995802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63041E09"
   },
   {
     "id": "22-prato-para-bolo-de-madeira-zara-home",
@@ -357,8 +332,7 @@ window.PRESENTES = [
     "valor": 429.9,
     "imagem": "/assets/img/presentes/22-prato-para-bolo-de-madeira-zara-home.jpg",
     "qr": "/assets/pix/22-prato-para-bolo-de-madeira-zara-home.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406429.905802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63045D4C",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406429.905802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63045D4C"
   },
   {
     "id": "24-travessa-para-ir-ao-forno-de-borossilicato-e-madeira-zara-ho",
@@ -369,8 +343,7 @@ window.PRESENTES = [
     "valor": 469.9,
     "imagem": "/assets/img/presentes/24-travessa-para-ir-ao-forno-de-borossilicato-e-madeira-zara-ho.jpg",
     "qr": "/assets/pix/24-travessa-para-ir-ao-forno-de-borossilicato-e-madeira-zara-ho.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406469.905802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63041467",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406469.905802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63041467"
   },
   {
     "id": "27-aspirador-electrolux-cyclone-power-3-em-1",
@@ -381,8 +354,7 @@ window.PRESENTES = [
     "valor": 499.99,
     "imagem": "/assets/img/presentes/27-aspirador-electrolux-cyclone-power-3-em-1.jpg",
     "qr": "/assets/pix/27-aspirador-electrolux-cyclone-power-3-em-1.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406499.995802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63048C5F",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406499.995802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63048C5F"
   },
   {
     "id": "17-batedeira-arno-planetaria",
@@ -393,8 +365,7 @@ window.PRESENTES = [
     "valor": 500.0,
     "imagem": "/assets/img/presentes/17-batedeira-arno-planetaria.jpg",
     "qr": "/assets/pix/17-batedeira-arno-planetaria.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406500.005802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304B114",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406500.005802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304B114"
   },
   {
     "id": "33-jogo-de-banho-trussardi-imperiale-oliva",
@@ -405,8 +376,7 @@ window.PRESENTES = [
     "valor": 539.91,
     "imagem": "/assets/img/presentes/33-jogo-de-banho-trussardi-imperiale-oliva.jpg",
     "qr": "/assets/pix/33-jogo-de-banho-trussardi-imperiale-oliva.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406539.915802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***630440E2",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406539.915802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***630440E2"
   },
   {
     "id": "34-jogo-de-banho-trussardi-imperiale-branco",
@@ -417,8 +387,7 @@ window.PRESENTES = [
     "valor": 539.91,
     "imagem": "/assets/img/presentes/34-jogo-de-banho-trussardi-imperiale-branco.jpg",
     "qr": "/assets/pix/34-jogo-de-banho-trussardi-imperiale-branco.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406539.915802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***630440E2",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406539.915802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***630440E2"
   },
   {
     "id": "37-tramontina-jogo-de-panelas-de-aco-inox-7-pecas",
@@ -429,8 +398,7 @@ window.PRESENTES = [
     "valor": 569.99,
     "imagem": "/assets/img/presentes/37-tramontina-jogo-de-panelas-de-aco-inox-7-pecas.jpg",
     "qr": "/assets/pix/37-tramontina-jogo-de-panelas-de-aco-inox-7-pecas.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406569.995802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63045D46",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406569.995802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63045D46"
   },
   {
     "id": "32-micro-ondas-brastemp-32-litros",
@@ -441,8 +409,7 @@ window.PRESENTES = [
     "valor": 677.7,
     "imagem": "/assets/img/presentes/32-micro-ondas-brastemp-32-litros.jpg",
     "qr": "/assets/pix/32-micro-ondas-brastemp-32-litros.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406677.705802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304E4F8",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406677.705802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304E4F8"
   },
   {
     "id": "35-jogo-de-cama-queen-trussardi-percal-300-fios-piera-marrom",
@@ -453,8 +420,7 @@ window.PRESENTES = [
     "valor": 815.94,
     "imagem": "/assets/img/presentes/35-jogo-de-cama-queen-trussardi-percal-300-fios-piera-marrom.jpg",
     "qr": "/assets/pix/35-jogo-de-cama-queen-trussardi-percal-300-fios-piera-marrom.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406815.945802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***630435E3",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406815.945802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***630435E3"
   },
   {
     "id": "36-jogo-de-cama-queen-trussardi-300-fios-percal-100-algodao-ari",
@@ -465,8 +431,7 @@ window.PRESENTES = [
     "valor": 959.94,
     "imagem": "/assets/img/presentes/36-jogo-de-cama-queen-trussardi-300-fios-percal-100-algodao-ari.jpg",
     "qr": "/assets/pix/36-jogo-de-cama-queen-trussardi-300-fios-percal-100-algodao-ari.png",
-    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406959.945802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304D46B",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix0111093370259065204000053039865406959.945802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***6304D46B"
   },
   {
     "id": "30-toca-disco-vinil-audio-technica-automatico",
@@ -477,8 +442,7 @@ window.PRESENTES = [
     "valor": 1599.0,
     "imagem": "/assets/img/presentes/30-toca-disco-vinil-audio-technica-automatico.jpg",
     "qr": "/assets/pix/30-toca-disco-vinil-audio-technica-automatico.png",
-    "pix": "00020126330014br.gov.bcb.pix01110933702590652040000530398654071599.005802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63048373",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix01110933702590652040000530398654071599.005802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63048373"
   },
   {
     "id": "31-maquina-de-lavar-11kg-branca-slim-midea",
@@ -489,7 +453,6 @@ window.PRESENTES = [
     "valor": 2300.0,
     "imagem": "/assets/img/presentes/31-maquina-de-lavar-11kg-branca-slim-midea.jpg",
     "qr": "/assets/pix/31-maquina-de-lavar-11kg-branca-slim-midea.png",
-    "pix": "00020126330014br.gov.bcb.pix01110933702590652040000530398654072300.005802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63049541",
-    "linkCartao": ""
+    "pix": "00020126330014br.gov.bcb.pix01110933702590652040000530398654072300.005802BR5922DEBORA MEISTER PEREIRA6008CRICIUMA62070503***63049541"
   }
 ];
