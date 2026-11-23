@@ -157,7 +157,17 @@
     var previa = /\.vercel\.app$/.test(location.hostname) || location.hostname === 'localhost';
     var cartaoAtivo = !!SITE.mercadoPagoPublicKey;
     var mostraCartao = cartaoAtivo || previa;
-    if (!mostraCartao) { var oc = $('[data-opcao-cartao]'); if (oc) oc.remove(); }
+    // Sem a chave do Mercado Pago (site oficial): o cartão aparece, mas como "em breve", sem poder escolher
+    if (!mostraCartao) {
+      var oc = $('[data-opcao-cartao]');
+      if (oc) {
+        oc.classList.add('opcao--breve');
+        oc.setAttribute('aria-disabled', 'true');
+        $('input', oc).disabled = true;
+        $('small', oc).textContent = 'Disponível em breve';
+        $('.opcao-marca', oc).outerHTML = '<span class="selo-breve">Em breve</span>';
+      }
+    }
     if (!cartaoAtivo) {
       var aviso = document.createElement('p');
       aviso.className = 'aviso-previa';
