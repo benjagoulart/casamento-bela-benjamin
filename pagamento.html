@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Quattrocento:wght@400;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/style.css?v=20261123a">
+<link rel="stylesheet" href="/assets/css/style.css?v=20261123b">
 </head>
 <body>
 <div class="pag-topo">
@@ -59,10 +59,17 @@
             </div>
             <p class="titular" data-titular></p>
           </div>
-          <div class="card metodo" data-metodo="cartao" hidden>
+          <div class="card metodo metodo-cartao" data-metodo="cartao" hidden>
+            <span class="kicker" style="color:var(--azul-escuro)">À vista ou parcelado</span>
             <h2>Cartão de crédito</h2>
-            <p class="muted metodo-ajuda">Você será levado a uma página segura de pagamento para concluir. O parcelamento pode ter acréscimo.</p>
-            <a class="btn" data-link-cartao href="#" target="_blank" rel="noopener">Pagar com cartão</a>
+            <div class="cartao-valor"><span class="muted">Valor do presente</span><strong data-p-valor></strong></div>
+            <ol class="cartao-passos">
+              <li><b>1</b><span>Toque em <em>Pagar com cartão</em>. A página segura do <span data-cartao-nome>PicPay</span> abre em outra aba, com o valor já preenchido.</span></li>
+              <li><b>2</b><span>Escolha pagar à vista ou parcelado e conclua o pagamento.</span></li>
+              <li><b>3</b><span>Volte para esta aba e deixe seu nome e recado no passo 2.</span></li>
+            </ol>
+            <a class="btn btn-cartao" data-link-cartao href="#" target="_blank" rel="noopener"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Pagar com cartão</a>
+            <p class="cartao-nota" data-cartao-nota>Pagamento processado pelo <span data-cartao-nome>PicPay</span>. Seus dados do cartão não passam pelo nosso site. O parcelamento pode ter acréscimo.</p>
           </div>
         </div>
       </div>
@@ -95,9 +102,9 @@
   <span class="script">Débora e Benjamin</span>
   <span>27 · 03 · 2027</span>
 </footer>
-<script src="/assets/js/dados.js?v=20261123a"></script>
+<script src="/assets/js/dados.js?v=20261123b"></script>
 <script src="/assets/js/vendor/qrcode.js"></script>
-<script src="/assets/js/pix.js?v=20261123a"></script>
-<script src="/assets/js/main.js?v=20261123a"></script>
+<script src="/assets/js/pix.js?v=20261123b"></script>
+<script src="/assets/js/main.js?v=20261123b"></script>
 </body>
 </html>

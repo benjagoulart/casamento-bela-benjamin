@@ -314,6 +314,15 @@ h1, h2, h3, p { margin: 0; }
 .passo { display: flex; align-items: center; gap: 10px; margin: 28px 0 4px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--azul-escuro); }
 .passo b { flex: 0 0 26px; width: 26px; height: 26px; border-radius: 50%; background: var(--marrom); color: var(--creme); display: grid; place-content: center; font-weight: 500; font-size: 12px; letter-spacing: 0; }
 .metodo-ajuda { font-size: 13px; }
+.cartao-valor { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 12px 14px; border-radius: 10px; background: var(--bege-claro); font-size: 13px; }
+.cartao-valor strong { font: 500 18px var(--mono); color: var(--marrom); }
+.cartao-passos { list-style: none; margin: 2px 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.cartao-passos li { display: flex; gap: 10px; align-items: flex-start; font-family: var(--serif); font-size: 15px; line-height: 1.45; color: var(--texto); }
+.cartao-passos b { flex: 0 0 22px; width: 22px; height: 22px; margin-top: 1px; border-radius: 50%; display: grid; place-content: center; border: 1px solid var(--oliva); color: var(--oliva); font: 500 11px var(--mono); }
+.cartao-passos em { font-style: normal; color: var(--marrom); font-weight: 700; }
+.btn-cartao svg { flex: 0 0 auto; }
+.btn-cartao.demo { opacity: .55; cursor: not-allowed; }
+.cartao-nota { font-size: 11px; line-height: 1.5; color: var(--texto); text-align: center; }
 .so-cel { display: none; }
 .copiado-aviso { font-family: var(--serif); font-size: 15px; line-height: 1.4; text-align: center; color: var(--marrom); background: var(--bege-claro); border-radius: 18px; padding: 10px 16px; }
 .copiado-aviso[hidden] { display: none; }

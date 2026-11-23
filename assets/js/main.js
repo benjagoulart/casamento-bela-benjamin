@@ -199,8 +199,17 @@
     $('[data-titular]').textContent = 'Chave CPF ' + SITE.chavePix + ' · ' + SITE.titularPix;
     var cartao = $('[data-metodo="cartao"]');
     var abas = $('.abas');
-    if (p.linkCartao) {
-      $('[data-link-cartao]').href = p.linkCartao;
+    $all('[data-cartao-nome]').forEach(function (el) { el.textContent = SITE.cartaoNome || 'PicPay'; });
+    // Prévia (endereços *.vercel.app): mostra a opção de cartão mesmo sem link, só para ver o visual
+    var previa = /\.vercel\.app$/.test(location.hostname) || location.hostname === 'localhost';
+    if (previa && !p.linkCartao && !livre) {
+      var bt = $('[data-link-cartao]');
+      bt.classList.add('demo'); bt.removeAttribute('target');
+      bt.addEventListener('click', function (e) { e.preventDefault(); });
+      $('[data-cartao-nota]').textContent = 'Prévia: o link do cartão deste presente ainda não foi cadastrado.';
+    }
+    if (p.linkCartao || (previa && !livre)) {
+      if (p.linkCartao) $('[data-link-cartao]').href = p.linkCartao;
       $all('.aba').forEach(function (aba) {
         aba.addEventListener('click', function () {
           var m = aba.getAttribute('data-aba');
@@ -250,9 +259,17 @@
     if (fp) {
       var avisoP = $('[data-presente-aviso]');
       var botaoP = $('[data-botao-presente]');
+      // No computador as duas opções aparecem juntas: vale a última que a pessoa usou
+      var usouCartao = false;
+      var lc = $('[data-link-cartao]');
+      if (lc) lc.addEventListener('click', function () { if (p.linkCartao) usouCartao = true; textoBotao(); });
+      var bp = $('[data-copiar-pix]');
+      if (bp) bp.addEventListener('click', function () { usouCartao = false; textoBotao(); });
       var forma = function () {
+        if (!p.linkCartao) return 'Pix';
         var aba = $('.aba[aria-selected="true"]');
-        return aba && aba.getAttribute('data-aba') === 'cartao' && p.linkCartao ? 'Cartão' : 'Pix';
+        if (aba && getComputedStyle($('.abas')).display !== 'none') return aba.getAttribute('data-aba') === 'cartao' ? 'Cartão' : 'Pix';
+        return usouCartao ? 'Cartão' : 'Pix';
       };
       var textoBotao = function () { botaoP.textContent = forma() === 'Cartão' ? 'Já paguei no cartão' : 'Já fiz o Pix'; };
       $all('.aba').forEach(function (a) { a.addEventListener('click', textoBotao); });
