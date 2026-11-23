@@ -267,11 +267,11 @@ h1, h2, h3, p { margin: 0; }
 .presente-img { position: relative; aspect-ratio: 1 / 1; border-radius: 12px; overflow: hidden; background: var(--bege-claro); display: flex; align-items: center; justify-content: center; color: var(--azul-escuro); }
 .presente-img img { width: 100%; height: 100%; object-fit: contain; background: transparent; mix-blend-mode: multiply; }
 /* Nome + detalhe ocupam sempre a mesma altura, para preço e botão ficarem alinhados entre os cards */
-.presente-info { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 4px; min-height: 64px; padding: 2px 2px 0; }
-.presente h2 { font-family: var(--serif); font-weight: 700; font-size: 15px; line-height: 1.25; color: var(--marrom); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.presente-detalhe { font: 400 10px/1.4 var(--mono); letter-spacing: 0; color: var(--marrom-claro); }
-.presente .preco { font-family: var(--mono); font-size: 15px; font-weight: 500; color: var(--oliva); padding-top: 8px; border-top: 1px solid var(--linha); }
-.presente .btn { min-height: 44px; padding: 0 10px; font-size: 11px; }
+.presente-info { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 5px; min-height: 76px; padding: 2px 2px 0; }
+.presente h2 { font-family: var(--serif); font-weight: 700; font-size: 17px; line-height: 1.25; color: var(--marrom); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.presente-detalhe { font: 400 12px/1.45 var(--mono); letter-spacing: 0; color: var(--marrom-claro); }
+.presente .preco { font-family: var(--mono); font-size: 17px; font-weight: 500; color: var(--oliva); padding-top: 8px; border-top: 1px solid var(--linha); }
+.presente .btn { min-height: 46px; padding: 0 10px; font-size: 12px; }
 /* Já presenteado: o item continua na lista, apagadinho, com etiqueta e sem botão de presentear */
 .presenteado .presente-img img { opacity: .45; filter: grayscale(.6); }
 .presenteado .presente-info, .presenteado .preco { opacity: .6; }
@@ -540,10 +540,11 @@ h1, h2, h3, p { margin: 0; }
   .filtro { padding: 0 20px; font-size: 13px; }
   .presentes-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
   .presente { padding: 12px 12px 14px; gap: 12px; }
-  .presente-info { min-height: 72px; }
-  .presente h2 { font-size: 17px; }
-  .presente-detalhe { font-size: 11px; }
-  .presente .preco { font-size: 16px; }
+  .presente-info { min-height: 84px; }
+  .presente h2 { font-size: 20px; }
+  .presente-detalhe { font-size: 13px; }
+  .presente .preco { font-size: 18px; }
+  .presente .btn { font-size: 12.5px; }
   .etiqueta-presenteado { font-size: 11px; padding: 8px 15px; }
   .extras { max-width: 720px; margin: 0 auto; padding: 56px 0 100px; }
   .extra-pix { padding: 44px 48px; align-items: center; }
