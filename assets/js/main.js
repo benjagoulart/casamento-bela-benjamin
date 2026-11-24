@@ -309,7 +309,7 @@
     // Com o Mercado Pago ligado, as opções (e os juros a partir de 4x) vêm do próprio Mercado Pago
     function parcelasMP() {
       var v = Number(p.valor) || 0;
-      if (!v || !binAtual || !metodoAtual) {
+      if (!v || !binAtual) {
         selParcelas.innerHTML = '<option value="">' + (v ? 'Digite o número do cartão para ver as parcelas' : 'Informe o valor do presente') + '</option>';
         selParcelas.disabled = true;
         return;
@@ -319,8 +319,10 @@
       selParcelas.innerHTML = '<option value="">Carregando parcelas...</option>';
       mp.getInstallments({ amount: v.toFixed(2), bin: binAtual, paymentTypeId: 'credit_card' }).then(function (r) {
         if (pedido !== pedidoParcelas) return;
-        var custos = ((r && r[0] && r[0].payer_costs) || []).filter(function (c) { return c.installments <= 12; });
+        var info = r && r[0];
+        var custos = ((info && info.payer_costs) || []).filter(function (c) { return c.installments <= 12; });
         if (!custos.length) throw new Error('sem parcelas');
+        if (info.payment_method_id) metodoAtual = info.payment_method_id;
         var escolha = selParcelas.getAttribute('data-escolha') || '1';
         selParcelas.innerHTML = custos.map(function (c) {
           return '<option value="' + c.installments + '">' + esc(c.recommended_message || (c.installments + 'x de ' + reais(c.installment_amount))) + '</option>';
@@ -328,8 +330,9 @@
         selParcelas.value = escolha;
         if (!selParcelas.value) selParcelas.value = String(custos[0].installments);
         selParcelas.disabled = false;
-      }).catch(function () {
+      }).catch(function (e) {
         if (pedido !== pedidoParcelas) return;
+        if (window.console) console.warn('parcelas', e);
         selParcelas.innerHTML = '<option value="1">1x de ' + reais(v) + ' (à vista)</option>';
         selParcelas.disabled = false;
       });
@@ -475,13 +478,16 @@
           if (!bin) { binAtual = null; metodoAtual = null; $('[data-bandeira]').textContent = ''; montarParcelas(); return; }
           if (bin === binAtual) return;
           binAtual = bin;
+          montarParcelas();
           mp.getPaymentMethods({ bin: bin }).then(function (r) {
             if (bin !== binAtual) return;
             var lista = (r && r.results) || [];
             var pm = lista.filter(function (x) { return x.payment_type_id === 'credit_card'; })[0];
             if (!pm) {
-              metodoAtual = null; $('[data-bandeira]').textContent = '';
-              avisoC.textContent = lista.length ? 'Use um cartão de crédito. Cartão de débito não é aceito aqui; para débito, use o Pix.' : '';
+              if (lista.length && lista[0].payment_type_id === 'debit_card') {
+                metodoAtual = null; $('[data-bandeira]').textContent = '';
+                avisoC.textContent = 'Use um cartão de crédito. Cartão de débito não é aceito aqui; para débito, use o Pix.';
+              }
             } else {
               metodoAtual = pm.id; avisoC.textContent = '';
               $('[data-bandeira]').textContent = pm.name || '';
@@ -489,8 +495,7 @@
               if (cfg && cfg.card_number) camposMP.cardNumber.update({ settings: cfg.card_number });
               if (cfg && cfg.security_code) camposMP.securityCode.update({ settings: cfg.security_code });
             }
-            montarParcelas();
-          }).catch(function () { metodoAtual = null; montarParcelas(); });
+          }).catch(function (e) { if (window.console) console.warn('bandeira', e); });
         });
         montarParcelas();
       }).catch(function () {
