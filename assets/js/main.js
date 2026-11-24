@@ -431,7 +431,9 @@
           })
         }).then(function (r) { return r.json().catch(function () { return {}; }); }).then(function (j) {
           if (j.status === 'aprovado' || j.status === 'em_analise') {
-            obrigado(quem, !!j.teste, { analise: j.status === 'em_analise', previa: j.teste ? 'Teste: pagamento de teste, nada foi cobrado.' : '' });
+            // Teste: não vai para a planilha, mas marca neste navegador para dar para ver a etiqueta "Presenteado"
+            if (j.teste && !livre) marcarLocal(p.id);
+            obrigado(quem, !!j.teste, { analise: j.status === 'em_analise', previa: j.teste ? 'Teste: nada foi cobrado. Só neste navegador o presente aparece como Presenteado na lista.' : '' });
           } else {
             falhou(j.mensagem || 'O pagamento não foi aprovado. Tente de novo ou use o Pix.');
           }
