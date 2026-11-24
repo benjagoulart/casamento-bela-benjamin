@@ -7,9 +7,12 @@ window.SITE = {
   chavePix: '093.370.259-06',
   titularPix: 'Débora Meister Pereira',
   cidadePix: 'Criciúma',
-  // Cartão de crédito (Mercado Pago): cole aqui a Public Key (começa com APP_USR-).
-  // Vazio = a opção de cartão não aparece no site oficial (só na prévia).
-  mercadoPagoPublicKey: '',
+  // Cartão de crédito (Mercado Pago). Public Keys (começam com APP_USR-), ficam visíveis no site e podem ficar aqui.
+  // Produção: usada em deboraebenjamin.com.br. Teste: usada nos endereços de prévia (*.vercel.app), sem cobrança de verdade.
+  // O Access Token (secreto) NÃO vai aqui: fica na Vercel, em MP_ACCESS_TOKEN (produção) e MP_ACCESS_TOKEN_TESTE (teste).
+  // Vazio = no site oficial o cartão aparece como "Em breve"; na prévia, a tela de cartão só simula.
+  mercadoPagoPublicKey: 'APP_USR-3eb89e45-376b-42ba-bd65-15b5cf29c6f3',
+  mercadoPagoPublicKeyTeste: 'APP_USR-d932c283-19c2-49c4-ad6d-6761a3d06c5d',
   // Versão das fotos dos presentes: troque o número sempre que mudar alguma foto
   versaoFotos: '20261123'
 };

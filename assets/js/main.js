@@ -155,8 +155,11 @@
 
     // Cartão: ativo quando a chave pública do Mercado Pago estiver em dados.js.
     // Nos endereços de prévia (*.vercel.app) a tela aparece mesmo sem a chave, só para ver o visual.
+    // No domínio oficial usa a chave de produção; nos endereços de prévia, a chave de teste (sem cobrança de verdade).
+    var oficial = /(^|\.)deboraebenjamin\.com\.br$/i.test(location.hostname);
     var previa = /\.vercel\.app$/.test(location.hostname) || location.hostname === 'localhost';
-    var cartaoAtivo = !!SITE.mercadoPagoPublicKey;
+    var chaveMP = oficial ? SITE.mercadoPagoPublicKey : SITE.mercadoPagoPublicKeyTeste;
+    var cartaoAtivo = !!chaveMP;
     var mostraCartao = cartaoAtivo || previa;
     // Sem a chave do Mercado Pago (site oficial): o cartão aparece, mas como "em breve", sem poder escolher
     if (!mostraCartao) {
@@ -169,10 +172,12 @@
         $('.opcao-marca', oc).outerHTML = '<span class="selo-breve">Em breve</span>';
       }
     }
-    if (!cartaoAtivo) {
+    if (!cartaoAtivo || !oficial) {
       var aviso = document.createElement('p');
       aviso.className = 'aviso-previa';
-      aviso.textContent = 'Prévia: o cartão ainda não está ligado ao Mercado Pago. Pode testar com números inventados, nada é enviado.';
+      aviso.textContent = cartaoAtivo
+        ? 'Modo de teste: use um cartão de teste do Mercado Pago. Nada é cobrado de verdade.'
+        : 'Prévia: o cartão ainda não está ligado ao Mercado Pago. Pode testar com números inventados, nada é enviado.';
       $('[data-form-cartao]').insertBefore(aviso, $('[data-form-cartao]').firstChild);
     }
 
@@ -250,13 +255,19 @@
     var btnPix = $('[data-copiar-pix]'), copiado = $('[data-copiado-aviso]');
     if (btnPix) btnPix.addEventListener('click', function () { if (copiado) copiado.hidden = false; });
 
-    var obrigado = function (quem, ehPrevia) {
+    // opcoes: { previa: texto da nota de prévia/teste, analise: true se o cartão ficou em análise }
+    var obrigado = function (quem, ehPrevia, opcoes) {
+      opcoes = opcoes || {};
       recemDado = true;
       if (!livre && !ehPrevia) marcarLocal(p.id);
       etapas.forEach(function (el) { el.hidden = true; });
       boxConta.hidden = true;
       var vl = $('[data-valor-livre]'); if (vl) vl.hidden = true;
-      $('[data-presente-obrigado-texto]').textContent = 'Obrigado, ' + quem.split(' ')[0] + '! Recebemos o seu presente com muito carinho.';
+      var primeiro = quem.split(' ')[0];
+      $('[data-presente-obrigado-texto]').textContent = opcoes.analise
+        ? 'Obrigado, ' + primeiro + '! Seu pagamento está em análise pelo Mercado Pago. A confirmação chega no seu e-mail.'
+        : 'Obrigado, ' + primeiro + '! Recebemos o seu presente com muito carinho.';
+      if (opcoes.previa) $('[data-obrigado-previa]').textContent = opcoes.previa;
       $('[data-obrigado-previa]').hidden = !ehPrevia;
       boxObrigado.hidden = false;
       boxObrigado.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -283,8 +294,10 @@
 
     // Cartão de crédito
     var selParcelas = $('[data-parcelas]');
+    var mp = null, camposMP = {}, validos = {}, binAtual = null, metodoAtual = null, pedidoParcelas = 0;
     function montarParcelas() {
       if (!selParcelas) return;
+      if (mp) return parcelasMP();
       var v = Number(p.valor) || 0, atual = selParcelas.value || '1', html = '';
       var max = v ? Math.max(1, Math.min(12, Math.floor(v / 10))) : 1; // parcela mínima de R$ 10
       for (var n = 1; n <= max; n++) {
@@ -293,6 +306,35 @@
       selParcelas.innerHTML = html;
       if (Number(atual) <= max) selParcelas.value = atual;
     }
+    // Com o Mercado Pago ligado, as opções (e os juros a partir de 4x) vêm do próprio Mercado Pago
+    function parcelasMP() {
+      var v = Number(p.valor) || 0;
+      if (!v || !binAtual || !metodoAtual) {
+        selParcelas.innerHTML = '<option value="">' + (v ? 'Digite o número do cartão para ver as parcelas' : 'Informe o valor do presente') + '</option>';
+        selParcelas.disabled = true;
+        return;
+      }
+      var pedido = ++pedidoParcelas;
+      selParcelas.disabled = true;
+      selParcelas.innerHTML = '<option value="">Carregando parcelas...</option>';
+      mp.getInstallments({ amount: v.toFixed(2), bin: binAtual, paymentTypeId: 'credit_card' }).then(function (r) {
+        if (pedido !== pedidoParcelas) return;
+        var custos = ((r && r[0] && r[0].payer_costs) || []).filter(function (c) { return c.installments <= 12; });
+        if (!custos.length) throw new Error('sem parcelas');
+        var escolha = selParcelas.getAttribute('data-escolha') || '1';
+        selParcelas.innerHTML = custos.map(function (c) {
+          return '<option value="' + c.installments + '">' + esc(c.recommended_message || (c.installments + 'x de ' + reais(c.installment_amount))) + '</option>';
+        }).join('');
+        selParcelas.value = escolha;
+        if (!selParcelas.value) selParcelas.value = String(custos[0].installments);
+        selParcelas.disabled = false;
+      }).catch(function () {
+        if (pedido !== pedidoParcelas) return;
+        selParcelas.innerHTML = '<option value="1">1x de ' + reais(v) + ' (à vista)</option>';
+        selParcelas.disabled = false;
+      });
+    }
+    selParcelas.addEventListener('change', function () { selParcelas.setAttribute('data-escolha', selParcelas.value); });
     var soNumeros = function (s) { return String(s).replace(/\D/g, ''); };
     var mascara = function (el, fn) { el.addEventListener('input', function () { el.value = fn(el.value); }); };
     var numero = $('#cc-numero'), validade = $('#cc-validade'), cvv = $('#cc-cvv'), cpf = $('#cc-cpf');
@@ -325,14 +367,21 @@
       var faltando = [];
       $all('.campo-caixa.erro', fc).forEach(function (c) { c.classList.remove('erro'); });
       var checa = function (el, ok) { if (!ok) { el.closest('.campo-caixa').classList.add('erro'); faltando.push(el); } };
-      checa(numero, soNumeros(numero.value).length >= 13);
+      if (mp) {
+        ['cardNumber', 'expirationDate', 'securityCode'].forEach(function (f) {
+          var vazioOuInvalido = validos[f] === false || (f === 'cardNumber' && !metodoAtual);
+          checa(camposMP[f + 'El'], !vazioOuInvalido);
+        });
+      } else {
+        checa(numero, soNumeros(numero.value).length >= 13);
+        checa(validade, /^(0[1-9]|1[0-2])\/\d\d$/.test(validade.value));
+        checa(cvv, soNumeros(cvv.value).length >= 3);
+      }
       checa(ccNome, ccNome.value.trim().length >= 3);
-      checa(validade, /^(0[1-9]|1[0-2])\/\d\d$/.test(validade.value));
-      checa(cvv, soNumeros(cvv.value).length >= 3);
       checa(cpf, soNumeros(cpf.value).length === 11);
       checa($('#cc-email'), /^\S+@\S+\.\S+$/.test($('#cc-email').value));
       checa(ccQuem, ccQuem.value.trim().length >= 2);
-      if (faltando.length) { avisoC.textContent = 'Confira os campos destacados.'; faltando[0].focus(); return; }
+      if (faltando.length) { avisoC.textContent = 'Confira os campos destacados.'; if (faltando[0].focus) faltando[0].focus(); return; }
       if (livre && !(p.valor > 0)) { avisoValor(); return; }
       avisoC.textContent = '';
       var botao = $('[data-botao-pagar]');
@@ -342,8 +391,120 @@
         setTimeout(function () { obrigado(ccQuem.value.trim(), true); }, 1200);
         return;
       }
-      // Aqui entra o envio ao Mercado Pago (Secure Fields + função na Vercel) quando a conta estiver pronta.
+      pagarMP();
     });
+
+    // Campos seguros do Mercado Pago: número, validade e código ficam em quadros do próprio Mercado Pago,
+    // então os dados do cartão nunca passam pelo site.
+    function pagarMP() {
+      var botao = $('[data-botao-pagar]');
+      var quem = ccQuem.value.trim();
+      var falhou = function (msg) {
+        botao.disabled = false; botao.classList.remove('carregando');
+        avisoC.textContent = msg;
+      };
+      var erroCartao = function () {
+        ['cardNumber', 'expirationDate', 'securityCode'].forEach(function (f) {
+          if (validos[f] !== true) camposMP[f + 'El'].closest('.campo-caixa').classList.add('erro');
+        });
+        falhou('Confira os dados do cartão: número, validade e código de segurança.');
+      };
+      // 1) gera o token do cartão no Mercado Pago
+      mp.fields.createCardToken({
+        cardholderName: ccNome.value.trim(),
+        identificationType: 'CPF',
+        identificationNumber: soNumeros(cpf.value)
+      }).then(function (t) {
+        if (!t || !t.id) return erroCartao();
+        // 2) a função do site cobra o cartão com o valor do presente
+        return fetch('/api/cartao', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id: p.id, valor: p.valor, token: t.id, metodo: metodoAtual,
+            parcelas: Number(selParcelas.value) || 1,
+            email: $('#cc-email').value.trim(), cpf: soNumeros(cpf.value), titular: ccNome.value.trim(),
+            nome: quem, recado: $('#cc-recado').value.trim()
+          })
+        }).then(function (r) { return r.json().catch(function () { return {}; }); }).then(function (j) {
+          if (j.status === 'aprovado' || j.status === 'em_analise') {
+            obrigado(quem, !!j.teste, { analise: j.status === 'em_analise', previa: j.teste ? 'Teste: pagamento de teste, nada foi cobrado.' : '' });
+          } else {
+            falhou(j.mensagem || 'O pagamento não foi aprovado. Tente de novo ou use o Pix.');
+          }
+        }, function () {
+          falhou('Não conseguimos confirmar o pagamento. Verifique sua internet antes de tentar de novo, para não pagar duas vezes.');
+        });
+      }, erroCartao);
+    }
+
+    function iniciarMP() {
+      var carregar = new Promise(function (ok, falha) {
+        if (window.MercadoPago) return ok();
+        var s = document.createElement('script');
+        s.src = 'https://sdk.mercadopago.com/js/v2';
+        s.onload = ok; s.onerror = falha;
+        document.head.appendChild(s);
+      });
+      carregar.then(function () {
+        mp = new window.MercadoPago(chaveMP, { locale: 'pt-BR' });
+        var estilo = { height: '50px', padding: '0 16px', fontSize: '16px', fontFamily: "'Roboto Mono', monospace", color: '#483F29', placeholderColor: 'rgba(72, 63, 41, .55)' };
+        var fontes = [{ src: 'https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap' }];
+        [
+          ['cardNumber', numero, '0000 0000 0000 0000', 'Número do cartão'],
+          ['expirationDate', validade, 'MM/AA', 'Validade'],
+          ['securityCode', cvv, 'CVV', 'Código de segurança']
+        ].forEach(function (c) {
+          var div = document.createElement('div');
+          div.id = 'mp-' + c[0]; div.className = 'mp-campo';
+          c[1].replaceWith(div);
+          camposMP[c[0] + 'El'] = div;
+          var opcoes = { placeholder: c[2], style: estilo, customFonts: fontes, srLabel: c[3] };
+          if (c[0] === 'expirationDate') opcoes.mode = 'short';
+          var campo = mp.fields.create(c[0], opcoes).mount(div.id);
+          camposMP[c[0]] = campo;
+          campo.on('validityChange', function (ev) {
+            validos[c[0]] = !(ev.errorMessages && ev.errorMessages.length);
+            if (validos[c[0]]) div.closest('.campo-caixa').classList.remove('erro');
+          });
+          campo.on('focus', function () { div.closest('.campo-caixa').classList.add('foco'); });
+          campo.on('blur', function () { div.closest('.campo-caixa').classList.remove('foco'); });
+        });
+        camposMP.cardNumber.on('binChange', function (ev) {
+          var bin = ev && ev.bin;
+          if (!bin) { binAtual = null; metodoAtual = null; $('[data-bandeira]').textContent = ''; montarParcelas(); return; }
+          if (bin === binAtual) return;
+          binAtual = bin;
+          mp.getPaymentMethods({ bin: bin }).then(function (r) {
+            if (bin !== binAtual) return;
+            var lista = (r && r.results) || [];
+            var pm = lista.filter(function (x) { return x.payment_type_id === 'credit_card'; })[0];
+            if (!pm) {
+              metodoAtual = null; $('[data-bandeira]').textContent = '';
+              avisoC.textContent = lista.length ? 'Use um cartão de crédito. Cartão de débito não é aceito aqui; para débito, use o Pix.' : '';
+            } else {
+              metodoAtual = pm.id; avisoC.textContent = '';
+              $('[data-bandeira]').textContent = pm.name || '';
+              var cfg = pm.settings && pm.settings[0];
+              if (cfg && cfg.card_number) camposMP.cardNumber.update({ settings: cfg.card_number });
+              if (cfg && cfg.security_code) camposMP.securityCode.update({ settings: cfg.security_code });
+            }
+            montarParcelas();
+          }).catch(function () { metodoAtual = null; montarParcelas(); });
+        });
+        montarParcelas();
+      }).catch(function () {
+        // Sem o Mercado Pago (ex.: bloqueado pela rede): deixa só o Pix
+        var oc = $('[data-opcao-cartao]');
+        if (oc) {
+          oc.classList.add('opcao--breve');
+          $('input', oc).disabled = true;
+          $('small', oc).textContent = 'Indisponível agora. Use o Pix ou tente mais tarde.';
+        }
+        var pix = $('input[name="forma"][value="pix"]'); if (pix) pix.checked = true;
+      });
+    }
+    if (cartaoAtivo) iniciarMP();
 
     atualizarValores();
   }

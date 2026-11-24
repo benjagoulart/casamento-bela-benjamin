@@ -678,3 +678,8 @@ h1, h2, h3, p { margin: 0; }
 .opcao--breve { cursor: not-allowed; background: transparent; border-style: dashed; }
 .opcao--breve .opcao-icone, .opcao--breve .opcao-texto { opacity: .55; }
 .selo-breve { flex: 0 0 auto; padding: 5px 10px; border-radius: 999px; background: var(--azul); color: var(--marrom); font: 500 10px var(--mono); letter-spacing: 1.2px; text-transform: uppercase; white-space: nowrap; }
+/* Campos seguros do Mercado Pago (quadros do próprio Mercado Pago dentro da caixa) */
+.mp-campo { flex: 1; min-width: 0; height: 50px; }
+.mp-campo iframe { display: block; width: 100%; height: 50px; border: 0; }
+.campo-caixa.foco { border-color: var(--oliva); box-shadow: 0 0 0 3px rgba(122, 119, 74, .22); }
+.campo-select select:disabled { cursor: default; color: var(--marrom-claro); }

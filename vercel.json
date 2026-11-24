@@ -31,5 +31,11 @@
         }
       ]
     }
-  ]
+  ],
+  "functions": {
+    "api/cartao.js": {
+      "includeFiles": "assets/js/dados.js",
+      "maxDuration": 30
+    }
+  }
 }

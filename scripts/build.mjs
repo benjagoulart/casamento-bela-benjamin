@@ -11,7 +11,7 @@ import sharp from 'sharp';
 
 const raiz = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const dist = path.join(raiz, 'dist');
-const ignorar = new Set(['dist', 'node_modules', 'scripts', 'fotos-presentes', '.git', '.vercel', 'package.json', 'package-lock.json', 'vercel.json', 'README.md', 'CLAUDE.md']);
+const ignorar = new Set(['api', 'dist', 'node_modules', 'scripts', 'fotos-presentes', '.git', '.vercel', 'package.json', 'package-lock.json', 'vercel.json', 'README.md', 'CLAUDE.md']);
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36';
 const LADO = 600;      // tamanho final da foto
 const AREA = 500;      // o produto cabe num quadrado de 500px (margem de 50px em volta)

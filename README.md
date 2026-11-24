@@ -21,7 +21,15 @@ Tudo fica em `assets/js/dados.js`:
 - `planilha`: endereço do app da planilha (Google Apps Script, termina em `/exec`). As confirmações de presença e os presentes vão direto para a planilha "Casamento Débora & Benjamin – Respostas do site" no Google Drive. Enquanto estiver vazio, os botões de envio ficam desativados. O código da planilha está em `scripts/planilha-apps-script.gs`.
 - `CONVITES`: a lista de convites que aparece na busca da confirmação de presença.
 - `PRESENTES`: a lista de presentes. Cada item tem nome, categoria, valor, foto, QR Code e o código Pix Copia e Cola.
-- `mercadoPagoPublicKey`: a Public Key do Mercado Pago. Com ela preenchida, a opção "Cartão de crédito" aparece no site oficial. Nos endereços de prévia (*.vercel.app) a tela do cartão aparece sempre, em modo de teste.
+- `mercadoPagoPublicKey` / `mercadoPagoPublicKeyTeste`: as Public Keys do Mercado Pago (produção e teste). A de produção vale em deboraebenjamin.com.br; a de teste, nos endereços de prévia (*.vercel.app), onde nada é cobrado de verdade.
+
+## Cartão de crédito (Mercado Pago)
+
+- O formulário usa os campos seguros do Mercado Pago: número, validade e código do cartão ficam em quadros do próprio Mercado Pago e nunca passam pelo site.
+- A cobrança é feita pela função `api/cartao.js` (Vercel), com a API de Orders. O valor sempre vem da lista de presentes, nunca do navegador (menos no presente de valor livre).
+- Os Access Tokens (secretos) ficam só na Vercel, em Settings > Environment Variables: `MP_ACCESS_TOKEN` (produção, ambiente Production) e `MP_ACCESS_TOKEN_TESTE` (teste, ambiente Preview).
+- As parcelas e os juros vêm do Mercado Pago, conforme a conta: hoje, sem juros até 3x e com juros para o convidado de 4x a 12x. Para mudar: Mercado Pago > Taxas e parcelas > Checkout.
+- Pagamento aprovado vai para a planilha (forma "Cartão de crédito (Nx)") com "Sim" em "Mostrar como presenteado". Se ficar em análise, entra como "Cartão de crédito (Nx) – em análise"; se depois for recusado, troque para "Não".
 
 Se mudar o valor de um presente, é preciso gerar um novo QR Code e código Pix para ele.
 
